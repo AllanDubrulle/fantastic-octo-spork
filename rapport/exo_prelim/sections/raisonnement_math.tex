@@ -1,0 +1,21 @@
+% Explication du raisonnement mathématique derrière
+% l'algorithme, donné dans une section différente de
+% ce dernier
+
+\subsection{Cas de base}
+La question présente deux cas de base exclusifs: l'arbre $T$ est
+réduit à une feuille ou les points $x, y$ délimitant le segment
+recherché sont contenus dans l'hyperplan stocké en la racine de $T$.
+
+Si $T$ est réduit à une feuille, il suffit de tester si le segment
+stocké en cette feuille (s'il existe) correspond à $[x, y]$. Si ce
+n'est pas le cas ou que la feuille est vide, alors l'algorithme
+retourne faux.
+
+Si les points $x$ et $y$ sont contenus dans $D$, alors par convexité
+de $D$, le segment est contenu dans $D$. Le problème se réduit alors
+à la recherche d'une donnée au sein d'une liste chaînée.
+
+\subsection{Cas général}
+Supposons que $T$ possède deux fils (ie. $T$ n'est pas une feuille).
+Discutons les différents cas.
