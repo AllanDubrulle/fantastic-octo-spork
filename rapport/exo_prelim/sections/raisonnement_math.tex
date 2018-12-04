@@ -19,3 +19,24 @@ de $D$, le segment est contenu dans $D$. Le problème se réduit alors
 \subsection{Cas général}
 Supposons que $T$ possède deux fils (ie. $T$ n'est pas une feuille).
 Discutons les différents cas.
+
+Si $x,y \in D^+$ (resp. $D^-$), alors le segment $[x,y] \in D^+$ (resp. $D^-$) par convexité.
+Par définition d'arbre BSP,
+on sait par conséquent que $[x,y] \in T \Leftrightarrow [x,y] \in T^+ $ (resp. $T^-$).
+Il suffit donc de poursuivre la recherche récursivement dans $T^+ $ (resp. $T^-$).
+
+Si $x \in D $ et $y \in D^+$ (resp. $D^-$), on se retrouve dans le cas précédent. Il suffit donc de poursuivre la recherche récursivement comme précédemment.
+Le cas $y \in D $ et $x \in D^+$ (resp. $D^-$) est symétrique au cas précédent.
+
+les 2 derniers cas sont ($ x \in D^+$ et $ y \in D^-$) ou ( $ x \in D^-$ et $ y \in D^+$). les 2 cas étant symétriques on supposera sans perdre de généralité que $ x \in D^+$ et $ y \in D^-$.
+Le segment $[x,y]$ intersecte $D$ en un point qu'on nommera $z$.
+Savoir si le segment $[x,y] \in T$ revient donc à savoir si les segments $[x,z]$ et $[z,y]$ appartiennent à $T$ et par conséquent de faire 2 recherches récursivement (cfr cas précédent) et de retourner vrai $\Leftrightarrow $ les 2 appels retournent vrai.
+
+Cependant, il faut connaitre $z$ pour appliquer ce raisonnement. Nous allons donc montrer comment trouver $z$ à partir de $x$ et $y$.
+Posons $g: \mathbb{R}^2 \to \mathbb{R}: (x_1, x_2)\mapsto a x_1 + b x_2$
+nous avons que $f_D =g + c $.
+De plus, nous avons que $f_D(z) = 0$ et $\exists t \in [0,1] z = tx+ (1-t)y$.
+Donc, $f_D(z) = 0 = f_D (tx+ (1-t)y) \Rightarrow 0 = t(g(x)-g(y))+g(y)+c$ par linéarité de g.
+Par conséquent, $t = (-c - g(y))/(g(x)-g(y))$
+notez que $g(x) \neq g(y)$ car $ g(y) < 0 $ et $ 0 < g(x)$ 
+
