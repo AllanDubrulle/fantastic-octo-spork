@@ -46,9 +46,9 @@ donc montrer comment déterminer $z$ à partir de $x$, $y$ et $f_D$.
 Posons $g: \mathbb{R}^2 \to \mathbb{R}: (x_1, x_2)\mapsto a x_1 + b x_2$.
 Nous avons que $f_D = g + c $ et $g$ est linéaire.
 
-De plus, nous avons que $f_D(z) = 0$ et $\exists t \in [0,1] z = tx+ (1-t)y$
+De plus, nous avons que $f_D(z) = 0$ et $\exists t \in [0,1]$ tel que $ z = tx+ (1-t)y$
 \footnote{En effet, on a par définition: $[x, y] = \{tx + (1 - t)y\mid t\in [0,1]\}$}.
 Donc, par linéarité de $g$:
 $$0 = f_D(z)  = f_D (tx+ (1-t)y) = t(g(x)-g(y))+g(y)+c$$
 Par conséquent, $$t = \frac{(-c - g(y))}{(g(x)-g(y))}$$
-Notez que $g(x) \neq g(y)$ car $ g(y) < 0 $ et $g(x) > 0$.
+Notez que $g(x) \neq g(y)$ car $ g(y) < -c  $ et $g(x) > -c$.
