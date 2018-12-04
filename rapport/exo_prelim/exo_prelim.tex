@@ -9,6 +9,16 @@
 \usepackage[colorlinks]{hyperref}
 \usepackage{epigraph}
 \usepackage{mathrsfs}
+\usepackage{algorithm, algorithmic}
+
+% Traductions des macros pour algo
+\renewcommand{\algorithmicrequire}{\textbf{Entrée:}}
+\renewcommand{\algorithmicensure}{\textbf{Sortie:}}
+\renewcommand{\algorithmicif}{\textbf{si}}
+\renewcommand{\algorithmicthen}{\textbf{alors}}
+\renewcommand{\algorithmicelse}{\textbf{sinon}}
+\renewcommand{\algorithmicend}{\textbf{fin}}
+\renewcommand{\algorithmicreturn}{\textbf{retourner}}
 
 \title{Exercice Préliminaire -- Projet de Structures de Données II}
 \author{A. Dubrulle, J. Main}
@@ -24,7 +34,7 @@
 \input{sections/raisonnement_math.tex}
 
 \section{Algorithme}
-%TODO decrire l'algorithme et expliquer chaque étape
+\input{sections/algo.tex}
 
 \section{Complexité}
 %TODO donner la complexité de l'algorithme et discuter les cas

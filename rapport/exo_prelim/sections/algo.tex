@@ -1,0 +1,31 @@
+% Document pour donner l'algorithme de recherche
+% de segment dans un BSP donné.
+% A input dans le fichier principal.
+
+\begin{algorithm}
+  \caption{Recherche\_segment($T, x, y$)}
+  \begin{algorithmic}[1]
+    \REQUIRE Un arbre BSP $T$, deux points $x$ et $y$ du plan réel.
+    \ENSURE Vrai si et seulement si le segment $[x, y]$ est contenu dans $T$.
+    \IF{$T$ est réduit à une feuille}
+    \RETURN $[x, y]\in S_T$
+    \ENDIF
+    \IF{$f_D(x) > 0$}
+      \IF{$f_D(y) \geq 0$}
+      \RETURN Recherche\_segment($T^+$, $x$, $y$)
+      \ELSE
+      \STATE $z \leftarrow D \cap [x, y]$
+      \RETURN Recherche\_segment($T^+$, $x$, $z$) $\land$ Recherche\_segment($T^-$, $z$, $y$)
+      \ENDIF
+      \ELSE
+      \IF{$f_D(x) = f_D(y) = 0$}
+      \RETURN $[x, y]\in S_T$
+      \ELSIF{$f_D(y) \leq 0$}
+      \RETURN Recherche\_segment($T^-$, $x$, $y$)
+      \ELSE
+      \STATE $z \leftarrow D \cap [x, y]$
+      \RETURN Recherche\_segment($T^-$, $x$, $z$) $\land$ Recherche\_segment($T^+$, $z$, $y$)
+      \ENDIF
+    \ENDIF
+  \end{algorithmic}
+\end{algorithm}
