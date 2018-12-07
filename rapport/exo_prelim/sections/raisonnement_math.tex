@@ -22,9 +22,9 @@ Discutons les différents cas.
 
 Si $x,y \in D^+$ (resp. $D^-$), alors le segment $[x,y] \subseteq D^+$
 (resp. $D^-$) par convexité. Par définition d'arbre BSP,
-on sait par conséquent que le segment recherché est contenu dans $T$
-si et seulement s'il est dans $T^+$ (resp. $T^-$). Il suffit donc de
-poursuivre la recherche récursivement dans $T^+ $ (resp. $T^-$).
+le segment recherché est contenu dans $T$. si et seulement s'il
+est dans $T^+$ (resp. $T^-$). Il suffit donc de poursuivre la
+recherche récursivement dans $T^+ $ (resp. $T^-$).
 
 Si $x \in D $ et $y \in D^+$ (resp. $D^-$), alors le segment $[x, y]$ est
 contenu dans le demi-plan $D^+$ (resp. $D^-$).Il suffit donc de poursuivre la
@@ -37,18 +37,27 @@ supposera sans perte de généralité que $ x \in D^+$ et $ y \in D^-$.
 Le segment $[x,y]$ intersecte $D$ en un point qu'on nommera $z$.
 
 Savoir si le segment $[x,y]$ se trouve dans $T$ revient donc à savoir si
-les segments $[x,z]$ et $[z,y]$ sont éléments de $T$ et par conséquent de faire
-deux recherches récursivement (cfr. cas précédent) et de retourner vrai si et
+les segments $[x,z]$ et $[z,y]$ (le segment est fragmenté) sont
+éléments de $T$ et par conséquent de faire deux recherches
+récursivement (cfr. cas précédent) et de retourner vrai si et
 seulement si les deux appels retournent vrai.
 
 Cependant, il faut connaître $z$ pour appliquer ce raisonnement. Nous allons
 donc montrer comment déterminer $z$ à partir de $x$, $y$ et $f_D$.
-Posons $g: \mathbb{R}^2 \to \mathbb{R}: (x_1, x_2)\mapsto a x_1 + b x_2$.
-Nous avons que $f_D = g + c $ et $g$ est linéaire.
+Posons $g: \mathbb{R}^2 \to \mathbb{R}$ la fonction définie par
+$g (x_1, x_2) =  a x_1 + b x_2$ pour tout $(x_1, x_2)\in\mathbb{R}^2$.
+Nous avons que $f_D = g + c $ et la fonction $g$ est linéaire.
 
-De plus, nous avons que $f_D(z) = 0$ et $\exists t \in [0,1]$ tel que $ z = tx+ (1-t)y$
+De plus, nous avons que $f_D(z) = 0$ et $\exists t \in [0,1]$ tel que
+$ z = tx+ (1-t)y$
 \footnote{En effet, on a par définition: $[x, y] = \{tx + (1 - t)y\mid t\in [0,1]\}$}.
 Donc, par linéarité de $g$:
-$$0 = f_D(z)  = f_D (tx+ (1-t)y) = t(g(x)-g(y))+g(y)+c$$
-Par conséquent, $$t = \frac{(-c - g(y))}{(g(x)-g(y))}$$
-Notez que $g(x) \neq g(y)$ car $ g(y) < -c  $ et $g(x) > -c$.
+\begin{equation}
+  0 = f_D(z)  = f_D (tx+ (1-t)y) = t(g(x)-g(y))+g(y)+c
+\end{equation}
+
+Par conséquent,
+\begin{equation} \label{eq:t}
+    t = \frac{(-c - g(y))}{(g(x)-g(y))} = \frac{-(f_D(y)+2c)}{f_D(x)-f_D(y)}
+\end{equation}
+L'expression de $t$ est bien définie car  $g(x) \neq g(y)$ car $ g(y) < -c  $ et $g(x) > -c$.

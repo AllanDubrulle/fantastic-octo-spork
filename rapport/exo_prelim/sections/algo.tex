@@ -4,7 +4,7 @@
 
 \begin{algorithm}
   \caption{Recherche\_segment($T, x, y$)}
-  \begin{algorithmic}[1]
+  \begin{algorithmic}[1] \label{algo:main}
     \REQUIRE Un arbre BSP $T$, deux points $x$ et $y$ du plan réel.
     \ENSURE Vrai si et seulement si le segment $[x, y]$ est contenu dans $T$.
     \IF{$T$ est réduit à une feuille}
@@ -29,3 +29,28 @@
     \ENDIF
   \end{algorithmic}
 \end{algorithm}
+
+L'algorithme vérifiant la présence d'un segment donné est détaillé à
+l'algorithme \ref{algo:main}.
+
+Les détails suivants sont omis afin de ne pas alourdir l'algorithme:
+l'appartenance dans les ensembles stockés en $T$ (ensembles notés
+$S_T$) et le calcul de l'intersection du segment et de la
+droite stockée en $T$.
+
+Afin de vérifier l'appartenance d'un segment à un ensemble, il
+suffit de parcourir l'ensemble, représenté ici par une liste
+chaînée, et de tester l'égalité entre les éléments et le segment
+en entrée.
+
+Il suffit donc d'expliciter l'égalité de segments et d'appliquer
+un algorithme de recherche classique dans une liste chaînée.
+Deux segments sont égaux si et seulement si ils ont les
+mêmes extrémités, c'est-à-dire:
+$$ [x_1, y_1] = [x_2, y_2] \iff
+(x_1 = x_2 \land y_1 = y_2) \lor (x_1 = y_2 \land y_1 = x_2) $$
+
+Il reste à discuter le calcul de l'intersection d'un segment
+et d'une droite dans le cas où elle n'est pas vide. Or, ces
+considérations sont détaillées dans le raisonnement mathématique
+(se référer à l'égalité (\ref{eq:t}) et se rappeler que $z = tx (1-t) y$).
