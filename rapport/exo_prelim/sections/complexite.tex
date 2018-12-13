@@ -1,0 +1,28 @@
+Etudions le coût local dans une feuille. Par définition, $S_T$ contient au plus une donnée.
+Donc, le coût local par feuille est en temps constant ($O(1)$).
+
+Intéressons-nous au coût local par noeud interne.
+Dans un premier temps, si le segment est contenu dans la droite stockée dans le noeud,
+alors on a un coût linéaire en le nombre de fragments dans $S_t$.
+
+Sinon, seules des opérations élémentaires sont effectuées(opérations arithmétiques,
+appels de fonctions et comparaisons) d'où le coût local est en $O(1)$.
+
+Etudions le nombre d'appels récursifs. Remarquons d'abord que dans l'algorithme,
+chaque noeud est visité au plus une fois.
+Par conséquent, Le nombre de noeuds visités maximal correspond au nombre de noeud de noeuds de $T$
+. Cela se produit si pour tout appel à $Recherche\_segment(T,x,y)$ , le segment $[x,y]$ intersecte
+$D_T$ ou $T$ est une feuille.
+
+Le nombre d'appels récursifs est en $O(n)$ en négligeant les parcours de listes
+et où $n$ est le nombre de noeuds de $T$.
+
+Sinon, on a une majoration grossière de la complexité en $O(N \times n)$
+où N est le nombre de segments stockés dans $T$.
+
+Etudions de manière plus attentive la complexité. On se pose la question suivante :
+Quel est le nombre moyen de segments $s_j$ tel que la droite passant par $s_j$ intersecte $[x,y]$.
+
+Par la référence, on obtient que le nombre moyen d'intersections entre $[x,y]$ et les droites
+stockées dans $T$ est en $O(log (n))$. On obtient, par conséquent, que la complexité en moyenne
+est en $O(h \times log (n))$ où $h$ est la hauteur de $T$. 
