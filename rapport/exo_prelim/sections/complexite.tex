@@ -3,25 +3,25 @@ Etudions le coût local dans une feuille.
 Par définition, $S_T$ contient au plus une donnée.
 Donc, le coût local par feuille est en temps constant ($O(1)$).
 
-Intéressons-nous au coût local par noeud interne.
+Intéressons-nous désormais au coût local par noeud interne.
 Dans un premier temps, si le segment est contenu dans
 la droite stockée dans le noeud, alors on a un coût linéaire
 en le nombre de fragments dans $S_t$ (borné par le nombre de
 segments employés dans la construction de l'arbre).
 
 Sinon, seules des opérations élémentaires sont
-effectuées(opérations arithmétiques, appels de fonctions
+effectuées (opérations arithmétiques, appels de fonctions
 et comparaisons), ce qui entraîne un coût local en $O(1)$.
 
 \subsection{Nombre d'appels récursifs (pire des cas)}
 Remarquons d'abord que dans l'algorithme, chaque noeud est
 visité au plus une fois.
-Par conséquent, Le nombre de noeuds visités maximal correspond
-au nombre de noeud de noeuds de $T$.
+Par conséquent, le nombre de noeuds visités maximal correspond
+au nombre de noeuds de $T$.
 Il est possible que tous les noeuds de l'arbre soient visités;
-si à chaque noeud interne traité, (le fragment considéré du) segment
-recherché intersecte la droite correspondant au noeud, cela entraîne
-un appel récursif sur chacun des fils du noeud.
+si à chaque noeud interne traité, (le fragment considéré du)
+segment recherché intersecte la droite correspondant au noeud,
+cela entraîne un appel récursif sur chacun des fils du noeud.
 Le nombre d'appels récursifs est en $O(N)$ où $N$ correspond
 au nombre de noeuds de l'arbre passé en paramètre.
 
@@ -31,10 +31,11 @@ segments stockés dans $T$, étant donné que chaque liste contient
 au plus $n$ fragments.
 
 \subsection{Nombre d'appels récursifs (cas simple)}
-$[x,y]$ n'intersecte aucune droite.
-L'algorithme suit un chemin de l'arbre. Nous avons donc
+Supposons que $[x,y]$ n'intersecte aucune droite contenu dans $T$.
+Alors l'algorithme suit un chemin de l'arbre. Nous avons donc
 au maximum $h$ appels récursif où $h$ est la hauteur de l'arbre.
-On trouve donc une complexité en ($O(h)$) avec h la hauteur de $T$
+On en déduit donc une complexité en $O(h)$ avec $h$ la hauteur de
+$T$.
 
 \subsection{Nombre d'appels récursifs (en moyenne)}
 
@@ -53,37 +54,83 @@ $[x,y]$?\fg
 
 Posons $s = [x,y]$.
 
-Situation 1 : $s$ n'est inclus dans aucune droite stockées dans $T$.
+Supposons dans la suite que $s$ n'est inclus dans aucune droite
+stockée dans $T$.
 
-Plus explicitement, $s$ intersecte certaines droites. Utilisons un raisonnement similaire
-au livre. On suppose que l'arbre BSP est construit à l'aide d'auto-partitions et de
-manière aléatoire en supposant chaque permutation équiprobable.
-On suppose $T$ construit sur base de $S = {s_1,...,s_n}$. Soit $ i \in \{1,...,n\}$.
-Posons :
+Il arrive donc que le segment $s$ intersecte certaines droites.
+Utilisons un raisonnement similaire à
+\cite{berg_cheong_kreveld_2008}. On suppose que
+l'arbre BSP est construit à l'aide d'auto-partitions
+\footnote{
+  C'est-à-dire les coupes du plan sont réalisées à partir de
+  droites engendrées par un des segments de l'ensemble sur
+  base duquel l'arbre est construit}
+et de manière aléatoire en supposant chaque permutation
+équiprobable. On suppose $T$ construit sur base de
+$S = \{s_1,...,s_n\}$. Posons pour $s'$ un segment du plan $l(s')$
+la droite passant par les extrémités de $s'$ (elle contient donc
+$s'$).
 
-$l(s_i) =$ la droite stockée dans $T$ correspondant à $S_i$ et
-$$ d(s,s_i )= \begin{cases} \mbox{\#\{segments entre } s \mbox{ et } s_i
-\mbox{ intersectant } l(s_i) \mbox{\}}
-&\mbox{si } l(s_i) \mbox { intersecte } s \\ +\infty & \mbox{sinon} \end{cases} $$
-Etudions la probabilité que $l(s_i)$ coupe $s$ (notée $P(l(s_i)$ coupe $s)$).
-Soit $\sigma  \in S_n $( l'ensemble des permutations à $n$ éléments).
+Soit $ i \in \{1,...,n\}$. On définit:
+$$ d(s,s_i )= \begin{cases}
+  \mbox{\#\{segments entre } s \mbox{ et } s_i
+  \mbox{ intersectant } l(s_i) \mbox{\}}
+  &\mbox{si } l(s_i) \mbox { intersecte } s \\
+  +\infty & \mbox{sinon} \end{cases} $$
+Etudions la probabilité que $l(s_i)$ coupe $s$ (notée
+$P(l(s_i)$ coupe $s)$). Supposons que $l(s_i)$ intersecte $s$
+(sinon la probabilité est nulle). On a donc $d(s, s_i)$ finie.
 
-Si $ \exists 1 \le  k \le n $ tel qu'on coupe le plan par $s_k$ avant de couper par $s_i$ et que $s$ et $s_j$ se retrouve chacun d'un côté de $l(s_k)$ alors $s_j$ ne coupe pas $s$.
-Il faut donc considerer que $\sigma (j) <= \sigma (k)$ pour tous les $k$ où cela arrive.
-En particulier, cela arrive pour tout segment entre $s$ et $s_n$ intersectant $l(s_n)$.
-Il faut donc que pour toutes permutations de $\{ s, s_1,...,s_{d(s,s_i)} \}$ , $s_i$ soit le premier.
-Par conséquent, 
+Soit $\sigma  \in S_n $( l'ensemble des permutations de $n$
+éléments, également appelé groupe symétrique d'indice $n$).
 
-$P(l(s_i)$ coupe $s) \le
-\frac {\# \mbox {permutations commencant par } j \mbox{ dans } S_{d(s,s_i)+1}}
-{\# \mbox {permutations dans } S_{d(s,s_i)+1}} = \frac 1 {d(s,s_i)+1}$.
+S'il existe $k\in\{1, \ldots, n\} $ tel qu'on coupe le plan par
+$l(s_k)$ avant de le couper par $l(s_i)$ et que $s$ et $s_i$ se
+retrouvent de part et d'autre de $l(s_k)$ alors $l(s_i)$ ne
+coupera pas $s$ (car $s_i$ et $s_k$ ne se trouveront pas dans le
+même demi-plan).
 
-On a donc en moyenne. $$\sum_{k=1}^{n} \frac 1 {d(s,s_i)+1}        \le 2 \sum_{k=0}^{\lfloor \frac {n-1} 2 \rfloor}  \frac 1{k+1} \le 2 ln (n/2) $$
+En particulier, il faut que les indices des segments situés sur
+la droite $l(s_i)$ entre les segments $s$ et $s_i$ apparaissent
+après $i$ dans $\sigma$. Il faut donc pour
+tous ces segments que leur indice $k$ vérifie
+$\sigma^{-1}(i)<\sigma^{-1}(k)$ (c'est-à-dire la coupe selon
+$l(s_i)$ est effectuée avant celle par $l(s_k)$). Donc $i$ doit
+apparaître en premier dans la permutation $\sigma$.
+% Texte d'avant, modifié en partie.
+% Il faut donc que $\sigma (i) \leq \sigma (k)$ pour tous
+% les $k$ tels que $l(s_k)$ intersecte $s$.
+% En particulier, cela doit être le cas pour tout segment entre
+% $s$ et $s_i$ intersectant $l(s_i)$.
+% Il faut donc que parmi ces segments, $s_i$ soit le premier dans
+% la permutation de l'ensemble
+% $\{ s, s_1,...,s_{d(s,s_i)} \}$.
 
+Par conséquent, on a la majoration:
+\begin{IEEEeqnarray*}{rcl}
+P(l(s_i) \mbox{ coupe s}) &\le&
+\frac {\# \mbox {permutations commencant par }
+         1 \mbox{ dans } S_{d(s,s_i)+1}}
+{\# \mbox {permutations dans } S_{d(s,s_i)+1}} \\
+& = & \frac{d(s, s_i)!}{(d(s, s_i) +1)!} =\frac{1}{d(s,s_i)+1}.
+\end{IEEEeqnarray*}
 
-Nous avons donc vu dans la section précédente que le coût local est en ($O(1)$) car on ne parcourt $S_T$ que si $T$ est une feuille par l'hypothèse faite.
-Ce qui nous permet de conclure par la formule utilisée au cours que la complexité
-de l'algorithme est en ($O(ln(n)$)
+Notez que les permutations commençant par 1 sont considérées pour
+clarifier les notations, étant donné qu'on considère les
+permutations commençant parun élément fixé.
 
+En moyenne, on a donc:
+$$\sum_{k=1}^{n} \frac{1}{d(s,s_i)+1}\le
+2 \sum_{k=0}^{\lfloor \frac {n-1}{2} \rfloor}
+\frac 1{k+1} \le 2 \ln (\frac{n}{2}) $$
 
+Nous avons donc vu dans la section précédente que le coût local est
+en temps constant car on ne parcourt $S_T$ que si $T$ est une
+feuille par l'hypothèse faite (que $s$ n'est inclus à aucune
+droite).
 
+Ce qui nous permet de conclure que le nombre de noeuds où
+sont effectués deux appels récursifs est en $O(\ln(n))$. On en
+déduit que le nombre de chemins suivis dans l'arbre est en
+$O(\ln(n))$. Ceci fournit une complexité totale en
+$O(h\times\ln(n))$.
