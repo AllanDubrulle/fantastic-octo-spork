@@ -1,28 +1,77 @@
+\subsection{Coût local}
+
 Etudions le coût local dans une feuille. Par définition, $S_T$ contient au plus une donnée.
 Donc, le coût local par feuille est en temps constant ($O(1)$).
 
 Intéressons-nous au coût local par noeud interne.
 Dans un premier temps, si le segment est contenu dans la droite stockée dans le noeud,
-alors on a un coût linéaire en le nombre de fragments dans $S_t$.
+alors on a un coût linéaire en le nombre de fragments dans $S_T$.
 
 Sinon, seules des opérations élémentaires sont effectuées(opérations arithmétiques,
 appels de fonctions et comparaisons) d'où le coût local est en $O(1)$.
 
-Etudions le nombre d'appels récursifs. Remarquons d'abord que dans l'algorithme,
-chaque noeud est visité au plus une fois.
-Par conséquent, Le nombre de noeuds visités maximal correspond au nombre de noeud de noeuds de $T$
-. Cela se produit si pour tout appel à $Recherche\_segment(T,x,y)$ , le segment $[x,y]$ intersecte
-$D_T$ ou $T$ est une feuille.
+\subsection{Appels récursifs}
 
-Le nombre d'appels récursifs est en $O(n)$ en négligeant les parcours de listes
-et où $n$ est le nombre de noeuds de $T$.
+Intéressons nous au nombre d'appels récursifs de l'algorithme.
+Posons $s = [x,y]$
+Situation 1 : $s$ n'est inclus dans aucune droite stockées dans $T$.
 
-Sinon, on a une majoration grossière de la complexité en $O(N \times n)$
-où N est le nombre de segments stockés dans $T$.
+Cas 1 : le pire des cas.
+Remarquons d'abord que dans l'algorithme, chaque noeud est visité au plus une fois.
+Par conséquent, Le nombre de noeuds visités maximal correspond au nombre de noeuds de $T$.
+Cela se produit si pour tout appel à $Recherche\_segment(T,x,y)$ , le segment $s$ intersecte
+$D_T$ ou $T$ est une feuille. nous avons donc $n$ appels récursifs 
 
-Etudions de manière plus attentive la complexité. On se pose la question suivante :
+Cas 2 :  $s$ n'intersecte aucune droite.
+L'algorithme suit un chemin de l'arbre. Nous avons donc
+au maximum $h$ appels récursif où $h$ est la hauteur de l'arbre.
+
+Cas 3 : Cas moyen. 
+Plus explicitement, $s$ intersecte certaines droites. Utilisons un raisonnement similaire
+au livre. On suppose que l'arbre BSP est construit à l'aide d'auto-partitions et de
+manière aléatoire en supposant chaque permutation équiprobable.
+On suppose $T$ construit sur base de $S = {s_1,...,s_n}$. Soit $ i \in \{1,...,n\}$.
+Posons :
+
+$l(s_i) =$ la droite stockée dans $T$ correspondant à $S_i$ et
+$$ d(s,s_i )= \begin{cases} \mbox{\#\{segments entre } s \mbox{ et } s_i
+\mbox{ intersectant } l(s_i) \mbox{\}}
+&\mbox{si } l(s_i) \mbox { intersecte } s \\ +\infty & \mbox{sinon} \end{cases} $$
+Etudions la probabilité que $l(s_i)$ coupe $s$ (notée $P(l(s_i)$ coupe $s)$).
+Soit $\sigma  \in S_n $( l'ensemble des permutations à $n$ éléments).
+
+Si $ \exists 1 \le  k \le n $ tel qu'on coupe le plan par $s_k$ avant de couper par $s_i$ et que $s$ et $s_j$ se retrouve chacun d'un côté de $l(s_k)$ alors $s_j$ ne coupe pas $s$.
+Il faut donc considerer que $\sigma (j) <= \sigma (k)$ pour tous les $k$ où cela arrive.
+En particulier, cela arrive pour tout segment entre $s$ et $s_n$ intersectant $l(s_n)$.
+Il faut donc que pour toutes permutations de $\{ s, s_1,...,s_{d(s,s_i)} \}$ , $s_i$ soit le premier.
+Par conséquent, 
+
+$P(l(s_i)$ coupe $s) \le
+\frac {\# \mbox {permutations commencant par } j \mbox{ dans } S_{d(s,s_i)+1}}
+{\# \mbox {permutations dans } S_{d(s,s_i)+1}} = \frac 1 {d(s,s_i)+1}$.
+
+On a donc en moyenne. $$\sum_{k=1}^{n} \frac 1 {d(s,s_i)+1}        \le 2 \sum_{k=0}^{\lfloor \frac {n-1} 2 \rfloor}  \frac 1{k+1} \le 2 ln (n/2) $$
+
+
+Nous avons donc vu dans la section précédente que le coût local est en ($O(1)$) car on ne parcourt $S_T$ que si $T$ est une feuille par l'hypothèse faite.
+Ce qui nous permet de conclure par la formule utilisée au cours que la complexité
+de l'algorithme est :
+
+-Cas 1: en ($O(n)$) avec n le nombre de noeuds de $T$ 
+
+-Cas 2: en ($O(h)$) avec h la hauteur de $T$
+
+-Cas 3: en ($O(ln(n)$)
+
+
+
+Ancien texte : 
+(*Sinon, on a une majoration grossière de la complexité en $O(N \times n)$
+où N est le nombre de segments stockés dans $T$.*)
+
+(*Etudions de manière plus attentive la complexité. On se pose la question suivante :
 Quel est le nombre moyen de segments $s_j$ tel que la droite passant par $s_j$ intersecte $[x,y]$.
 
 Par la référence, on obtient que le nombre moyen d'intersections entre $[x,y]$ et les droites
 stockées dans $T$ est en $O(log (n))$. On obtient, par conséquent, que la complexité en moyenne
-est en $O(h \times log (n))$ où $h$ est la hauteur de $T$. 
+est en $O(h \times log (n))$ où $h$ est la hauteur de $T$. *) 
