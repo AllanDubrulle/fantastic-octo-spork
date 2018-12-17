@@ -15,7 +15,8 @@
       \RETURN Recherche\_segment($T^+$, $x$, $y$)
       \ELSE
       \STATE $z \leftarrow D \cap [x, y]$
-      \RETURN Recherche\_segment($T^+$, $x$, $z$) $\land$ Recherche\_segment($T^-$, $z$, $y$)
+      \RETURN Recherche\_segment($T^+$, $x$, $z$) $\land$
+              Recherche\_segment($T^-$, $z$, $y$)
       \ENDIF
       \ELSE
       \IF{$f_D(x) = f_D(y) = 0$}
@@ -24,7 +25,8 @@
       \RETURN Recherche\_segment($T^-$, $x$, $y$)
       \ELSE
       \STATE $z \leftarrow D \cap [x, y]$
-      \RETURN Recherche\_segment($T^-$, $x$, $z$) $\land$ Recherche\_segment($T^+$, $z$, $y$)
+      \RETURN Recherche\_segment($T^-$, $x$, $z$) $\land$
+              Recherche\_segment($T^+$, $z$, $y$)
       \ENDIF
     \ENDIF
   \end{algorithmic}
@@ -45,7 +47,7 @@ en entrée.
 
 Il suffit donc d'expliciter l'égalité de segments et d'appliquer
 un algorithme de recherche classique dans une liste chaînée.
-Deux segments sont égaux si et seulement si ils ont les
+Deux segments sont égaux si et seulement s'ils ont les
 mêmes extrémités, c'est-à-dire:
 $$ [x_1, y_1] = [x_2, y_2] \iff
 (x_1 = x_2 \land y_1 = y_2) \lor (x_1 = y_2 \land y_1 = x_2) $$

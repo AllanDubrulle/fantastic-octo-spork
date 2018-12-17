@@ -12,7 +12,8 @@ stocké en cette feuille (s'il existe) correspond à $[x, y]$. Si ce
 n'est pas le cas ou que la feuille est vide, alors l'algorithme
 retourne faux.
 
-Si les points $x$ et $y$ sont contenus dans $D$, alors par convexité
+Si l'arbre $T$ n'est pas réduit à une feuille et que
+les points $x$ et $y$ sont contenus dans $D$, alors par convexité
 de $D$, le segment est contenu dans $D$. Le problème se réduit alors
 à la recherche d'une donnée au sein d'une liste chaînée.
 
@@ -22,18 +23,19 @@ Discutons les différents cas.
 
 Si $x,y \in D^+$ (resp. $D^-$), alors le segment $[x,y] \subseteq D^+$
 (resp. $D^-$) par convexité. Par définition d'arbre BSP,
-le segment recherché est contenu dans $T$. si et seulement s'il
+le segment recherché est contenu dans $T$ si et seulement s'il
 est dans $T^+$ (resp. $T^-$). Il suffit donc de poursuivre la
 recherche récursivement dans $T^+ $ (resp. $T^-$).
 
 Si $x \in D $ et $y \in D^+$ (resp. $D^-$), alors le segment $[x, y]$ est
-contenu dans le demi-plan $D^+$ (resp. $D^-$).Il suffit donc de poursuivre la
+contenu dans le demi-plan $D^+$ (resp. $D^-$). Il suffit donc de poursuivre la
 recherche récursivement comme précédemment. Le cas $y \in D $ et $x \in D^+$
 (resp. $D^-$) est symétrique au cas précédent.
 
 Il reste deux cas à considérer: le premier est $ x \in D^+$ et $ y \in D^-$ et
-le second est $x \in D^-$ et $ y \in D^+$. Les deux cas étant symétriques on
-supposera sans perte de généralité que $ x \in D^+$ et $ y \in D^-$.
+le second est $x \in D^-$ et $ y \in D^+$. Les deux cas étant similaires,
+nous supposerons que $ x \in D^+$ et $ y \in D^-$ (les calculs sont
+indépendants du cas considéré).
 Le segment $[x,y]$ intersecte $D$ en un point qu'on nommera $z$.
 
 Savoir si le segment $[x,y]$ se trouve dans $T$ revient donc à savoir si
@@ -60,4 +62,5 @@ Par conséquent,
 \begin{equation} \label{eq:t}
     t = \frac{(-c - g(y))}{(g(x)-g(y))} = \frac{-(f_D(y)+2c)}{f_D(x)-f_D(y)}
 \end{equation}
-L'expression de $t$ est bien définie car  $g(x) \neq g(y)$ car $ g(y) < -c  $ et $g(x) > -c$.
+L'expression de $t$ est bien définie car  $g(x) \neq g(y)$ car
+$ g(y) < -c < g(x)$.
