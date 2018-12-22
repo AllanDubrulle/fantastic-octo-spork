@@ -30,7 +30,7 @@ recherche récursivement dans $T^+ $ (resp. $T^-$).
 Si $x \in D $ et $y \in D^+$ (resp. $D^-$), alors le segment $[x, y]$ est
 contenu dans le demi-plan $D^+$ (resp. $D^-$). Il suffit donc de poursuivre la
 recherche récursivement comme précédemment. Le cas $y \in D $ et $x \in D^+$
-(resp. $D^-$) est symétrique au cas précédent.
+(resp. $D^-$) est analogue au cas précédent.
 
 Il reste deux cas à considérer: le premier est $ x \in D^+$ et $ y \in D^-$ et
 le second est $x \in D^-$ et $ y \in D^+$. Les deux cas étant similaires,
@@ -52,7 +52,8 @@ Nous avons que $f_D = g + c $ et la fonction $g$ est linéaire.
 
 De plus, nous avons que $f_D(z) = 0$ et $\exists t \in [0,1]$ tel que
 $ z = tx+ (1-t)y$
-\footnote{En effet, on a par définition: $[x, y] = \{tx + (1 - t)y\mid t\in [0,1]\}$}.
+\footnote{En effet, on a par définition:
+  $[x, y] = \{tx + (1 - t)y\mid t\in [0,1]\}=\{ty + (1 - t)x\mid t\in [0,1]\}$}.
 Donc, par linéarité de $g$:
 \begin{equation}
   0 = f_D(z)  = f_D (tx+ (1-t)y) = t(g(x)-g(y))+g(y)+c

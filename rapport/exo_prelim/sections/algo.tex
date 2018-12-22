@@ -5,7 +5,7 @@
 \begin{algorithm}
   \caption{Recherche\_segment($T, x, y$)}
   \begin{algorithmic}[1] \label{algo:main}
-    \REQUIRE Un arbre BSP $T$, deux points $x$ et $y$ du plan réel.
+    \REQUIRE Un arbre BSP $T$, deux points $x$ et $y$ du plan.
     \ENSURE Vrai si et seulement si le segment $[x, y]$ est contenu dans $T$.
     \IF{$T$ est réduit à une feuille}
     \RETURN $[x, y]\in S_T$
@@ -32,7 +32,7 @@
   \end{algorithmic}
 \end{algorithm}
 
-L'algorithme vérifiant la présence d'un segment donné est détaillé à
+La vérification de la présence d'un segment donné est détaillé à
 l'algorithme \ref{algo:main}.
 
 Les détails suivants sont omis afin de ne pas alourdir l'algorithme:
