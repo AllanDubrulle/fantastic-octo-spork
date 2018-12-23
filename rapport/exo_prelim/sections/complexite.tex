@@ -50,7 +50,7 @@ Supposons dans la suite que $s$ n'est inclus dans aucune droite
 stockée dans $T$.
 
 Il arrive donc que le segment $s$ intersecte certaines droites.
-Utilisons un raisonnement similaire à
+Utilisons un raisonnement similaire à celui présenté dans
 \cite{berg_cheong_kreveld_2008}. On suppose que
 l'arbre BSP est construit à l'aide d'auto-partitions
 \footnote{
@@ -74,7 +74,7 @@ $P(l(s_i)$ coupe $s)$), c'est-à-dire lors de la séparation du
 plan par $l(s_i)$, $s$ est fragmenté. Supposons que $l(s_i)$ intersecte
 $s$ (sinon la probabilité est nulle). On a donc $d(s, s_i)$ finie.
 
-Soit $\sigma  \in S_n $( l'ensemble des permutations de $n$
+Soit $\sigma  \in S_n $ (l'ensemble des permutations de $n$
 éléments, également appelé groupe symétrique d'indice $n$).
 
 S'il existe $k\in\{1, \ldots, n\} $ tel qu'on coupe le plan par
@@ -104,12 +104,21 @@ Notez que les permutations commençant par 1 sont considérées pour
 clarifier les notations, étant donné qu'on considère les
 permutations commençant par un élément fixé.
 
-En moyenne, on a donc:
-$$\sum_{k=1}^{n} \frac{1}{d(s,s_i)+1}\le
-2 \sum_{k=0}^{\lfloor \frac {n-1}{2} \rfloor}
-\frac 1{k+1} \le 2 \ln \left(\frac{n}{2}\right) $$
+Le nombre moyen de coupes effectuées sur $s$ est donc,
+par linéarité de l'espérance:
+\begin{IEEEeqnarray*}{lCl}
+  \sum_{k=1}^{n}P(\l(s_k)\mbox{ coupe } s)
+  & \le &\sum_{k=1}^{n} \frac{1}{d(s,s_k)+1}\\
+  & \le & 2 \sum_{k=0}^{\lfloor \frac {n-1}{2} \rfloor}
+  \frac 1{k+1}\\
+  &\le& 2 \ln \left(\frac{n}{2}\right)
+\end{IEEEeqnarray*}
 
-Nous avons donc vu dans la section précédente que le coût local est
+La deuxième inégalité est une conséquence
+du fait que pour une distance donnée par rapport à $s$,
+il existe au plus deux segments réalisant cette distance.
+
+Nous avons vu dans la section précédente que le coût local est
 en temps constant car on ne parcourt $S_T$ que si $T$ est une
 feuille par l'hypothèse faite (que $s$ n'est inclus à aucune
 droite).
