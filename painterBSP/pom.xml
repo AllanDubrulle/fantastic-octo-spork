@@ -15,7 +15,53 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  <!-- Configure 'build' cycle -->
+  <build>
+    <!-- Configure plugins in 'build' cycle.
+         The plugins provides goals for each phase -->
+    <plugins>
+      <plugin>
+      <!-- Build an executable JAR
+           We configure the 'maven-jar-plugin' -->
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-jar-plugin</artifactId>
+      <!--	Removes the error messages by specifying
+      		the version for the jar plugin -->
+      <version>2.3.2</version>
+      <configuration>
+        <archive>
+          <manifest>
+            <addClasspath>true</addClasspath>
+            <classpathPrefix>lib</classpathPrefix>
+            <mainClass>sdd.AJ.painterBSP.TestGraphique</mainClass>
+          </manifest>
+        </archive>
+      </configuration>
+      </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>2.3.2</version>
+            <configuration>
+                <encoding>${project.build.sourceEncoding}</encoding>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>2.4.3</version>
+            <configuration>
+                <encoding>${project.build.sourceEncoding}</encoding>
+            </configuration>
+        </plugin>
+    </plugins>
+  </build>
 
+  
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

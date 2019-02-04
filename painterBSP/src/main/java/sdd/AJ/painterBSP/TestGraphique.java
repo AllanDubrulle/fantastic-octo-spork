@@ -1,13 +1,27 @@
 package sdd.AJ.painterBSP;
 
+import sdd.AJ.painterBSP.graphics.GraphicalWindow;
+import java.io.IOException;
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+
 /**
  * Hello world!
  *
  */
-public class TestGraphique
+public class TestGraphique extends Application
 {
-    public static void main( String[] args )
+    @Override
+    public void start(Stage stage) throws IOException
     {
-        System.out.println( "Hello World!" );
+        GraphicalWindow root = new GraphicalWindow(stage);
+        Scene scene = new Scene(root);
+        stage.setMinHeight(450.0);
+        stage.setMinWidth(600.0);
+        stage.setScene(scene);
+        stage.setTitle("Prototype Fantastic-octo-spork");
+        stage.show();
+
     }
 }

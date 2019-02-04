@@ -27,15 +27,19 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 
-public class GraphicalWindow extends Application
+public class GraphicalWindow extends GridPane
 {
 
-    @Override
-    public void start(Stage stage) throws IOException
+
+    private Stage stage;
+
+    public GraphicalWindow(Stage stage) //throws IOException
     {
         // Creation of the pane meant to contain all components
-        GridPane root = new GridPane();
-        root.setPrefSize(800, 600);
+        super();
+        this.stage = stage;
+
+        setPrefSize(800, 600);
 
         // Setup of column and row constraints
         ColumnConstraints ccons1 = new ColumnConstraints();
@@ -44,7 +48,7 @@ public class GraphicalWindow extends Application
         ColumnConstraints ccons2 = new ColumnConstraints();
         ccons2.setHgrow(Priority.NEVER);
         ccons2.setPercentWidth(80);
-        root.getColumnConstraints().addAll(ccons1, ccons2); //, ccons3);
+        getColumnConstraints().addAll(ccons1, ccons2); //, ccons3);
 
         RowConstraints rcons1 = new RowConstraints();
         rcons1.setVgrow(Priority.NEVER);
@@ -58,39 +62,39 @@ public class GraphicalWindow extends Application
         RowConstraints rcons4 = new RowConstraints();
         rcons4.setVgrow(Priority.NEVER);
         rcons4.setPercentHeight(10);
-        root.getRowConstraints().addAll(rcons1, rcons2, rcons3, rcons4);
-        
+        getRowConstraints().addAll(rcons1, rcons2, rcons3, rcons4);
+
         // Illustration description
         Label planeLabel = new Label("   Illustration de l'ensemble de segments chargés:");
         planeLabel.setStyle("-fx-font-size:18; -fx-font-family:sans-serif;");
         planeLabel.setContentDisplay(ContentDisplay.CENTER);
         planeLabel.setTextAlignment(TextAlignment.CENTER);
         planeLabel.setAlignment(Pos.CENTER);
-        root.add(planeLabel, 1, 0);
-        
+        add(planeLabel, 1, 0);
+
         // Instanciation of the class managing illustration and insertion in layout
-        Illustrator planeDrawing = new Illustrator(root.widthProperty().multiply(0.6),
-                                           root.heightProperty().multiply(0.6));
+        Illustrator planeDrawing = new Illustrator(widthProperty().multiply(0.6),
+                                           heightProperty().multiply(0.6));
         GridPane.setHalignment(planeDrawing, HPos.CENTER);
         GridPane.setValignment(planeDrawing, VPos.CENTER);
-        root.add(planeDrawing, 1, 1);
-        
+        add(planeDrawing, 1, 1);
+
         //Description of what is seen by the eye
         Label visionLabel = new Label("   La sortie de l'algorithme du peintre:");
         visionLabel.setStyle("-fx-font-size:18; -fx-font-family:sans-serif;");
         visionLabel.setContentDisplay(ContentDisplay.CENTER);
         visionLabel.setTextAlignment(TextAlignment.CENTER);
         visionLabel.setAlignment(Pos.CENTER);
-        root.add(visionLabel, 1, 2);
+        add(visionLabel, 1, 2);
 
         // Control layout
         VBox ctrlBox = new VBox(8);
         ctrlBox.setAlignment(Pos.CENTER);
-        
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Sélectionnez le fichier à traiter");
         Button btnFile =  new Button("Input file");
-        btnFile.setOnMouseClicked(x -> 
+        btnFile.setOnMouseClicked(x ->
         {
             File file = fileChooser.showOpenDialog(stage);
             if (file != null)
@@ -100,10 +104,10 @@ public class GraphicalWindow extends Application
                     IllustrationInputReader iir = new IllustrationInputReader(file);
                     planeDrawing.update(iir.getXBound(), iir.getYBound(), iir.getSegments());
                 }
-                
+
                 catch (IOException e) //Alternative: attraper toute erreur possible (à éviter)
                 {
-                    Alert errorAlert = new Alert(AlertType.ERROR, 
+                    Alert errorAlert = new Alert(AlertType.ERROR,
                             "Une erreur a été rencontrée au cours de la lecture du fichier");
                     errorAlert.showAndWait();
                 }
@@ -115,36 +119,25 @@ public class GraphicalWindow extends Application
         heuristics.getSelectionModel().selectFirst();
 
         Button eyeButton = new Button("DEBUG DESSINER"); //Paramètres du point de vue");
-                
+
         CheckBox drawingActive = new CheckBox("Illustrer l'ensemble de segments choisi");
-        eyeButton.setOnMouseClicked(x -> 
+        eyeButton.setOnMouseClicked(x ->
             {
                 if (drawingActive.isSelected())
                 {
-                    planeDrawing.clear(); 
+                    planeDrawing.clear();
                     planeDrawing.draw();
                 }
             });
 
 
         ctrlBox.getChildren().addAll(btnFile, heuristics, eyeButton, drawingActive);
-        root.add(ctrlBox, 0, 1);
-        
+        add(ctrlBox, 0, 1);
+
         for (Control c: new Control[] {btnFile, eyeButton, heuristics, drawingActive})
         {
-            c.prefWidthProperty().bind(root.widthProperty().multiply(0.15));
+            c.prefWidthProperty().bind(widthProperty().multiply(0.15));
         }
-        
 
-        //root.setGridLinesVisible(true);
-        Scene scene = new Scene(root);
-        stage.setMinHeight(450.0);
-        stage.setMinWidth(600.0);
-        stage.setScene(scene);
-        stage.setTitle("Prototype Fantastic-octo-spork");
-        stage.show();
-        
-        IllustrationInputReader iir = new IllustrationInputReader("octangle.txt");
-        planeDrawing.update(iir.getXBound(), iir.getYBound(), iir.getSegments());
     }
 }
