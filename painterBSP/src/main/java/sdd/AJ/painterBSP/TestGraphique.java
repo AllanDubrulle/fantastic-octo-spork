@@ -4,7 +4,7 @@ package sdd.AJ.painterBSP;
  * Hello world!
  *
  */
-public class App 
+public class TestGraphique
 {
     public static void main( String[] args )
     {
