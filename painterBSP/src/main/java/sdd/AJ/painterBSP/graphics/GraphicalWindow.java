@@ -27,14 +27,13 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 
-public class GraphicalWindow extends GridPane
-{
+public class GraphicalWindow extends GridPane {
+
 
 
     private Stage stage;
 
-    public GraphicalWindow(Stage stage) //throws IOException
-    {
+    public GraphicalWindow(Stage stage) {
         // Creation of the pane meant to contain all components
         super();
         this.stage = stage;
@@ -74,7 +73,7 @@ public class GraphicalWindow extends GridPane
 
         // Instanciation of the class managing illustration and insertion in layout
         Illustrator planeDrawing = new Illustrator(widthProperty().multiply(0.6),
-                                           heightProperty().multiply(0.6));
+                                                   heightProperty().multiply(0.6));
         GridPane.setHalignment(planeDrawing, HPos.CENTER);
         GridPane.setValignment(planeDrawing, VPos.CENTER);
         add(planeDrawing, 1, 1);
@@ -94,25 +93,21 @@ public class GraphicalWindow extends GridPane
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Sélectionnez le fichier à traiter");
         Button btnFile =  new Button("Input file");
-        btnFile.setOnMouseClicked(x ->
-        {
-            File file = fileChooser.showOpenDialog(stage);
-            if (file != null)
-            {
-                try
-                {
-                    IllustrationInputReader iir = new IllustrationInputReader(file);
-                    planeDrawing.update(iir.getXBound(), iir.getYBound(), iir.getSegments());
-                }
+        btnFile.setOnMouseClicked(x -> {
+                File file = fileChooser.showOpenDialog(stage);
+                if (file != null) {
+                    try {
+                        IllustrationInputReader iir = new IllustrationInputReader(file);
+                        planeDrawing.update(iir.getXBound(), iir.getYBound(), iir.getSegments());
+                    }
 
-                catch (IOException e) //Alternative: attraper toute erreur possible (à éviter)
-                {
-                    Alert errorAlert = new Alert(AlertType.ERROR,
-                            "Une erreur a été rencontrée au cours de la lecture du fichier");
-                    errorAlert.showAndWait();
+                    catch (IOException e) {
+                        Alert errorAlert = new Alert(AlertType.ERROR,
+                                                     "Une erreur a été rencontrée au cours de la lecture du fichier");
+                        errorAlert.showAndWait();
+                    }
                 }
-            }
-        });
+            });
 
         ChoiceBox<String> heuristics = new ChoiceBox<>();
         heuristics.getItems().addAll("H 1", "H 2", "H 3");
@@ -121,10 +116,8 @@ public class GraphicalWindow extends GridPane
         Button eyeButton = new Button("DEBUG DESSINER"); //Paramètres du point de vue");
 
         CheckBox drawingActive = new CheckBox("Illustrer l'ensemble de segments choisi");
-        eyeButton.setOnMouseClicked(x ->
-            {
-                if (drawingActive.isSelected())
-                {
+        eyeButton.setOnMouseClicked(x -> {
+                if (drawingActive.isSelected()) {
                     planeDrawing.clear();
                     planeDrawing.draw();
                 }
@@ -134,8 +127,7 @@ public class GraphicalWindow extends GridPane
         ctrlBox.getChildren().addAll(btnFile, heuristics, eyeButton, drawingActive);
         add(ctrlBox, 0, 1);
 
-        for (Control c: new Control[] {btnFile, eyeButton, heuristics, drawingActive})
-        {
+        for (Control c: new Control[] {btnFile, eyeButton, heuristics, drawingActive}) {
             c.prefWidthProperty().bind(widthProperty().multiply(0.15));
         }
 

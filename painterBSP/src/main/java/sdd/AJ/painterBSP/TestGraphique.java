@@ -6,15 +6,9 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
-/**
- * Hello world!
- *
- */
-public class TestGraphique extends Application
-{
+public class TestGraphique extends Application {
     @Override
-    public void start(Stage stage) throws IOException
-    {
+    public void start(Stage stage) throws IOException {
         GraphicalWindow root = new GraphicalWindow(stage);
         Scene scene = new Scene(root);
         stage.setMinHeight(450.0);
@@ -22,6 +16,5 @@ public class TestGraphique extends Application
         stage.setScene(scene);
         stage.setTitle("Prototype Fantastic-octo-spork");
         stage.show();
-
     }
 }
