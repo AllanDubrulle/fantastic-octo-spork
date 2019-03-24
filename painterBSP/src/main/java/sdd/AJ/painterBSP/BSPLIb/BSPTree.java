@@ -18,7 +18,7 @@ public class BSPTree { //TODO Eliminer les methodes inutilisees
     public BSPTree(List<Segment> list, Heuristic heuristic) {
         //Algorithme de création du BSP
         // Si la liste est vide, on crée un arbre
-        this.list = new ArrayList();
+        this.list = new ArrayList<>();
         left = null;
         right = null;
         equation = null;
@@ -76,6 +76,8 @@ public class BSPTree { //TODO Eliminer les methodes inutilisees
                     }
                 }
             }
+            left = new BSPTree(leftList,heuristic);
+            right = new BSPTree(rightList,heuristic);
         }
     }
 
