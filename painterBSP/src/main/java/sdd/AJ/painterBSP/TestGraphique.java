@@ -6,9 +6,11 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
-public class TestGraphique extends Application {
+public class TestGraphique extends Application
+{
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException
+    {
         GraphicalWindow root = new GraphicalWindow(stage);
         Scene scene = new Scene(root);
         stage.setMinHeight(450.0);
