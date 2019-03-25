@@ -41,4 +41,10 @@ public class Segment
         double z2 = t * x2 + (1 - t) * y2;
         return new Segment[] { new Segment(x1, x2, z1, z2, color), new Segment(z1, z2, y1, y2, color) };
     }
+    
+    public boolean equals (Segment other) 
+    {
+        return (x1 == other.x1 && x2 == other.x2 && y1==other.y1 && y2 == other.y2)  ||
+                (y1 == other.x1 && y2 == other.x2 && x1==other.y1 && x2 == other.y2);
+    }
 }
