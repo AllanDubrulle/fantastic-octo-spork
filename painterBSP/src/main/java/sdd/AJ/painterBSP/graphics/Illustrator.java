@@ -28,8 +28,10 @@ public class Illustrator extends Group
     {
         for (Segment s : lines)
         {
-            Line line = new Line(scale(s.x1 + xBound), scale(s.x2 + yBound), scale(s.y1 + xBound),
-                    scale(s.y2 + yBound));
+            Line line = new Line(scale(s.x1 + xBound),
+                                 scale(s.x2 + yBound),
+                                 scale(s.y1 + xBound),
+                                 scale(s.y2 + yBound));
             line.setStroke(getFXColor(s));
             super.getChildren().add(line);
         }
