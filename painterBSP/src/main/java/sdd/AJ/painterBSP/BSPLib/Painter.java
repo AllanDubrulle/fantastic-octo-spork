@@ -1,11 +1,15 @@
-package sdd.AJ.painterBSP.BSPLIb;
+package sdd.AJ.painterBSP.BSPLib;
 
 import sdd.AJ.painterBSP.util.Eye;
+import sdd.AJ.painterBSP.graphics.MyColor;
+
 
 public abstract class Painter
 { // TODO completer l'interface
 
     public abstract void scanConvert(double x, double y, Eye eye);
+
+    public abstract void paint(double start, double finish, MyColor color);
 
     public void paint(BSPTree tree, double x, double y, Eye eye)
     {

@@ -111,7 +111,9 @@ public class GraphicalWindow extends GridPane
         });
 
         ChoiceBox<String> heuristics = new ChoiceBox<>();
-        heuristics.getItems().addAll("H 1", "H 2", "H 3");
+        heuristics.getItems().addAll("Dans l'ordre",
+                                     "Aléatoirement",
+                                     "Heuristique 1");
         heuristics.getSelectionModel().selectFirst();
 
         Button eyeButton = new Button("DEBUG DESSINER"); // Paramètres du point de vue");
