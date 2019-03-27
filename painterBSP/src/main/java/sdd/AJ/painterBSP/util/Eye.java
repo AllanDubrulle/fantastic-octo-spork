@@ -3,6 +3,8 @@ package sdd.AJ.painterBSP.util;
 import sdd.AJ.painterBSP.util.Segment;
 import sdd.AJ.painterBSP.BSPLib.Painter;
 import java.lang.Math;
+import java.util.List;
+
 
 public class Eye
 {
@@ -45,6 +47,15 @@ public class Eye
         this.angle = angle;
     }
 
+    public void drawList(List<Segment> list, Painter p)
+    {
+        for (Segment s: list)
+        {
+            this.draw(s, p);
+        }
+    }
+
+
     public void draw(Segment s, Painter p)
     {
         double dx1 = s.x1 - x;
@@ -63,7 +74,7 @@ public class Eye
         if (isVisible(angleX, angleY))
         {
             double[] visibleProp = getVisibleProportion(angleX, angleY);
-            p.paint(visibleProp[0], visibleProp[1], s.getColor());
+            p.draw(visibleProp[0], visibleProp[1], s.getColor());
         }
     }
 
