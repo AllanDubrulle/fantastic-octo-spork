@@ -1,5 +1,6 @@
 package sdd.AJ.painterBSP.graphics;
 
+import java.util.List;
 import sdd.AJ.painterBSP.util.*;
 import sdd.AJ.painterBSP.graphics.*;
 import java.io.File;
@@ -28,8 +29,9 @@ import javafx.stage.Stage;
 
 public class GraphicalWindow extends GridPane
 {
-
     private Stage stage;
+    private GraphicalCore core;
+    private Illustrator planeDrawing;
 
     public GraphicalWindow(Stage stage)
     {
@@ -71,7 +73,7 @@ public class GraphicalWindow extends GridPane
         add(planeLabel, 1, 0);
 
         // Instanciation of the class managing illustration and insertion in layout
-        Illustrator planeDrawing = new Illustrator(widthProperty().multiply(0.6), heightProperty().multiply(0.6));
+        planeDrawing = new Illustrator(widthProperty().multiply(0.6), heightProperty().multiply(0.6));
         GridPane.setHalignment(planeDrawing, HPos.CENTER);
         GridPane.setValignment(planeDrawing, VPos.CENTER);
         add(planeDrawing, 1, 1);
@@ -97,15 +99,14 @@ public class GraphicalWindow extends GridPane
             {
                 try
                 {
-                    IllustrationInputReader iir = new IllustrationInputReader(file);
-                    planeDrawing.update(iir.getXBound(), iir.getYBound(), iir.getSegments());
+                    core.loadFile(file);
                 }
 
                 catch (IOException e)
                 {
-                    Alert errorAlert = new Alert(AlertType.ERROR,
-                            "Une erreur a été rencontrée au cours de la lecture du fichier");
-                    errorAlert.showAndWait();
+                    core.handleReadingError();
+                    warn("Une erreur a été rencontrée au cours\n"+
+                         "de la lecture du fichier");
                 }
             }
         });
@@ -136,4 +137,25 @@ public class GraphicalWindow extends GridPane
         }
 
     }
+
+    public void setCore(GraphicalCore core)
+    {
+        this.core = core;
+    }
+
+    public void drawSegments(int xBound, int yBound, List<Segment> segments)
+    {
+        planeDrawing.update(xBound, yBound, segments);
+    }
+
+    //Message does not warp automatically, newlines must be specified
+    public void warn(String message)
+    {
+        Label label = new Label(message);
+        label.setWrapText(true);
+        Alert errorAlert = new Alert(AlertType.ERROR);
+        errorAlert.getDialogPane().setContent(label);
+        errorAlert.showAndWait();
+    }
+
 }

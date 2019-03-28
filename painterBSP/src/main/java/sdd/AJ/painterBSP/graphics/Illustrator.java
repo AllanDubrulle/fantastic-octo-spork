@@ -1,5 +1,7 @@
 package sdd.AJ.painterBSP.graphics;
 
+import java.util.List;
+import java.util.ArrayList;
 import javafx.scene.shape.Line;
 import javafx.scene.*;
 import javafx.scene.paint.*;
@@ -10,7 +12,7 @@ import sdd.AJ.painterBSP.graphics.*;
 public class Illustrator extends Group
 {
     private int xBound, yBound;
-    private Segment[] lines;
+    private List<Segment> lines;
     private final DoubleBinding parentWidthProperty;
     private final DoubleBinding parentHeightProperty;
 
@@ -19,7 +21,7 @@ public class Illustrator extends Group
         super();
         this.xBound = 1;
         this.yBound = 1;
-        this.lines = new Segment[] {};
+        this.lines = new ArrayList<Segment>();
         this.parentWidthProperty = parentWidthProperty;
         this.parentHeightProperty = parentHeightProperty;
     }
@@ -42,7 +44,7 @@ public class Illustrator extends Group
         getChildren().clear();
     }
 
-    public void update(int newXBound, int newYBound, Segment[] newLines)
+    public void update(int newXBound, int newYBound, List<Segment> newLines)
     {
         xBound = newXBound;
         yBound = newYBound;

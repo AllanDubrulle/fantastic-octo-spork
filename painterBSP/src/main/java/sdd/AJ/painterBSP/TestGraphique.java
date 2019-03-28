@@ -1,6 +1,7 @@
 package sdd.AJ.painterBSP;
 
 import sdd.AJ.painterBSP.graphics.GraphicalWindow;
+import sdd.AJ.painterBSP.graphics.GraphicalCore;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -12,6 +13,8 @@ public class TestGraphique extends Application
     public void start(Stage stage) throws IOException
     {
         GraphicalWindow root = new GraphicalWindow(stage);
+        GraphicalCore core = new GraphicalCore(root);
+        root.setCore(core);
         Scene scene = new Scene(root);
         stage.setMinHeight(450.0);
         stage.setMinWidth(600.0);
