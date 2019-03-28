@@ -94,11 +94,11 @@ public class Eye
     {
         // Hypothese: deja rotationne si c'etait necessaire
         boolean ok1 = this.angle < angle1
-            && angle1 < this.angle + 2*Math.PI;
+            && angle1 < this.angle + Math.PI/2;
         boolean ok2 = this.angle < angle2
-            && angle2 < this.angle + 2*Math.PI;
+            && angle2 < this.angle + Math.PI/2;
         // cas ou aucun point n'est dans le cone mais le segment est visible
-        boolean ok3 = angle1 > this.angle + Math.PI/2  && angle2 < this.angle;
+        boolean ok3 = angle1 > this.angle + Math.PI/2  && angle2 < this.angle; // cas casse
         return ok1 || ok2 || ok3;
     }
 
