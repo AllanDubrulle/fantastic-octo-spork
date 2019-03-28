@@ -68,7 +68,7 @@ public class Eye
         {
             double temp = angleX;
             angleX = angleY;
-            angleY = angleX;
+            angleY = temp;
         }
         // Ici  on suppose que angle X plus grand que angle Y
         if (isVisible(angleX, angleY))
