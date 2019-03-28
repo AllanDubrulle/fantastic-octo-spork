@@ -2,6 +2,7 @@ package sdd.AJ.painterBSP.graphics;
 
 import java.util.List;
 import sdd.AJ.painterBSP.util.*;
+import sdd.AJ.painterBSP.BSPLib.Heuristic.*;
 import sdd.AJ.painterBSP.graphics.*;
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +25,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -115,23 +118,46 @@ public class GraphicalWindow extends GridPane
         heuristics.getItems().addAll("Dans l'ordre",
                                      "Aléatoirement",
                                      "Heuristique 1");
-        heuristics.getSelectionModel().selectFirst();
+        heuristics
+            .getSelectionModel()
+            .selectedIndexProperty()
+            .addListener(
+                         new ChangeListener<Number>()
+                         {
+                             public void changed(ObservableValue ov,
+                                                 Number value,
+                                                 Number new_value)
+                             {
+                                 int new_val = new_value.intValue();
+                                 if (new_val == 0)
+                                     core.setHeuristic(new LinearHeuristic());
+                                 else if (new_val == 1)
+                                     core.activateRandom();
+                                 else if (new_val == 2)
+                                     core.setHeuristic(new firstHeuristic());
+                             }
+                         });
 
-        Button eyeButton = new Button("DEBUG DESSINER"); // Paramètres du point de vue");
 
-        CheckBox drawingActive = new CheckBox("Illustrer l'ensemble de segments choisi");
+        Button eyeButton = new Button("Dessiner fichier chargé"); // Paramètres du point de vue");
+
         eyeButton.setOnMouseClicked(x -> {
-            if (drawingActive.isSelected())
-            {
                 planeDrawing.clear();
                 planeDrawing.draw();
-            }
         });
 
-        ctrlBox.getChildren().addAll(btnFile, heuristics, eyeButton, drawingActive);
+        Button treeButton = new Button("Construire l'arbre");
+        treeButton.setOnMouseClicked(x -> {
+                core.buildBSP();
+        });
+
+        ctrlBox.getChildren().addAll(btnFile,
+                                     heuristics,
+                                     eyeButton,
+                                     treeButton);
         add(ctrlBox, 0, 1);
 
-        for (Control c : new Control[] { btnFile, eyeButton, heuristics, drawingActive })
+        for (Control c : new Control[] { btnFile, eyeButton, heuristics})
         {
             c.prefWidthProperty().bind(widthProperty().multiply(0.15));
         }
@@ -143,7 +169,7 @@ public class GraphicalWindow extends GridPane
         this.core = core;
     }
 
-    public void drawSegments(int xBound, int yBound, List<Segment> segments)
+    public void loadSegments(int xBound, int yBound, List<Segment> segments)
     {
         planeDrawing.update(xBound, yBound, segments);
     }
