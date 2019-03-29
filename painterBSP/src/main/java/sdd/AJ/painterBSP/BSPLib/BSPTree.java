@@ -27,11 +27,13 @@ public class BSPTree
         if (!list.isEmpty())
         {
             Segment pivot = heuristic.selectSegment(list);
+            list.remove(pivot);
             equation = pivot.lineEquation();
             List<Segment> leftList = new ArrayList<>();
             List<Segment> rightList = new ArrayList<>();
             double d = equation.solve(pivot.x1, pivot.x2);
             double eps = 10e-9;
+            this.list.add(pivot);
             for (Segment s : list)
             {
                 if (Math.abs(equation.solve(s.x1, s.x2) - d) < eps)
