@@ -35,12 +35,16 @@ public class GraphicalWindow extends GridPane
     private Stage stage;
     private GraphicalCore core;
     private Illustrator planeDrawing;
+    private Label eyeParameters;
+    private GraphicalPainter painter;
 
     public GraphicalWindow(Stage stage)
     {
         // Creation of the pane meant to contain all components
         super();
         this.stage = stage;
+
+        painter = new GraphicalPainter();
 
         setPrefSize(800, 600);
 
@@ -107,7 +111,7 @@ public class GraphicalWindow extends GridPane
 
                 catch (IOException e)
                 {
-                    core.handleReadingError();
+                    // core.handleReadingError();
                     warn("Une erreur a été rencontrée au cours\n"+
                          "de la lecture du fichier");
                 }
@@ -139,9 +143,9 @@ public class GraphicalWindow extends GridPane
                          });
 
 
-        Button eyeButton = new Button("Dessiner fichier chargé"); // Paramètres du point de vue");
+        Button drawButton = new Button("Dessiner fichier chargé"); // Paramètres du point de vue");
 
-        eyeButton.setOnMouseClicked(x -> {
+        drawButton.setOnMouseClicked(x -> {
                 planeDrawing.clear();
                 planeDrawing.draw();
         });
@@ -151,15 +155,27 @@ public class GraphicalWindow extends GridPane
                 core.buildBSP();
         });
 
+        eyeParameters = new Label("");
+        eyeParameters.setWrapText(true);
+
+        Button paintButton = new Button("Peindre la vue de l'oeil");
+        paintButton.setOnMouseClicked(x -> {
+                core.display(painter);
+            });
+        
+
         ctrlBox.getChildren().addAll(btnFile,
                                      heuristics,
-                                     eyeButton,
-                                     treeButton);
+                                     drawButton,
+                                     treeButton,
+                                     eyeParameters,
+                                     paintButton);
         add(ctrlBox, 0, 1);
 
-        for (Control c : new Control[] { btnFile, eyeButton, heuristics})
+        for (Control c : new Control[]
+            { btnFile, drawButton, heuristics, treeButton})
         {
-            c.prefWidthProperty().bind(widthProperty().multiply(0.15));
+            c.prefWidthProperty().bind(widthProperty().multiply(0.18));
         }
 
     }
@@ -182,6 +198,15 @@ public class GraphicalWindow extends GridPane
         Alert errorAlert = new Alert(AlertType.ERROR);
         errorAlert.getDialogPane().setContent(label);
         errorAlert.showAndWait();
+    }
+
+    public void displayEyeParameters(double x, double y, double angle)
+    {
+        eyeParameters.setText("Paramètres de l'oeil\n" +
+                              "Abscisse: " + String.format("%.3f", x) + "\n" +
+                              "Ordonnée: " + String.format("%.3f", y) + "\n" +
+                              "Angle: " + String.format("%.3f", angle) + "\n"
+                              );
     }
 
 }

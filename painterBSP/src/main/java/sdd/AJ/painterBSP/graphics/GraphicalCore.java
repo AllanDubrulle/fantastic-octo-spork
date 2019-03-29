@@ -37,13 +37,13 @@ public class GraphicalCore
     private BSPTree tree;
     private GraphicalWindow window;
     private int xBound, yBound;
-    private GraphicalPainter painter;
     private boolean randomConstruction;
     private Heuristic heuristic;
 
     public GraphicalCore(GraphicalWindow window)
     {
         this.window = window;
+        this.eye = new Eye(0, 0, 0);
         resetValues();
         randomConstruction = false;
         heuristic = null;
@@ -52,18 +52,19 @@ public class GraphicalCore
     private void resetValues()
     {
         // The selected heuristic is not changed
-        eye = null;
+        eye.resetPosition();
+        window.displayEyeParameters(0, 0, 0);
         segments = null;
         tree = null;
         xBound=-1;
         yBound =-1;
-        painter = null;
     }
 
 
     public void changeEye(double x, double y, double angle)
     {
-        eye = new Eye(x, y, angle);
+        eye.update(x, y, angle);
+        window.displayEyeParameters(x, y, angle);
     }
 
     public void loadFile(File file)
@@ -96,27 +97,21 @@ public class GraphicalCore
         }
     }
 
-    public void handleReadingError()
-    {
-        tree = null;
-        eye = null;
-    }
+    // public void handleReadingError()
+    // {
+    //     tree = null;
+    // }
 
     public void display(Painter p)
     {
-        if (tree != null && eye != null)
+        if (tree != null)
             p.paint(tree, eye);
         else
         {
-            if (tree != null)
-                window.warn("Aucun arbre n'a été créé.\n"+
-                            "Veuillez sélectionner un fichier\n"+
-                            "et une heuristique puis confirmer.");
-            else
-                window.warn("Les paramètres de l'oeil n'ont pas été\n" +
-                            "spécifiés.\n" +
-                            "Soumettez ces paramètres avant de confirmer.");
-           }
+            window.warn("Aucun arbre n'a été créé.\n"+
+                        "Veuillez sélectionner un fichier\n"+
+                        "et une heuristique puis confirmer.");
+        }
     }
 
     public void setHeuristic(Heuristic h)

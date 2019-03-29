@@ -20,6 +20,23 @@ public class Eye
         this.angle = angle;
     }
 
+    public void update(double x, double y, double angle)
+    {
+        this.x = x;
+        this.y = y;
+        this.angle = angle;
+    }
+
+
+    public void resetPosition()
+    {
+        //resets values to 0
+        this.x = 0;
+        this.y = 0;
+        this.angle = 0;
+    }
+
+
     public double getX()
     {
         return x;
