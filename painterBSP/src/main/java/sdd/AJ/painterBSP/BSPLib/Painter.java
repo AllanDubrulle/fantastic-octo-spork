@@ -5,12 +5,23 @@ import sdd.AJ.painterBSP.graphics.MyColor;
 import sdd.AJ.painterBSP.BSPLib.Painter;
 
 public abstract class Painter
-{ // TODO completer l'interface
-
-    //public abstract void scanConvert(double x, double y, Eye eye);
-
+{
+    /**
+     * Given a starting point and an ending point in the interval
+     * [0, 1], paints the same proportion in the given colour.
+     * @param start percentage at which the painting starts
+     * @param end   percentage at which the painting stops
+     * @param color the colour to be used for painting
+     */
     public abstract void draw(double start, double finish, MyColor color);
 
+    /**
+     * Given a binary space partition tree and an eye,
+     * applies the painter's algorithm to depict what is
+     * seen by the eye.
+     * @param tree the tree containing the scene to be processed
+     * @param eye  the viewpoint from which the scene is to be processed
+     */
     public void paint(BSPTree tree, Eye eye)
     {
         if (!tree.isEmpty())

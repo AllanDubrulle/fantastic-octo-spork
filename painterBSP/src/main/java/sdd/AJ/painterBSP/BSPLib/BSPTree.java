@@ -15,50 +15,68 @@ public class BSPTree
     private BSPTree left, right;
     private Equation equation;
 
-    // constructeurs
+    /**
+     * Class constructor.
+     * @param list      the list of the segments in the scene to be pre-processed
+     * @param heuristic the heuristic used to select the segment used
+     *                  to define the splitting plane
+     */
     public BSPTree(List<Segment> list, Heuristic heuristic)
     {
-        // Algorithme de création du BSP
-        // Si la liste est vide, on crée un arbre
+        // BSP construction algorithm
+        // If the given list is empty, we instanciate an empty node.
         this.list = new ArrayList<>();
         left = null;
         right = null;
         equation = null;
         if (!list.isEmpty())
         {
+            // If the list is not empty, we select a segment
+            // using the provided heuristic and use it to split the scene
+            // into two half-planes.
             Segment pivot = heuristic.selectSegment(list);
             list.remove(pivot);
             equation = pivot.lineEquation();
             List<Segment> leftList = new ArrayList<>();
             List<Segment> rightList = new ArrayList<>();
             double d = equation.solve(pivot.x1, pivot.x2);
-            double eps = 10e-9;
+            final double eps = 1e-10;
             this.list.add(pivot);
             for (Segment s : list)
             {
+                // Case in which one of the ends of the segment is
+                // in the splitting line.
                 if (Math.abs(equation.solve(s.x1, s.x2) - d) < eps)
                 {
-                    // On teste si le segment est inclus dans la droite
+                    // We test whether the line segment s is contained
+                    // in the splitting line.
                     if (Math.abs(equation.solve(s.y1, s.y2) - d) < eps)
                     {
                         this.list.add(s);
                     }
-                    // teste si le segment est inclus dans le plan positif
+                    // Testing whether the line segment is in the
+                    // positive half-plane
                     else if (equation.solve(s.y1, s.y2) > d)
                     {
                         rightList.add(s);
-                    } else
+                    }
+
+                    else // The segment is in the negative half-plane.
                     {
                         leftList.add(s);
                     }
                 }
 
+                // Case in which the other end of the segment is
+                // in the splitting line.
                 else if (Math.abs(equation.solve(s.y1, s.y2) - d) < eps)
                 {
                     if (equation.solve(s.x1, s.x2) > d)
                     {
                         rightList.add(s);
-                    } else
+                    }
+
+                    else //(x1, x2) in the negative half-plane
                     {
                         leftList.add(s);
                     }
@@ -69,7 +87,9 @@ public class BSPTree
                     if (equation.solve(s.y1, s.y2) > d)
                     {
                         rightList.add(s);
-                    } else
+                    }
+
+                    else // the two points are in different half-planes, s is split
                     {
                         Segment[] brokenS = s.breakSegment(equation, d);
                         rightList.add(brokenS[0]);
@@ -84,7 +104,7 @@ public class BSPTree
                         leftList.add(s);
                     }
 
-                    else
+                    else // the two points are in different half-planes, s is split
                     {
                         Segment[] brokenS = s.breakSegment(equation, d);
                         rightList.add(brokenS[1]);
@@ -92,73 +112,37 @@ public class BSPTree
                     }
                 }
             }
+            // We recursively build the children trees.
             left = new BSPTree(leftList, heuristic);
             right = new BSPTree(rightList, heuristic);
         }
     }
 
+    /**
+     * Given a list, builds a BSP Tree using the random heuristic
+     * (the list is shuffled then built in a linear manner.
+     * @param list the list of the segments in the scene to be pre-processed
+     * @returns a BSPTree built representing the scene
+     */
     public static BSPTree RandomBSPTree(List<Segment> list)
     {
         Collections.shuffle(list);
         return new BSPTree(list, new LinearHeuristic());
     }
 
-    public BSPTree(List<Segment> list, BSPTree l, BSPTree r, Equation equation)
-    {
-        this.list = list;
-        left = l;
-        right = r;
-        this.setEquation(equation);
-    }
-
-    public BSPTree()
-    {
-        this(null, null, null, null);
-    }
-
-    // get
-    public List<Segment> getList()
-    {
-        return list;
-    }
-
-    public BSPTree getLeft()
-    {
-        return left;
-    }
-
-    public BSPTree getRight()
-    {
-        return right;
-    }
-
-    // set
-    public void setData(List<Segment> list)
-    {
-        this.list = list;
-    }
-
-    public void setLeft(BSPTree l)
-    {
-        left = l;
-    }
-
-    public void setRight(BSPTree r)
-    {
-        right = r;
-    }
-
+    /**
+     * Getter for the equation of the splitting plane
+     * @returns the equation of the of the splitting plane
+     */
     public Equation getEquation()
     {
         return equation;
     }
 
-    public void setEquation(Equation equation)
-    {
-        this.equation = equation;
-    }
-
-    // test de l'arbre vide, c'est-a-dire du "noeud vide"
+    /**
+     * Tests if the tree is empty
+     * @returns true iff the tree contains no data and has no children
+     */
     public boolean isEmpty()
     {
         if (list == null && left == null && right == null)
@@ -167,30 +151,19 @@ public class BSPTree
             return false;
     }
 
-    // remplit un noeud vide avec la donnee d et 2 sous-arbres vides
-    private void insertEmpty(Segment s)
-    {
-        list = new ArrayList<Segment>(); // TODO Choisir le type final de liste
-        list.add(s);
-        left = new BSPTree();
-        right = new BSPTree();
-    }
-
-    public void insertSegment(Segment s)
-    {
-        if (this.isEmpty())
-        {
-            this.insertEmpty(s);
-        } else
-            list.add(s);
-    }
-
+    /**
+     * Tests if the tree consists of only a leaf
+     * @returns true iff the tree has no children
+     */
     public boolean isLeaf()
     {
         return left == null && right == null;
     }
 
-    // calcul de la hauteur
+    /**
+     * Recursively computes the height of the tree.
+     * @returns an integer equal to the height of the tree
+     */
     public int height()
     {
         if (isEmpty())
@@ -199,6 +172,10 @@ public class BSPTree
             return 1 + Math.max(left.height(), right.height());
     }
 
+    /**
+     * Recursively computes the size of the tree.
+     * @returns an integer equal to the amount of nodes in the tree
+     */
     public int size()
     {
         if (isEmpty())

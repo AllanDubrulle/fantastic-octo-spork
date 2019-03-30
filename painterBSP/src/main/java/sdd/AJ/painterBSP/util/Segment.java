@@ -3,11 +3,19 @@ package sdd.AJ.painterBSP.util;
 import sdd.AJ.painterBSP.util.*;
 import sdd.AJ.painterBSP.graphics.*;
 
-public class Segment
+/**
+ * Class representing a segment represented its endpoints (x1, x2)
+ * and (y1, y2), as well as a colour.
+ */
+public final class Segment
 {
+
     public final double x1, x2, y1, y2; // Premier point (x1, x2) et deuxieme point (y1, y2)
     private final MyColor color;
 
+    /**
+     * Class constructor.
+     */
     public Segment(double x1, double x2, double y1, double y2, MyColor color)
     {
         this.x1 = x1;
@@ -17,11 +25,21 @@ public class Segment
         this.color = color;
     }
 
+    /**
+     * Getter for the colour of the segment.
+     * @returns the colour of the segment
+     */
     public MyColor getColor()
     {
         return color;
     }
 
+    /**
+     * Creates the line equation passing through the segment.
+     * @see sdd.AJ.painterBSP.util.Equation
+     * @returns the equation of the line passing through (0, 0)
+     *          with direction (x1 - y1, x2 - y2)
+     */
     public Equation lineEquation()
     {
         double v1 = x1 - y1;
@@ -29,22 +47,40 @@ public class Segment
         return (x, y) -> (v1 * y - v2 * x);
     }
 
+    /**
+     * Given an planar equation f(x, y) = 0 and a number c, such
+     * that (f(x1, x2) - c) * (f(y1, y2) - c) < 0,
+     * breaks the segment in two halfs s' and s'' such that
+     * s' lies in the half-plane containing (x1, x2)
+     * s'' lies in the half-plane containing (y1, y2).
+     * Throws a RuntimeException if the precondition is not met.
+     * @param equation the planar equation used to define the half-planes
+     * @param c        the scalar used to define the half-planes
+     * @returns an array containing two segments [s', s''] as previously
+     *          described
+     */
     public Segment[] breakSegment(Equation equation, double c)
     {
-        // TODO: delete following:
-        // BROUILLON DOC: Etant donne une equation retourne
-        // un tableau a deux elements representant le segment
-        // coupe en deux par la droite d'equation
-        // equation.solve(x, y) = c
+        if ( (equation.solve(x1, x2) - c) * (equation.solve(y1, y2) - c) > 0)
+            throw new RuntimeException();
         double t = (-c - equation.solve(y1, y2)) / (equation.solve(x1, x2) - equation.solve(y1, y2));
         double z1 = t * x1 + (1 - t) * y1;
         double z2 = t * x2 + (1 - t) * y2;
         return new Segment[] { new Segment(x1, x2, z1, z2, color), new Segment(z1, z2, y1, y2, color) };
     }
-    
-    public boolean equals (Segment other) 
+
+    /**
+     * Equality method between two segments.
+     * @param other the segment with which equality is to be tested.
+     * @returns true iff both segments match in color and exact coordinates
+     */
+    public boolean equals(Segment other)
     {
-        return (x1 == other.x1 && x2 == other.x2 && y1==other.y1 && y2 == other.y2)  ||
-                (y1 == other.x1 && y2 == other.x2 && x1==other.y1 && x2 == other.y2);
+        if (color != other.getColor())
+            return false;
+        return (  x1 == other.x1 && x2 == other.x2 &&
+                  y1==other.y1 && y2 == other.y2 )      ||
+               (  y1 == other.x1 && y2 == other.x2 &&
+                  x1==other.y1 && x2 == other.y2 );
     }
 }
