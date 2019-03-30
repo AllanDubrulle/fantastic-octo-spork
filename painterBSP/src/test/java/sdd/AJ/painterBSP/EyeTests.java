@@ -32,7 +32,7 @@ public class EyeTests
     public void decenteredTest00()
     {
         Eye eye;
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 200; i++)
         {
             double offsetX = i * 50.;
             double offsetY = i * 100.;
