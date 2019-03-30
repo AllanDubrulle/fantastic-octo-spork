@@ -5,11 +5,11 @@ import java.util.List;
 import sdd.AJ.painterBSP.util.Equation;
 import sdd.AJ.painterBSP.util.Segment;
 
-public class firstHeuristic implements Heuristic
+public class FirstHeuristic implements Heuristic
 {
     @Override
     public Segment selectSegment(List<Segment> list)
-    { 
+    {
         int[] gs = new int[list.size()];
         for(Segment s : list)
         {
@@ -19,16 +19,16 @@ public class firstHeuristic implements Heuristic
                 Segment t = list.get(i);
                 if (!s.equals(t))
                 {
-                    if (sLineEquation.solve(t.x1, t.x2) * sLineEquation.solve(t.y1, t.y2)< 0)
+                    if (sLineEquation.liesInTwoHalfs(t))
                     {
                         gs[i]++;
                     }
-                }    
-              
+                }
+
             }
-            
+
         }
-        
+
         int maxI = 0;
         for (int i = 1; i<gs.length ; i++ )
         {

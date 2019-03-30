@@ -41,24 +41,22 @@ public class BSPTree
             equation = pivot.lineEquation();
             List<Segment> leftList = new ArrayList<>();
             List<Segment> rightList = new ArrayList<>();
-            double d = equation.solve(pivot.x1, pivot.x2);
-            final double eps = 1e-10;
             this.list.add(pivot);
             for (Segment s : list)
             {
                 // Case in which one of the ends of the segment is
                 // in the splitting line.
-                if (Math.abs(equation.solve(s.x1, s.x2) - d) < eps)
+                if (equation.isInLine(s.x1, s.x2))
                 {
                     // We test whether the line segment s is contained
                     // in the splitting line.
-                    if (Math.abs(equation.solve(s.y1, s.y2) - d) < eps)
+                    if (equation.isInLine(s.y1, s.y2))
                     {
                         this.list.add(s);
                     }
                     // Testing whether the line segment is in the
                     // positive half-plane
-                    else if (equation.solve(s.y1, s.y2) > d)
+                    else if (equation.isInPositivePlane(s.y1, s.y2))
                     {
                         rightList.add(s);
                     }
@@ -71,9 +69,9 @@ public class BSPTree
 
                 // Case in which the other end of the segment is
                 // in the splitting line.
-                else if (Math.abs(equation.solve(s.y1, s.y2) - d) < eps)
+                else if (equation.isInLine(s.y1, s.y2))
                 {
-                    if (equation.solve(s.x1, s.x2) > d)
+                    if (equation.isInPositivePlane(s.x1, s.x2))
                     {
                         rightList.add(s);
                     }
@@ -84,31 +82,31 @@ public class BSPTree
                     }
                 }
 
-                else if (equation.solve(s.x1, s.x2) > d)
+                else if (equation.isInPositivePlane(s.x1, s.x2))
                 {
-                    if (equation.solve(s.y1, s.y2) > d)
+                    if (equation.isInPositivePlane(s.y1, s.y2))
                     {
                         rightList.add(s);
                     }
 
                     else // the two points are in different half-planes, s is split
                     {
-                        Segment[] brokenS = s.breakSegment(equation, d);
+                        Segment[] brokenS = s.breakSegment(equation);
                         rightList.add(brokenS[0]);
                         leftList.add(brokenS[1]);
                     }
                 }
 
-                else if (equation.solve(s.x1, s.x2) < d)
+                else if (equation.isInNegativePlane(s.x1, s.x2))
                 {
-                    if (equation.solve(s.y1, s.y2) < d)
+                    if (equation.isInNegativePlane(s.y1, s.y2))
                     {
                         leftList.add(s);
                     }
 
                     else // the two points are in different half-planes, s is split
                     {
-                        Segment[] brokenS = s.breakSegment(equation, d);
+                        Segment[] brokenS = s.breakSegment(equation);
                         rightList.add(brokenS[1]);
                         leftList.add(brokenS[0]);
                     }
@@ -122,7 +120,7 @@ public class BSPTree
 
     /**
      * Given a list, builds a BSP Tree using the random heuristic
-     * (the list is shuffled then built in a linear manner.
+     * (the list is shuffled then the tree is built in a linear manner).
      * @param list the list of the segments in the scene to be pre-processed
      * @return a BSPTree built representing the scene
      */
@@ -196,22 +194,25 @@ public class BSPTree
      */
     public void paintersAlgorithm(Painter p, Eye eye)
     {
-        if (this.isEmpty())
+        if (!isEmpty())
         {
-            if (this.isLeaf())
+            if (isLeaf())
             {
+                System.out.println("LEAF");
                 eye.visualiseList(list, p);
             }
 
-            else if (this.getEquation().solve(eye.getX(), eye.getY()) > 1e10)
+            else if (equation.isInPositivePlane(eye.getX(), eye.getY()))
             {
+                System.out.println("POSI");
                 left.paintersAlgorithm(p , eye);
                 eye.visualiseList(list, p);
                 right.paintersAlgorithm(p , eye);
             }
 
-            else if (this.getEquation().solve(eye.getX(), eye.getY()) < -1e10)
+            else if (equation.isInNegativePlane(eye.getX(), eye.getY()))
             {
+                System.out.println("NEG");
                 right.paintersAlgorithm(p , eye);
                 eye.visualiseList(list, p);
                 left.paintersAlgorithm(p, eye);
@@ -219,6 +220,7 @@ public class BSPTree
 
             else
             {
+                System.out.println("MIDDLE");
                 right.paintersAlgorithm(p, eye);
                 left.paintersAlgorithm(p, eye);
             }
