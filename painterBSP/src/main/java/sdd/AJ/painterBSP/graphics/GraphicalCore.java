@@ -105,7 +105,7 @@ public class GraphicalCore
     public void display(Painter p)
     {
         if (tree != null)
-            p.paint(tree, eye);
+            tree.paintersAlgorithm(p, eye);
         else
         {
             window.warn("Aucun arbre n'a été créé.\n"+

@@ -90,11 +90,11 @@ public class Eye
         this.angle = angle;
     }
 
-    public void drawList(List<Segment> list, Painter p)
+    public void visualiseList(List<Segment> list, Painter p)
     {
         for (Segment s: list)
         {
-            this.draw(s, p);
+            this.visualise(s, p);
         }
     }
 
@@ -104,7 +104,7 @@ public class Eye
      * @param s the segment to be drawn, if necessary
      * @param p the painter tasked with drawing
      */
-    public void draw(Segment s, Painter p)
+    public void visualise(Segment s, Painter p)
     {
         switch (isVisible(s.x1, s.x2, s.y1, s.y2))
         {

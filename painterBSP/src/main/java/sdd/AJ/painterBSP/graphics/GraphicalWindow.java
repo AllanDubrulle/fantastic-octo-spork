@@ -44,7 +44,7 @@ public class GraphicalWindow extends GridPane
         super();
         this.stage = stage;
 
-        painter = new GraphicalPainter();
+        painter = new GraphicalPainter(widthProperty().multiply(0.6), heightProperty().multiply(0.6));
 
         setPrefSize(800, 600);
 

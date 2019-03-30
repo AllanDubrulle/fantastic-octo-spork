@@ -5,8 +5,10 @@ import java.util.List;
 import java.lang.Math;
 import sdd.AJ.painterBSP.BSPLib.Heuristic.Heuristic;
 import sdd.AJ.painterBSP.BSPLib.Heuristic.LinearHeuristic;
+import sdd.AJ.painterBSP.BSPLib.Painter;
 import sdd.AJ.painterBSP.util.Equation;
 import sdd.AJ.painterBSP.util.Segment;
+import sdd.AJ.painterBSP.util.Eye;
 import java.util.Collections;
 
 public class BSPTree
@@ -182,5 +184,44 @@ public class BSPTree
             return 0;
         else
             return 1 + left.size() + right.size();
+    }
+
+
+    /**
+     * Given a painter and an eye,
+     * applies the painter's algorithm to depict what is
+     * seen by the eye.
+     * @param the painter used to depict what is seen
+     * @param eye  the viewpoint from which the scene is to be processed
+     */
+    public void paintersAlgorithm(Painter p, Eye eye)
+    {
+        if (this.isEmpty())
+        {
+            if (this.isLeaf())
+            {
+                eye.visualiseList(list, p);
+            }
+
+            else if (this.getEquation().solve(eye.getX(), eye.getY()) > 1e10)
+            {
+                left.paintersAlgorithm(p , eye);
+                eye.visualiseList(list, p);
+                right.paintersAlgorithm(p , eye);
+            }
+
+            else if (this.getEquation().solve(eye.getX(), eye.getY()) < -1e10)
+            {
+                right.paintersAlgorithm(p , eye);
+                eye.visualiseList(list, p);
+                left.paintersAlgorithm(p, eye);
+            }
+
+            else
+            {
+                right.paintersAlgorithm(p, eye);
+                left.paintersAlgorithm(p, eye);
+            }
+        }
     }
 }
