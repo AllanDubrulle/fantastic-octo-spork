@@ -10,7 +10,7 @@ import sdd.AJ.painterBSP.util.Segment;
 import java.util.Collections;
 
 public class BSPTree
-{ // TODO Eliminer les methodes inutilisees
+{
     private List<Segment> list;
     private BSPTree left, right;
     private Equation equation;
@@ -122,7 +122,7 @@ public class BSPTree
      * Given a list, builds a BSP Tree using the random heuristic
      * (the list is shuffled then built in a linear manner.
      * @param list the list of the segments in the scene to be pre-processed
-     * @returns a BSPTree built representing the scene
+     * @return a BSPTree built representing the scene
      */
     public static BSPTree RandomBSPTree(List<Segment> list)
     {
@@ -132,7 +132,7 @@ public class BSPTree
 
     /**
      * Getter for the equation of the splitting plane
-     * @returns the equation of the of the splitting plane
+     * @return the equation of the of the splitting plane
      */
     public Equation getEquation()
     {
@@ -141,7 +141,7 @@ public class BSPTree
 
     /**
      * Tests if the tree is empty
-     * @returns true iff the tree contains no data and has no children
+     * @return true iff the tree contains no data and has no children
      */
     public boolean isEmpty()
     {
@@ -153,7 +153,7 @@ public class BSPTree
 
     /**
      * Tests if the tree consists of only a leaf
-     * @returns true iff the tree has no children
+     * @return true iff the tree has no children
      */
     public boolean isLeaf()
     {
@@ -162,7 +162,7 @@ public class BSPTree
 
     /**
      * Recursively computes the height of the tree.
-     * @returns an integer equal to the height of the tree
+     * @return an integer equal to the height of the tree
      */
     public int height()
     {
@@ -174,7 +174,7 @@ public class BSPTree
 
     /**
      * Recursively computes the size of the tree.
-     * @returns an integer equal to the amount of nodes in the tree
+     * @return an integer equal to the amount of nodes in the tree
      */
     public int size()
     {

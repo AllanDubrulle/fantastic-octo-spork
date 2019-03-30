@@ -27,7 +27,7 @@ public final class Segment
 
     /**
      * Getter for the colour of the segment.
-     * @returns the colour of the segment
+     * @return the colour of the segment
      */
     public MyColor getColor()
     {
@@ -37,7 +37,7 @@ public final class Segment
     /**
      * Creates the line equation passing through the segment.
      * @see sdd.AJ.painterBSP.util.Equation
-     * @returns the equation of the line passing through (0, 0)
+     * @return the equation of the line passing through (0, 0)
      *          with direction (x1 - y1, x2 - y2)
      */
     public Equation lineEquation()
@@ -56,7 +56,7 @@ public final class Segment
      * Throws a RuntimeException if the precondition is not met.
      * @param equation the planar equation used to define the half-planes
      * @param c        the scalar used to define the half-planes
-     * @returns an array containing two segments [s', s''] as previously
+     * @return an array containing two segments [s', s''] as previously
      *          described
      */
     public Segment[] breakSegment(Equation equation, double c)
@@ -72,7 +72,7 @@ public final class Segment
     /**
      * Equality method between two segments.
      * @param other the segment with which equality is to be tested.
-     * @returns true iff both segments match in color and exact coordinates
+     * @return true iff both segments match in color and exact coordinates
      */
     public boolean equals(Segment other)
     {
