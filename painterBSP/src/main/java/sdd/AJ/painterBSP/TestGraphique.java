@@ -19,7 +19,7 @@ public class TestGraphique extends Application
         stage.setMinHeight(450.0);
         stage.setMinWidth(600.0);
         stage.setScene(scene);
-        stage.setTitle("Prototype Fantastic-octo-spork");
+        stage.setTitle("2D BSP and painter's algorithm");
         stage.show();
     }
 }
