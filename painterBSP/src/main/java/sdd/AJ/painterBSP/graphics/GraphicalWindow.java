@@ -44,7 +44,9 @@ public class GraphicalWindow extends GridPane
         super();
         this.stage = stage;
 
-        painter = new GraphicalPainter(widthProperty().multiply(0.6), heightProperty().multiply(0.6));
+        painter = new GraphicalPainter(widthProperty().multiply(0.6), heightProperty().multiply(0.2));
+        add(painter, 1, 3);
+
 
         setPrefSize(800, 600);
 
@@ -138,7 +140,7 @@ public class GraphicalWindow extends GridPane
                                  else if (new_val == 1)
                                      core.activateRandom();
                                  else if (new_val == 2)
-                                     core.setHeuristic(new firstHeuristic());
+                                     core.setHeuristic(new FirstHeuristic());
                              }
                          });
 
@@ -162,7 +164,7 @@ public class GraphicalWindow extends GridPane
         paintButton.setOnMouseClicked(x -> {
                 core.display(painter);
             });
-        
+
 
         ctrlBox.getChildren().addAll(btnFile,
                                      heuristics,

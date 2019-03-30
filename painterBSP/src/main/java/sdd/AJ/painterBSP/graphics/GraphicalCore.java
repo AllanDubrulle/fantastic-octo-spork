@@ -102,10 +102,13 @@ public class GraphicalCore
     //     tree = null;
     // }
 
-    public void display(Painter p)
+    public void display(GraphicalPainter p)
     {
         if (tree != null)
+        {
+            p.clear();
             tree.paintersAlgorithm(p, eye);
+        }
         else
         {
             window.warn("Aucun arbre n'a été créé.\n"+
