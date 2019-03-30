@@ -98,9 +98,26 @@ public class Eye
         }
     }
 
-
+    /**
+     * Instructs the painter to draw the given segment
+     * if it is visible by this instance of eye.
+     * @param s the segment to be drawn, if necessary
+     * @param p the painter tasked with drawing
+     */
     public void draw(Segment s, Painter p)
     {
+        switch (isVisible(s.x1, s.x2, s.y1, s.y2))
+        {
+            case COVERS:
+                p.draw(0, 1, s.getColor());
+                break;
+            case INTERSECTS:
+                double[] proportion = getVisibleProportion(s.x1, s.x2, s.y1, s.y2);
+                p.draw(proportion[0], proportion[1], s.getColor());
+                break;
+            default: // OUT_OF_VIEW
+                break;
+        }
 
     }
 
