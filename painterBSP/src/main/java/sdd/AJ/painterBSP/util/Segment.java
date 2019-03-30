@@ -43,8 +43,9 @@ public final class Segment
     public Equation lineEquation()
     {
         double v1 = x1 - y1;
-        double v2 = x2 - y2;
-        return (x, y) -> (v1 * y - v2 * x);
+        double v2 = y2 - x2;
+        double c = x1 * v2 + x2 * v1;
+        return new Equation(v2, v1, c);
     }
 
     /**
@@ -59,11 +60,12 @@ public final class Segment
      * @return an array containing two segments [s', s''] as previously
      *          described
      */
-    public Segment[] breakSegment(Equation equation, double c)
+    public Segment[] breakSegment(Equation equation)
     {
-        if ( (equation.solve(x1, x2) - c) * (equation.solve(y1, y2) - c) > 0)
+        if (!equation.liesInTwoHalfs(this))
             throw new RuntimeException();
-        double t = (-c - equation.solve(y1, y2)) / (equation.solve(x1, x2) - equation.solve(y1, y2));
+        double c = equation.getC();
+        double t = (-c - equation.compute(y1, y2)) / (equation.compute(x1, x2) - equation.compute(y1, y2));
         double z1 = t * x1 + (1 - t) * y1;
         double z2 = t * x2 + (1 - t) * y2;
         return new Segment[] { new Segment(x1, x2, z1, z2, color), new Segment(z1, z2, y1, y2, color) };

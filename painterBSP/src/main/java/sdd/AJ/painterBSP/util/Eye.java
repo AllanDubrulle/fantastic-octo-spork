@@ -106,6 +106,8 @@ public class Eye
      */
     public void visualise(Segment s, Painter p)
     {
+        System.out.println(isVisible(s.x1, s.x2, s.y1, s.y2));
+        
         switch (isVisible(s.x1, s.x2, s.y1, s.y2))
         {
             case COVERS:
