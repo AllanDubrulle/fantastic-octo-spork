@@ -223,9 +223,9 @@ public class Eye
         // if at most pi/4 from angle iff scalar product
         // between (a, b) and (u, v)/||(u, v)|| is at least sqrt(2)/2
 
-        if ( scal1 >= Math.sqrt(2)/(2 * Math.hypot(u1, v1)))
+        if ( scal1 >= Math.hypot(u1, v1) * Math.sqrt(2)/2 )
             return INTERSECTS;
-        else if ( scal2 >= Math.sqrt(2)/(2 * Math.hypot(u2, v2)))
+        else if ( scal2 >= Math.hypot(u2, v2) * Math.sqrt(2)/ 2)
             return INTERSECTS;
         // As the view angle is a convex subset of the plane,
         // if both points lie on a same side (left or right) of
@@ -247,17 +247,17 @@ public class Eye
         // Assume the point lying above (0, 0) relatively to angle
         // is to the right of the eye, thus the other one is to the left
         // (and may lie beneath the eye).
-
+        
         if (isToTheRight(u1, v1))
         {
-            if (aboveOrigin(u2, v2, u1, v1))
+            if (aboveOrigin(u1, v1, u2, v2))
                 return COVERS;
             else
                 return OUT_OF_VIEW;
         }
         else if (isToTheRight(u2, v2))
         {
-            if (aboveOrigin(u1, v1, u2, v2))
+            if (aboveOrigin(u2, v2, u1, v1))
                 return COVERS;
         }
 
