@@ -124,6 +124,7 @@ public class Eye
     /**
      * Computes for a visible segment how much of the eye span
      * it covers (by giving the percentage to be filled in).
+     * Assumes that isVisible applied to the segment returns INTERSECTS
      * @param u1 the first point's x coordinate
      * @param v1 the first point's y coordinate
      * @param u2 the second point's x coordinate
@@ -167,14 +168,14 @@ public class Eye
             end = 1;
             start = (temp1 + Math.PI/4) * (2 / Math.PI);
         }
-        if (temp1 < -Math.PI/4)
+        else if (temp1 < -Math.PI/4)
         {
-            start = 1;
+            start = 0;
             end = (temp2 + Math.PI/4) * (2 / Math.PI);
         }
         else if (temp2 < -Math.PI/4)
         {
-            start = 1;
+            start = 0;
             end = (temp1 + Math.PI/4) * (2 / Math.PI);
         }
 
