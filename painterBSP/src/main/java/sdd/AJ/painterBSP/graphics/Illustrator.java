@@ -27,6 +27,11 @@ public class Illustrator extends AbstractIllustrator
                 {
                     super.draw(s.x1, s.x2, s.y1, s.y2, s.getColor());
                 }
+        // Temporary to see Eye(0, 0, 0)
+        // TODO: remove
+        super.draw(0, 0, 100, 100, MyColor.BLEU);
+        super.draw(0, 0, 100, -100, MyColor.BLEU);
+        
     }
 
     public void update(int newXBound, int newYBound, List<Segment> newLines)

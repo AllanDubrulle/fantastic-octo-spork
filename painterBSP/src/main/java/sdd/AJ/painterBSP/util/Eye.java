@@ -106,8 +106,6 @@ public class Eye
      */
     public void visualise(Segment s, Painter p)
     {
-        System.out.println(isVisible(s.x1, s.x2, s.y1, s.y2));
-        
         switch (isVisible(s.x1, s.x2, s.y1, s.y2))
         {
             case COVERS:
@@ -249,17 +247,17 @@ public class Eye
         // Assume the point lying above (0, 0) relatively to angle
         // is to the right of the eye, thus the other one is to the left
         // (and may lie beneath the eye).
-        
+
         if (isToTheRight(u1, v1))
         {
-            if (aboveOrigin(u1, v1, u2, v2))
+            if (!beneathOrigin(u2, v2, u1, v1))
                 return COVERS;
             else
                 return OUT_OF_VIEW;
         }
         else if (isToTheRight(u2, v2))
         {
-            if (aboveOrigin(u2, v2, u1, v1))
+            if (!beneathOrigin(u1, v1, u2, v2))
                 return COVERS;
         }
 
@@ -274,17 +272,18 @@ public class Eye
      */
     private boolean isToTheRight(double u, double v)
     {
-        return - Math.sin(angle) * u + Math.cos(angle) * v >= 0;
+        return Math.sin(angle) * u - Math.cos(angle) * v >= 0;
     }
 
     /**
-     * Returns true iff (0, 0) is above the line relatively to the normal
-     * vector ((v1 - v2), (u2 - u1)) (that is the vector (u2-u1, v2 -v1)
-     * rotated 90 degrees to the left).
+     * Returns true iff the line represented by the normal
+     * vector ((v2 - v1), (u1 - u2)), is beneath (0, 0),
+     * relatively to the direction given by the normal vector
+     * (that is the vector (u2-u1, v2 -v1) rotated 90 degrees to the left).
      */
-    private boolean aboveOrigin(double u1, double v1, double u2, double v2)
+    private boolean beneathOrigin(double u1, double v1, double u2, double v2)
     {
-        return (v1 - v2) * u1 + (u2 - u1) * v1 >= 0;
+        return (v2 - v1) * u1 + (u1 - u2) * v1 >= 0;
     }
 
 }

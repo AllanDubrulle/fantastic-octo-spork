@@ -198,13 +198,11 @@ public class BSPTree
         {
             if (isLeaf())
             {
-                System.out.println("LEAF");
                 eye.visualiseList(list, p);
             }
 
             else if (equation.isInPositivePlane(eye.getX(), eye.getY()))
             {
-                System.out.println("POSI");
                 left.paintersAlgorithm(p , eye);
                 eye.visualiseList(list, p);
                 right.paintersAlgorithm(p , eye);
@@ -212,7 +210,6 @@ public class BSPTree
 
             else if (equation.isInNegativePlane(eye.getX(), eye.getY()))
             {
-                System.out.println("NEG");
                 right.paintersAlgorithm(p , eye);
                 eye.visualiseList(list, p);
                 left.paintersAlgorithm(p, eye);
@@ -220,7 +217,6 @@ public class BSPTree
 
             else
             {
-                System.out.println("MIDDLE");
                 right.paintersAlgorithm(p, eye);
                 left.paintersAlgorithm(p, eye);
             }
