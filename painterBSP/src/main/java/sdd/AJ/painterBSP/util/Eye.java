@@ -244,9 +244,9 @@ public class Eye
         // (0, 0) is beneath the line defined by the points (u1, v1) and
         // (u2, v2).
 
-        // Assume the point lying above (0, 0) relatively to angle
-        // is to the right of the eye, thus the other one is to the left
-        // (and may lie beneath the eye).
+        // Assume one of the two points is to the right of the eye.
+        // Thus, the other is to the left of the eye, thus the other one is
+        // to the left (and may lie beneath the eye).
 
         if (isToTheRight(u1, v1))
         {

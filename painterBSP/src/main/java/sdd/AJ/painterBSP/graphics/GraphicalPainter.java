@@ -20,19 +20,11 @@ public class GraphicalPainter extends AbstractIllustrator
         public GraphicalPainter(DoubleBinding parentWidthProperty, DoubleBinding parentHeightProperty)
     {
         super(parentWidthProperty, parentHeightProperty);
-        Line line = new Line(0,
-                             20,
-                             100,
-                             20);
-        line.setStroke(Color.BLUE);
-        super.getChildren().add(line);
     }
 
     @Override
     public void draw(double start, double end, MyColor color)
     {
-        System.out.println("CALL TO DRAW");
-        
         double width = parentWidthProperty.get();
         double height = parentHeightProperty.get();
         Line line = new Line(start * width,
@@ -40,6 +32,13 @@ public class GraphicalPainter extends AbstractIllustrator
                              end * width,
                              height/2);
         line.setStroke(getFXColor(color));
+        super.getChildren().add(line);
+        //TODO REMOVE (DEBUG)
+        line = new Line(0,
+                             20,
+                             width,
+                             20);
+        line.setStroke(Color.BLACK);
         super.getChildren().add(line);
     }
 

@@ -37,11 +37,10 @@ public class BSPTree
             // using the provided heuristic and use it to split the scene
             // into two half-planes.
             Segment pivot = heuristic.selectSegment(list);
-            list.remove(pivot);
             equation = pivot.lineEquation();
             List<Segment> leftList = new ArrayList<>();
             List<Segment> rightList = new ArrayList<>();
-            this.list.add(pivot);
+
             for (Segment s : list)
             {
                 // Case in which one of the ends of the segment is

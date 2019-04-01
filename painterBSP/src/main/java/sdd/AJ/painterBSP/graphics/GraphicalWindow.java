@@ -1,5 +1,6 @@
 package sdd.AJ.painterBSP.graphics;
 
+import java.util.Optional;
 import java.util.List;
 import sdd.AJ.painterBSP.util.*;
 import sdd.AJ.painterBSP.BSPLib.Heuristic.*;
@@ -147,9 +148,10 @@ public class GraphicalWindow extends GridPane
 
         Button drawButton = new Button("Dessiner fichier chargé"); // Paramètres du point de vue");
 
-        drawButton.setOnMouseClicked(x -> {
+        drawButton.setOnMouseClicked(u -> {
                 planeDrawing.clear();
                 planeDrawing.draw();
+                planeDrawing.drawEye(core.getEyeX(), core.getEyeY(), core.getEyeAngle());
         });
 
         Button treeButton = new Button("Construire l'arbre");
@@ -165,17 +167,25 @@ public class GraphicalWindow extends GridPane
                 core.display(painter);
             });
 
+        Button eyeButton = new Button("Configurer l'oeil");
+        eyeButton.setOnMouseClicked(x -> {
+                Optional<double[]> t  = (new EyeDialog()).showAndWait();
+                if (t.isPresent())
+                    core.changeEye(t.get()[0], t.get()[1], t.get()[2]);
+            });
+
 
         ctrlBox.getChildren().addAll(btnFile,
                                      heuristics,
-                                     drawButton,
                                      treeButton,
+                                     drawButton,
+                                     eyeButton,
                                      eyeParameters,
                                      paintButton);
         add(ctrlBox, 0, 1);
 
         for (Control c : new Control[]
-            { btnFile, drawButton, heuristics, treeButton})
+            { btnFile, drawButton, heuristics, treeButton, eyeButton, paintButton})
         {
             c.prefWidthProperty().bind(widthProperty().multiply(0.18));
         }

@@ -12,12 +12,14 @@ import sdd.AJ.painterBSP.graphics.*;
 public class Illustrator extends AbstractIllustrator
 {
 
-    protected List<Segment> lines;
+    private List<Segment> lines;
+    private boolean eyeDrawn;
 
     public Illustrator(DoubleBinding parentWidthProperty, DoubleBinding parentHeightProperty)
     {
         super(parentWidthProperty, parentHeightProperty);
         lines = null;
+        eyeDrawn = false;
     }
 
     public void draw()
@@ -27,11 +29,38 @@ public class Illustrator extends AbstractIllustrator
                 {
                     super.draw(s.x1, s.x2, s.y1, s.y2, s.getColor());
                 }
-        // Temporary to see Eye(0, 0, 0)
-        // TODO: remove
-        super.draw(0, 0, 100, 100, MyColor.BLEU);
-        super.draw(0, 0, 100, -100, MyColor.BLEU);
-        
+    }
+
+    public void drawEye(double x, double y, double angle)
+    {
+        if (eyeDrawn)
+        {
+            int i = super.getChildren().size();
+            super.getChildren().remove(i-1);
+            super.getChildren().remove(i-2);
+        }
+
+        if (lines != null) // Checks if a scene is loaded
+        {
+            int bound = xBound < yBound ? yBound : xBound;
+            double a = Math.cos(angle);
+            double b = Math.sin(angle);
+            double dx = (bound / 10) * (a - b) * Math.sqrt(2) / 2;
+            double dy = (bound / 10) * (a + b) * Math.sqrt(2) / 2;
+            super.draw(x, y, x + dx, y + dy, MyColor.NOIR);
+            dx =  (bound / 10) * (a + b) * Math.sqrt(2) / 2;
+            dy =  (bound / 10) *(b - a) * Math.sqrt(2) / 2;
+            super.draw(x, y, x + dx, y + dy, MyColor.NOIR);
+            eyeDrawn = true;
+        }
+    }
+
+
+    @Override
+    public void clear()
+    {
+        super.clear();
+        eyeDrawn = false;
     }
 
     public void update(int newXBound, int newYBound, List<Segment> newLines)

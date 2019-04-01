@@ -128,4 +128,19 @@ public class GraphicalCore
         randomConstruction = true;
         heuristic = null;
     }
+
+    public double getEyeX()
+    {
+        return eye.getX();
+    }
+
+    public double getEyeY()
+    {
+        return eye.getY();
+    }
+
+    public double getEyeAngle()
+    {
+        return eye.getAngle();
+    }
 }

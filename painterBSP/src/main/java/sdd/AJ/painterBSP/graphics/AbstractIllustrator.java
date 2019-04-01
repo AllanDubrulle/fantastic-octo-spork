@@ -41,9 +41,9 @@ public abstract class AbstractIllustrator extends Group
     protected void draw(double x1, double x2, double y1, double y2, MyColor color)
     {
         Line line = new Line(scale(x1 + xBound),
-                             scale(x2 + yBound),
+                             - scale(x2 + yBound),
                              scale(y1 + xBound),
-                             scale(y2 + yBound));
+                             - scale(y2 + yBound));
         line.setStroke(getFXColor(color));
         super.getChildren().add(line);
     }
