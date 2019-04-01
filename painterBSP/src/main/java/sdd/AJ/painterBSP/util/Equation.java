@@ -15,7 +15,7 @@ public class Equation
     private double nx, ny;
     private double c;
 
-    private static final double EPS = 1e-12;
+    private static final double EPS = 1e-9;
 
     /**
      * Class constructor.
@@ -72,7 +72,8 @@ public class Equation
      */
     public boolean isInLine(double x1, double x2)
     {
-        return relativeEquality(nx * x1 + ny * x2,  c);
+        return Math.abs(nx * x1 + ny * x2- c)< EPS;
+        //return relativeEquality(nx * x1 + ny * x2,  c);
     }
 
     /**
