@@ -116,7 +116,14 @@ public class GraphicalWindow extends GridPane
                 {
                     // core.handleReadingError();
                     warn("Une erreur a été rencontrée au cours\n"+
-                         "de la lecture du fichier");
+                         "de la lecture du fichier.");
+                }
+
+                catch (FileFormatException e)
+                {
+                    // core.handleReadingError();
+                    warn("Le fichier soumis n'est pas conforme\n"+
+                         "au format attendu.");
                 }
             }
         });

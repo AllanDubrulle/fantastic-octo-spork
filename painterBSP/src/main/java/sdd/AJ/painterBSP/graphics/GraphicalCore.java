@@ -68,7 +68,7 @@ public class GraphicalCore
     }
 
     public void loadFile(File file)
-        throws IOException
+        throws IOException, FileFormatException
     {
         // Reset avant de charger nouveau fichier
         resetValues();

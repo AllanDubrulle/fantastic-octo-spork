@@ -16,7 +16,8 @@ public class IllustrationInputReader
     private int n, xBound, yBound;
     private List<Segment> segments;
 
-    public IllustrationInputReader(String filename) throws IOException
+    public IllustrationInputReader(String filename)
+        throws IOException, FileFormatException
     {
         try (BufferedReader br = new BufferedReader(new FileReader(filename)))
         {
@@ -24,7 +25,8 @@ public class IllustrationInputReader
         }
     }
 
-    public IllustrationInputReader(File f) throws IOException
+    public IllustrationInputReader(File f) throws
+        IOException, FileFormatException
     {
         try (BufferedReader br = new BufferedReader(new FileReader(f)))
         {
@@ -32,25 +34,38 @@ public class IllustrationInputReader
         }
     }
 
-    private void processFile(BufferedReader br) throws IOException
+    private void processFile(BufferedReader br)
+        throws IOException, FileFormatException
     {
         StringTokenizer st;
-        st = new StringTokenizer(br.readLine());
-        st.nextToken();
-        xBound = Integer.parseInt(st.nextToken());
-        yBound = Integer.parseInt(st.nextToken());
-        n = Integer.parseInt(st.nextToken());
-        segments = new ArrayList<Segment>();
-        for (int k = 0; k < n; k++)
+        try
         {
             st = new StringTokenizer(br.readLine());
-            segments.add(new Segment(Double.parseDouble(st.nextToken()),
-                                     Double.parseDouble(st.nextToken()),
-                                     Double.parseDouble(st.nextToken()),
-                                     Double.parseDouble(st.nextToken()),
-                                     MyColor.valueOf(st.nextToken().toUpperCase())));
+            if (st.countTokens() != 4)
+                throw new FileFormatException();
+            st.nextToken();
+            xBound = Integer.parseInt(st.nextToken());
+            yBound = Integer.parseInt(st.nextToken());
+            n = Integer.parseInt(st.nextToken());
+            segments = new ArrayList<Segment>();
+            for (int k = 0; k < n; k++)
+            {
+                st = new StringTokenizer(br.readLine());
+                if (st.countTokens() != 5)
+                    throw new FileFormatException();
+                segments.add(new Segment(Double.parseDouble(st.nextToken()),
+                                         Double.parseDouble(st.nextToken()),
+                                         Double.parseDouble(st.nextToken()),
+                                         Double.parseDouble(st.nextToken()),
+                                         MyColor.valueOf(st.nextToken().toUpperCase())));
+            }
+        }
+        catch (NumberFormatException e) // If a parsed string is not a number.
+        {
+            throw new FileFormatException();
         }
     }
+
 
     public int getXBound()
     {
