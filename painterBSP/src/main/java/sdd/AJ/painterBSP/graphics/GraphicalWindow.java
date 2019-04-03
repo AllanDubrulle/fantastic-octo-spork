@@ -151,7 +151,8 @@ public class GraphicalWindow extends GridPane
             .addListener(
                          new ChangeListener<Number>()
                          {
-                             public void changed(ObservableValue ov,
+                             @Override
+                            public void changed(ObservableValue ov,
                                                  Number value,
                                                  Number new_value)
                              {
@@ -184,6 +185,7 @@ public class GraphicalWindow extends GridPane
                 Optional<Double> t  = (new EyeDialog()).showAndWait();
                 if (t.isPresent())
                     core.setStep(t.get());
+                requestFocus();
             });
 
         /************************************************************

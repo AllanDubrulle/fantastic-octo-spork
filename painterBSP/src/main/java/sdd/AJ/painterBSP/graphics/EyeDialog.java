@@ -29,7 +29,6 @@ public class EyeDialog extends Dialog<Double>
         DialogPane pane = this.getDialogPane();
         TextField stepField = new TextField();
         pane.setContent(stepField);
-        pane.setPrefSize(150.0, 150.0);
         setHeaderText("Veuillez préciser la taille d'un pas de l'oeil..\n"+
                       "Confirmer sans entrer de valeur revient à annuler l'opération.");
         setTitle("Eye setup.");
