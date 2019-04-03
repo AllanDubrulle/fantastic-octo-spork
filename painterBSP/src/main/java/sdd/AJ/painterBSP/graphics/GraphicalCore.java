@@ -83,7 +83,7 @@ public class GraphicalCore
      * @param y     the new y-coordinate of the eye
      * @param angle the new angle of the eye
      */
-    private void changeEye(double x, double y, double angle)
+    public void changeEye(double x, double y, double angle)
     {
         if (x > xBound + MARGIN)
             x = xBound + MARGIN;
@@ -117,7 +117,7 @@ public class GraphicalCore
         segments = iir.getSegments();
         window.loadSegments(xBound, yBound, segments);
         window.drawEye(eye.getX(), eye.getY(), eye.getAngle());
-        window.requestFocus();
+        window.toggleInteractiveMode(segments.size() < 1000);
     }
 
     /**

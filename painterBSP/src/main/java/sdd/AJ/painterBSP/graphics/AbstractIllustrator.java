@@ -131,7 +131,7 @@ public abstract class AbstractIllustrator extends Group
      * Creates a rectangular border around the illustration.
      * @param x      half of the x bound of the drawing
      * @param y      half of the y bound of the drawing
-     * @param margin the padding between the bounds of the drawing 
+     * @param margin the padding between the bounds of the drawing
      *               and the container
      */
     protected void createBorder(double x, double y, int margin)

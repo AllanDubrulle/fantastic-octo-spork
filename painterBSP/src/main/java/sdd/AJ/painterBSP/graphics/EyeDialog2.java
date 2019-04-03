@@ -13,28 +13,29 @@ import javafx.scene.control.TextFormatter;
 import sdd.AJ.painterBSP.graphics.DoubleInputField;
 
 /**
- * Dialog box used to specify a new step for the interactive
- * mode (where the eye is moved using the AZEQSD keys).
+ * Dialog box used to specify the coordinates and orientation of the eye,
+ * used when a heavy file is loaded (instead of interactive mode).
  */
-public class EyeDialog extends Dialog<Double>
+public class EyeDialog2 extends Dialog<double[]>
 {
     /**
      * Class constructor.
      */
-    public EyeDialog()
+    public EyeDialog2()
     {
         DialogPane pane = this.getDialogPane();
-        DoubleInputField dif = new DoubleInputField("Pas : ");
+        DoubleInputField dif = new DoubleInputField("Abscisse : ",
+                                                    "Ordonnée : ",
+                                                    "Angle : ");
         pane.setContent(dif);
-        setHeaderText("Veuillez préciser la taille d'un\npas de l'oeil.\n"+
-                      "Confirmer sans entrer de valeur\nrevient à mettre le pas à zéro.");
-        setTitle("Paramètres de l'oeil (interactif)");
+        setHeaderText("Sélectionnez les coordonnées\net l'orientation de l'oeil.");
+        setTitle("Paramètres de l'oeil (mode non interactif)");
         pane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
         super.setResultConverter(dialogButton -> {
                 if (dialogButton.equals(ButtonType.OK))
                 {
-                    return dif.getValues()[0];
+                    return dif.getValues();
                 }
                 return null;
             });

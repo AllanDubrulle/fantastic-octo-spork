@@ -32,6 +32,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 public class GraphicalWindow extends GridPane
 {
@@ -40,6 +42,7 @@ public class GraphicalWindow extends GridPane
     private Illustrator planeDrawing;
     private Label eyeParameters;
     private GraphicalPainter painter;
+    private BooleanProperty interactiveMode;
 
     /**
      * Class constructor.
@@ -54,6 +57,7 @@ public class GraphicalWindow extends GridPane
         this.core = core;
         this.stage = stage;
         setPrefSize(800, 600);
+        interactiveMode = new SimpleBooleanProperty();
 
         /************************************************************
          *            Setup of row and column constraints          *
@@ -105,7 +109,8 @@ public class GraphicalWindow extends GridPane
         GridPane.setValignment(planeDrawing, VPos.CENTER);
         add(planeDrawing, 1, 1);
 
-        painter = new GraphicalPainter(widthProperty().multiply(0.6), heightProperty().multiply(0.2));
+        painter = new GraphicalPainter(widthProperty().multiply(0.75), heightProperty().multiply(0.1));
+        
         add(painter, 1, 3);
 
         /************************************************************
@@ -188,8 +193,22 @@ public class GraphicalWindow extends GridPane
                 requestFocus();
             });
 
+        Button globalEyeButton = new Button("Déplacer l'oeil");
+        globalEyeButton.setOnMouseClicked(x -> {
+                Optional<double[]> t  = (new EyeDialog2()).showAndWait();
+                if (t.isPresent())
+                    core.changeEye(t.get()[0], t.get()[1], t.get()[2]);
+                        });
+
+        Button paintButton = new Button("Dessiner la vue");
+        paintButton.setOnMouseClicked(x -> {
+                paintButton.setDisable(true);
+                core.display(painter);
+                paintButton.setDisable(false);
+            });
+
         /************************************************************
-                *          Control layout options          *
+                *       Layout: Control options (upper)       *
         *************************************************************/
         VBox ctrlBox = new VBox(8);
         ctrlBox.setAlignment(Pos.CENTER);
@@ -201,19 +220,56 @@ public class GraphicalWindow extends GridPane
                                      eyeParameters);
         add(ctrlBox, 0, 1);
 
+
+        /************************************************************
+                *       Layout: Control options (lower)       *
+        *************************************************************/
+
+        VBox ctrlBox2 = new VBox(8);
+        ctrlBox2.setAlignment(Pos.CENTER);
+            ctrlBox2.getChildren().addAll(globalEyeButton, paintButton);
+        add(ctrlBox2, 0, 2);
+
+
+        /************************************************************
+                *       Layout: Control options (all)       *
+        *************************************************************/
+
         for (Control c : new Control[]
-            { btnFile, heuristics, treeButton, eyeButton})
+            { btnFile, heuristics, treeButton, eyeButton, globalEyeButton, paintButton})
         {
             c.prefWidthProperty().bind(widthProperty().multiply(0.18));
             c.setFocusTraversable(false);
-            // So that the window never loses focus
         }
 
         /************************************************************
-                     *          Key bindings              *
+                     *          Interactive mode              *
         *************************************************************/
+        // Real-time display using painter's algorithm when this mode
+        // is toggled
+        interactiveMode.addListener(
+             new ChangeListener<Boolean>()
+             {
+                 @Override
+                 public void changed(ObservableValue ov,
+                                     Boolean value,
+                                     Boolean new_value)
+                 {
+                     eyeButton.setDisable(!new_value);
+                     if (new_value)
+                     {
+                         paintButton.setDisable(true);
+                     }
+                     else
+                     {
+                         paintButton.setDisable(false);
+                     }
+                 }
+             });
+        interactiveMode.set(true);
         setOnKeyPressed(ke -> //ke is a KeyEvent in this case
                         {
+                            if (interactiveMode.get())
                             switch (ke.getCode())
                             {
                                 case A:
@@ -301,6 +357,19 @@ public class GraphicalWindow extends GridPane
                               "Ordonnée: " + String.format("%.3f", y) + "\n" +
                               "Angle: " + String.format("%.3f", angle) + "\n"
                               );
+    }
+
+
+    /**
+     * Activates or deactivates interactive mode.
+     * @param active if true, interactive mode is activated,
+     *               otherwise it is disabled
+     */
+    public void toggleInteractiveMode(boolean active)
+    {
+        interactiveMode.set(active);
+        if (active)
+            requestFocus();
     }
 
 }

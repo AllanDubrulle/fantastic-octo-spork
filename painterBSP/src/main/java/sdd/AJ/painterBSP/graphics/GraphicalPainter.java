@@ -24,9 +24,6 @@ public class GraphicalPainter extends AbstractIllustrator
     public GraphicalPainter(DoubleBinding parentWidthProperty, DoubleBinding parentHeightProperty)
     {
         super(parentWidthProperty, parentHeightProperty);
-        super.createBorder(parentWidthProperty.get(),
-                           parentHeightProperty.get(),
-                           0);
     }
 
     @Override
@@ -38,6 +35,7 @@ public class GraphicalPainter extends AbstractIllustrator
                              height/2,
                              end * width,
                              height/2);
+        line.setStrokeWidth(10);
         line.setStroke(getFXColor(color));
         super.getChildren().add(line);
     }
