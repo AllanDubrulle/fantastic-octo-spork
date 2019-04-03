@@ -125,9 +125,7 @@ public class BSPTree
      */
     public static BSPTree RandomBSPTree(List<Segment> list)
     {
-        list = new ArrayList<Segment>(list);
-        // Copy the parameter to avoid side-effects.
-        // A deepcopy is not necessary as the Segment class is immutable
+        list =
         Collections.shuffle(list);
         return new BSPTree(list, new LinearHeuristic());
     }
