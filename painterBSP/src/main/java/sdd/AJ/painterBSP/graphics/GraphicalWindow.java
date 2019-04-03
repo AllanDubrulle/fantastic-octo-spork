@@ -41,19 +41,23 @@ public class GraphicalWindow extends GridPane
     private Label eyeParameters;
     private GraphicalPainter painter;
 
-    public GraphicalWindow(Stage stage)
+    /**
+     * Class constructor.
+     * @param stage the stage of the JavaFX Application the window is used in
+     */
+    public GraphicalWindow(Stage stage, GraphicalCore core)
     {
-        // Creation of the pane meant to contain all components
+        /************************************************************
+                           *    Initial setup    *
+        *************************************************************/
         super();
+        this.core = core;
         this.stage = stage;
-
-        painter = new GraphicalPainter(widthProperty().multiply(0.6), heightProperty().multiply(0.2));
-        add(painter, 1, 3);
-
-
         setPrefSize(800, 600);
 
-        // Setup of column and row constraints
+        /************************************************************
+         *            Setup of row and column constraints          *
+        *************************************************************/
         ColumnConstraints ccons1 = new ColumnConstraints();
         ccons1.setHgrow(Priority.NEVER);
         ccons1.setPercentWidth(20);
@@ -76,7 +80,9 @@ public class GraphicalWindow extends GridPane
         rcons4.setPercentHeight(10);
         getRowConstraints().addAll(rcons1, rcons2, rcons3, rcons4);
 
-        // Illustration description
+        /************************************************************
+                 *            Illustration labels          *
+        *************************************************************/
         Label planeLabel = new Label("   Illustration de l'ensemble de segments chargés:");
         planeLabel.setStyle("-fx-font-size:18; -fx-font-family:sans-serif;");
         planeLabel.setContentDisplay(ContentDisplay.CENTER);
@@ -84,13 +90,6 @@ public class GraphicalWindow extends GridPane
         planeLabel.setAlignment(Pos.CENTER);
         add(planeLabel, 1, 0);
 
-        // Instanciation of the class managing illustration and insertion in layout
-        planeDrawing = new Illustrator(widthProperty().multiply(0.6), heightProperty().multiply(0.6));
-        GridPane.setHalignment(planeDrawing, HPos.CENTER);
-        GridPane.setValignment(planeDrawing, VPos.CENTER);
-        add(planeDrawing, 1, 1);
-
-        // Description of what is seen by the eye
         Label visionLabel = new Label("   La sortie de l'algorithme du peintre:");
         visionLabel.setStyle("-fx-font-size:18; -fx-font-family:sans-serif;");
         visionLabel.setContentDisplay(ContentDisplay.CENTER);
@@ -98,10 +97,20 @@ public class GraphicalWindow extends GridPane
         visionLabel.setAlignment(Pos.CENTER);
         add(visionLabel, 1, 2);
 
-        // Control layout
-        VBox ctrlBox = new VBox(8);
-        ctrlBox.setAlignment(Pos.CENTER);
+        /************************************************************
+                 *          Painter and Illustrator          *
+        *************************************************************/
+        planeDrawing = new Illustrator(widthProperty().multiply(0.6), heightProperty().multiply(0.6));
+        GridPane.setHalignment(planeDrawing, HPos.CENTER);
+        GridPane.setValignment(planeDrawing, VPos.CENTER);
+        add(planeDrawing, 1, 1);
 
+        painter = new GraphicalPainter(widthProperty().multiply(0.6), heightProperty().multiply(0.2));
+        add(painter, 1, 3);
+
+        /************************************************************
+                *          File selection button          *
+        *************************************************************/
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Sélectionnez le fichier à traiter");
         Button btnFile = new Button("Input file");
@@ -116,19 +125,21 @@ public class GraphicalWindow extends GridPane
 
                 catch (IOException e)
                 {
-                    // core.handleReadingError();
                     warn("Une erreur a été rencontrée au cours\n"+
                          "de la lecture du fichier.");
                 }
 
                 catch (FileFormatException e)
                 {
-                    // core.handleReadingError();
                     warn("Le fichier soumis n'est pas conforme\n"+
                          "au format attendu.");
                 }
             }
         });
+
+        /************************************************************
+                *          Heuristic selection          *
+        *************************************************************/
 
         ChoiceBox<String> heuristics = new ChoiceBox<>();
         heuristics.getItems().addAll("Dans l'ordre",
@@ -154,11 +165,17 @@ public class GraphicalWindow extends GridPane
                              }
                          });
 
+        /************************************************************
+                *          Tree construction button          *
+        *************************************************************/
         Button treeButton = new Button("Construire l'arbre");
         treeButton.setOnMouseClicked(x -> {
                 core.buildBSP();
         });
 
+        /************************************************************
+              *          Eye related buttons and menus       *
+        *************************************************************/
         eyeParameters = new Label("");
         eyeParameters.setWrapText(true);
 
@@ -169,6 +186,11 @@ public class GraphicalWindow extends GridPane
                     core.setStep(t.get());
             });
 
+        /************************************************************
+                *          Control layout options          *
+        *************************************************************/
+        VBox ctrlBox = new VBox(8);
+        ctrlBox.setAlignment(Pos.CENTER);
 
         ctrlBox.getChildren().addAll(btnFile,
                                      heuristics,
@@ -181,10 +203,13 @@ public class GraphicalWindow extends GridPane
             { btnFile, heuristics, treeButton, eyeButton})
         {
             c.prefWidthProperty().bind(widthProperty().multiply(0.18));
-            c.setFocusTraversable(false); // So that the window never loses focus
+            c.setFocusTraversable(false);
+            // So that the window never loses focus
         }
 
-        // Key bindings
+        /************************************************************
+                     *          Key bindings              *
+        *************************************************************/
         setOnKeyPressed(ke -> //ke is a KeyEvent in this case
                         {
                             switch (ke.getCode())
@@ -217,11 +242,15 @@ public class GraphicalWindow extends GridPane
                         });
     }
 
-    public void setCore(GraphicalCore core)
-    {
-        this.core = core;
-    }
-
+    /**
+     * Loads a set of segments along with the bounds of the scene so
+     * that they are drawn.
+     * @param xBound the bound (in absolute value) on the
+     *        x-coordinates of segments in the scene
+     * @param yBound the bound (in absolute value) on the
+     *        y-coordinates of segments in the scene
+     * @param segments the list of segments to be drawn
+     */
     public void loadSegments(int xBound, int yBound, List<Segment> segments)
     {
         planeDrawing.update(xBound, yBound, segments);
@@ -229,13 +258,25 @@ public class GraphicalWindow extends GridPane
         planeDrawing.draw();
     }
 
+    /**
+     * Instructs the illustrator to draw the eye on the plane representation
+     * of the scene.
+     * @param x     the x-coordinate of the eye
+     * @param y     the y-coordinate of the eye
+     * @param angle the angle the eye is facing
+     */
     public void drawEye(double x, double y, double angle)
     {
         planeDrawing.drawEye(x, y, angle);
     }
 
 
-    //Message does not warp automatically, newlines must be specified
+    /**
+     * Alerts the user with a warning message in a dialog box.
+     * Do note that the message does not wrap automatically, thus newlines
+     * must be explicitely specified.
+     * @param message the message to be displayed
+     */
     public void warn(String message)
     {
         Label label = new Label(message);
@@ -245,6 +286,12 @@ public class GraphicalWindow extends GridPane
         errorAlert.showAndWait();
     }
 
+    /**
+     * Displays the parameters of the eye in the UI.
+     * @param x     the x-coordinate of the eye
+     * @param y     the y-coordinate of the eye
+     * @param angle the angle the eye is facing
+     */
     public void displayEyeParameters(double x, double y, double angle)
     {
         eyeParameters.setText("Paramètres de l'oeil\n" +

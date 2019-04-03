@@ -14,6 +14,10 @@ import javafx.beans.binding.DoubleBinding;
 import sdd.AJ.painterBSP.util.*;
 import sdd.AJ.painterBSP.graphics.*;
 
+/**
+ * Graphical implementation of the Painter interface.
+ * Descends from the AbstractIllustrator class.
+ */
 public class GraphicalPainter extends AbstractIllustrator
     implements Painter
 {

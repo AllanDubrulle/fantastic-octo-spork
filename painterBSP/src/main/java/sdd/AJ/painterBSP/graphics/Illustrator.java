@@ -15,6 +15,13 @@ public class Illustrator extends AbstractIllustrator
     private List<Segment> lines;
     private boolean eyeDrawn;
 
+    /**
+     * Class constructor.
+     * @param parentWidthProperty the width property of the container,
+     * used to scale the illustrations (even if the window is resized).
+     * @param parentHeightProperty the height property of the container,
+     * used to scale the illustrations (even if the window is resized).
+     */
     public Illustrator(DoubleBinding parentWidthProperty, DoubleBinding parentHeightProperty)
     {
         super(parentWidthProperty, parentHeightProperty);
@@ -22,18 +29,30 @@ public class Illustrator extends AbstractIllustrator
         eyeDrawn = false;
     }
 
+    /**
+     * Draws the segments in the lines list if it is not null.
+     */
     public void draw()
     {
         if (lines != null)
+        {
             for (Segment s : lines)
                 {
                     super.draw(s.x1, s.x2, s.y1, s.y2, s.getColor());
                 }
-        super.createBorder(xBound, yBound, GraphicalCore.MARGIN);
+            super.createBorder(xBound, yBound, GraphicalCore.MARGIN);
+        }
     }
 
+    /**
+     * Draws the eye in the plane representation of the scene.
+     * @param x     the x-coordinate of the eye
+     * @param y     the y-coordinate of the eye
+     * @param angle the angle the eye is facing
+     */
     public void drawEye(double x, double y, double angle)
     {
+        // If the eye is drawn, the old eye is removed from the drawing
         if (eyeDrawn)
         {
             int i = super.getChildren().size();
@@ -64,6 +83,12 @@ public class Illustrator extends AbstractIllustrator
         eyeDrawn = false;
     }
 
+    /**
+     * Updates the bounds of the scene and the segments in the scene.
+     * @param newXBound the xBound of the new scene
+     * @param newYBound the yBound of the new scene
+     * @param newLines the list of segments of the new scene
+     */
     public void update(int newXBound, int newYBound, List<Segment> newLines)
     {
         xBound = newXBound;
