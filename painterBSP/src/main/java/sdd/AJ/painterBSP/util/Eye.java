@@ -157,42 +157,25 @@ public class Eye
         // f: [-pi/4, pi/4] -> [0, 1] plus the cases when temp_i
         // exceeds the considered interval
 
-        if (temp1 > Math.PI/4)
-        {
-            end = 1;
-            start = (temp2 + Math.PI/4) * (2 / Math.PI);
-        }
-        else if (temp2 > Math.PI/4)
-        {
-            end = 1;
-            start = (temp1 + Math.PI/4) * (2 / Math.PI);
-        }
-        else if (temp1 < -Math.PI/4)
-        {
-            start = 0;
-            end = (temp2 + Math.PI/4) * (2 / Math.PI);
-        }
-        else if (temp2 < -Math.PI/4)
-        {
-            start = 0;
-            end = (temp1 + Math.PI/4) * (2 / Math.PI);
-        }
-
-        else
-        {
-            if (temp1 > temp2)
-            {
-                start = (temp2 + Math.PI/4) * (2 / Math.PI);
-                end = (temp1 + Math.PI/4) * (2 / Math.PI);
-            }
-            else
-            {
-                end = (temp2 + Math.PI/4) * (2 / Math.PI);
-                start = (temp1 + Math.PI/4) * (2 / Math.PI);
-            }
-        }
+        start= f(temp1);
+        end = f(temp2);
         return new double[] { start, end };
     }
+
+    /**
+     * Decreasing bijection between [-pi/4, pi/4] and [0, 1]
+     * extended as follows: if x < -pi/4, then f(x) = 1
+     *                      if x > pi/4 then f(x) = 0
+     */
+    private double f(double x)
+    {
+        if (x > Math.PI/4)
+            return 0;
+        else if (x < -Math.PI/4)
+            return 1;
+        return 1 - (x + Math.PI/4) * (2 / Math.PI);
+    }
+
 
     /**
      * Determines whether a segment is visible or not.
@@ -236,17 +219,18 @@ public class Eye
             (!isToTheRight(u1, v1) && !isToTheRight(u2, v2)) ||
             (scal1 <= 0 && scal2 <= 0))
             return OUT_OF_VIEW;
-        // We can now assume that both points lie on a different side
-        // of the plane and that at least one is "above" the eye (relative
-        // to angle).
-
-        // Assuming this, the view is completely obstructed if and only if
-        // (0, 0) is beneath the line defined by the points (u1, v1) and
-        // (u2, v2).
-
-        // Assume one of the two points is to the right of the eye.
-        // Thus, the other is to the left of the eye, thus the other one is
-        // to the left (and may lie beneath the eye).
+        /* We can now assume that both points lie on a different side
+         * of the plane and that at least one is "above" the eye (relative
+         * to angle).
+         *
+         * Assuming this, the view is completely obstructed if and only if
+         * (0, 0) is beneath the line defined by the points (u1, v1) and
+         * (u2, v2).
+         *
+         * Assume one of the two points is to the right of the eye.
+         * Thus, the other is to the left of the eye, thus the other one is
+         * to the left (and may lie beneath the eye).
+         */
 
         if (isToTheRight(u1, v1))
         {

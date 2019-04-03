@@ -117,6 +117,7 @@ public class GraphicalCore
         segments = iir.getSegments();
         window.loadSegments(xBound, yBound, segments);
         window.drawEye(eye.getX(), eye.getY(), eye.getAngle());
+        window.requestFocus();
     }
 
     /**
