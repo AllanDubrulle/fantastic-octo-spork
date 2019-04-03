@@ -17,9 +17,12 @@ import sdd.AJ.painterBSP.graphics.*;
 public class GraphicalPainter extends AbstractIllustrator
     implements Painter
 {
-        public GraphicalPainter(DoubleBinding parentWidthProperty, DoubleBinding parentHeightProperty)
+    public GraphicalPainter(DoubleBinding parentWidthProperty, DoubleBinding parentHeightProperty)
     {
         super(parentWidthProperty, parentHeightProperty);
+        super.createBorder(parentWidthProperty.get(),
+                           parentHeightProperty.get(),
+                           0);
     }
 
     @Override
@@ -32,13 +35,6 @@ public class GraphicalPainter extends AbstractIllustrator
                              end * width,
                              height/2);
         line.setStroke(getFXColor(color));
-        super.getChildren().add(line);
-        //TODO REMOVE (DEBUG)
-        line = new Line(0,
-                             20,
-                             width,
-                             20);
-        line.setStroke(Color.BLACK);
         super.getChildren().add(line);
     }
 

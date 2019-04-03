@@ -40,6 +40,9 @@ public class GraphicalCore
     private boolean randomConstruction;
     private Heuristic heuristic;
 
+    public static final int MARGIN = 50;
+    private static double step = 0.1;
+
     public GraphicalCore(GraphicalWindow window)
     {
         this.window = window;
@@ -63,8 +66,17 @@ public class GraphicalCore
 
     public void changeEye(double x, double y, double angle)
     {
+        if (x > xBound + MARGIN)
+            x = xBound + MARGIN;
+        else if (x < - (xBound + MARGIN))
+            x = - xBound - MARGIN;
+        if (y > yBound + MARGIN)
+            y = yBound + MARGIN;
+        else if (y < - (yBound + MARGIN))
+            y = - yBound - MARGIN;
         eye.update(x, y, angle);
         window.displayEyeParameters(x, y, angle);
+        window.drawEye(eye.getX(), eye.getY(), eye.getAngle());
     }
 
     public void loadFile(File file)
@@ -77,6 +89,7 @@ public class GraphicalCore
         yBound = iir.getYBound();
         segments = iir.getSegments();
         window.loadSegments(xBound, yBound, segments);
+        window.drawEye(eye.getX(), eye.getY(), eye.getAngle());
     }
 
     public void buildBSP()
@@ -97,23 +110,12 @@ public class GraphicalCore
         }
     }
 
-    // public void handleReadingError()
-    // {
-    //     tree = null;
-    // }
-
     public void display(GraphicalPainter p)
     {
         if (tree != null)
         {
             p.clear();
             tree.paintersAlgorithm(p, eye);
-        }
-        else
-        {
-            window.warn("Aucun arbre n'a été créé.\n"+
-                        "Veuillez sélectionner un fichier\n"+
-                        "et une heuristique puis confirmer.");
         }
     }
 
@@ -129,18 +131,38 @@ public class GraphicalCore
         heuristic = null;
     }
 
-    public double getEyeX()
+    public static void setStep(double newStep)
     {
-        return eye.getX();
+        step = newStep;
     }
 
-    public double getEyeY()
+    public void eyeUp()
     {
-        return eye.getY();
+        changeEye(eye.getX(), eye.getY() + step, eye.getAngle());
     }
 
-    public double getEyeAngle()
+    public void eyeDown()
     {
-        return eye.getAngle();
+        changeEye(eye.getX(), eye.getY() - step, eye.getAngle());
+    }
+    
+    public void eyeLeft()
+    {
+        changeEye(eye.getX() - step, eye.getY(), eye.getAngle());
+    }
+
+    public void eyeRight()
+    {
+        changeEye(eye.getX() + step, eye.getY(), eye.getAngle());
+    }
+
+    public void eyeRotateLeft()
+    {
+        changeEye(eye.getX(), eye.getY(), eye.getAngle()  + step * 0.1);
+    }
+
+    public void eyeRotateRight()
+    {
+        changeEye(eye.getX(), eye.getY(), eye.getAngle()  - step * 0.1);
     }
 }

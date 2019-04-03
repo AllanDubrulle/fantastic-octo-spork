@@ -29,6 +29,7 @@ public class Illustrator extends AbstractIllustrator
                 {
                     super.draw(s.x1, s.x2, s.y1, s.y2, s.getColor());
                 }
+        super.createBorder(xBound, yBound, GraphicalCore.MARGIN);
     }
 
     public void drawEye(double x, double y, double angle)

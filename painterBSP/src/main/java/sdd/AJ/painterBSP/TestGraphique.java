@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 public class TestGraphique extends Application
 {
     @Override
-    public void start(Stage stage) throws IOException
+    public void start(Stage stage)
     {
         GraphicalWindow root = new GraphicalWindow(stage);
         GraphicalCore core = new GraphicalCore(root);
@@ -21,5 +21,6 @@ public class TestGraphique extends Application
         stage.setScene(scene);
         stage.setTitle("2D BSP and painter's algorithm");
         stage.show();
+        root.requestFocus();
     }
 }

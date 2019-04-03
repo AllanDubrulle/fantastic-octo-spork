@@ -30,6 +30,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCode;
 
 public class GraphicalWindow extends GridPane
 {
@@ -152,15 +154,6 @@ public class GraphicalWindow extends GridPane
                              }
                          });
 
-
-        Button drawButton = new Button("Dessiner fichier chargé"); // Paramètres du point de vue");
-
-        drawButton.setOnMouseClicked(u -> {
-                planeDrawing.clear();
-                planeDrawing.draw();
-                planeDrawing.drawEye(core.getEyeX(), core.getEyeY(), core.getEyeAngle());
-        });
-
         Button treeButton = new Button("Construire l'arbre");
         treeButton.setOnMouseClicked(x -> {
                 core.buildBSP();
@@ -169,34 +162,59 @@ public class GraphicalWindow extends GridPane
         eyeParameters = new Label("");
         eyeParameters.setWrapText(true);
 
-        Button paintButton = new Button("Peindre la vue de l'oeil");
-        paintButton.setOnMouseClicked(x -> {
-                core.display(painter);
-            });
-
         Button eyeButton = new Button("Configurer l'oeil");
         eyeButton.setOnMouseClicked(x -> {
-                Optional<double[]> t  = (new EyeDialog()).showAndWait();
+                Optional<Double> t  = (new EyeDialog()).showAndWait();
                 if (t.isPresent())
-                    core.changeEye(t.get()[0], t.get()[1], t.get()[2]);
+                    core.setStep(t.get());
             });
 
 
         ctrlBox.getChildren().addAll(btnFile,
                                      heuristics,
                                      treeButton,
-                                     drawButton,
                                      eyeButton,
-                                     eyeParameters,
-                                     paintButton);
+                                     eyeParameters);
         add(ctrlBox, 0, 1);
 
         for (Control c : new Control[]
-            { btnFile, drawButton, heuristics, treeButton, eyeButton, paintButton})
+            { btnFile, heuristics, treeButton, eyeButton})
         {
             c.prefWidthProperty().bind(widthProperty().multiply(0.18));
+            c.setFocusTraversable(false); // So that the window never loses focus
         }
 
+        // Key bindings
+        setOnKeyPressed(ke -> //ke is a KeyEvent in this case
+                        {
+                            switch (ke.getCode())
+                            {
+                                case A:
+                                core.eyeRotateLeft();
+                                core.display(painter);
+                                break;
+                                case E:
+                                core.eyeRotateRight();
+                                core.display(painter);
+                                break;
+                                case Z:
+                                core.eyeUp();
+                                core.display(painter);
+                                break;
+                                case Q:
+                                core.eyeLeft();
+                                core.display(painter);
+                                break;
+                                case S:
+                                core.eyeDown();
+                                core.display(painter);
+                                break;
+                                case D:
+                                core.eyeRight();
+                                core.display(painter);
+                                break;
+                            }
+                        });
     }
 
     public void setCore(GraphicalCore core)
@@ -207,7 +225,15 @@ public class GraphicalWindow extends GridPane
     public void loadSegments(int xBound, int yBound, List<Segment> segments)
     {
         planeDrawing.update(xBound, yBound, segments);
+        planeDrawing.clear();
+        planeDrawing.draw();
     }
+
+    public void drawEye(double x, double y, double angle)
+    {
+        planeDrawing.drawEye(x, y, angle);
+    }
+
 
     //Message does not warp automatically, newlines must be specified
     public void warn(String message)

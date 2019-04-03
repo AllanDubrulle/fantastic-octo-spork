@@ -7,47 +7,36 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.util.converter.DoubleStringConverter;
+import javafx.scene.control.TextFormatter;
 
 
-public class EyeDialog extends Dialog<double[]>
+public class EyeDialog extends Dialog<Double>
 {
     public EyeDialog()
     {
         DialogPane pane = this.getDialogPane();
-        TextField xField = new TextField();
-        TextField yField = new TextField();
-        TextField angleField = new TextField();
-        VBox fieldBox = new VBox(8);
-        fieldBox.getChildren().addAll(xField, yField, angleField);
-        pane.setContent(fieldBox);
+        TextField stepField = new TextField();
+        pane.setContent(stepField);
         pane.setPrefSize(150.0, 150.0);
-        setHeaderText("Please enter the parameters for the eye.");
+        setHeaderText("Please enter the step for the eye.");
         setTitle("Eye setup.");
         pane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-
-        for (TextField field: new TextField[] {xField, yField, angleField})
-        field.textProperty().addListener(new ChangeListener<String>()
+        stepField.textProperty().addListener(new ChangeListener<String>()
         {
             @Override
-            public void changed(ObservableValue<? extends String> observable,
-                                String oldValue, String z)
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String z)
             {
-                if (!z.matches("\\d*")){
-                    field.setText(z.replaceAll("[^\\d]", ""));
-                }
-                if(z.length() > 10) {
-                    field.setText(z.substring(0, 8));
-                }
+                if (!(z.matches("\\d*") || z.matches("\\d*\\.\\d*")))
+                    stepField.setText(z.replaceAll("[^\\d]", ""));
             }
         });
+
 
         super.setResultConverter(dialogButton -> {
             if (dialogButton.equals(ButtonType.OK))
             {
-                return new double[]
-                    { Double.parseDouble(xField.getText()),
-                      Double.parseDouble(yField.getText()),
-                      Double.parseDouble(angleField.getText())};
+                return Double.parseDouble(stepField.getText());
             }
             return null;
         });
