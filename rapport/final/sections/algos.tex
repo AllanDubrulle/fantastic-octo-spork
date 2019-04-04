@@ -12,7 +12,10 @@ une forme linéaire, et $c\in\mathbb R$ un réel. Alors, il est possible de
 partionner le plan $\mathbb R^2$ en trois sous-ensembles en le séparant
 par la droite $D = \{v\in\mathbb R^n\mid f(v) = c\}$; les demi-plans
 $D^+ = \{v\in\mathbb R^2\mid f(v) > c\}$,
-$D^- = \{v\in\mathbb R^2\mid f(v) < c\}$ et la droite $D$ elle-même.
+$D^- = \{v\in\mathbb R^2\mid f(v) < c\}$ et la droite $D$ elle-même
+(voir figure \ref{sep:ill}).
+
+\input{figures/separation}
 
 \begin{df}
   Un arbre BSP $T$ est un arbre binaire tel que:
@@ -98,7 +101,7 @@ l'arbre (voir l'algorithme \ref{algo:bsp}).
   \begin{algorithmic}[1] \label{algo:bsp}
     \REQUIRE Une liste de segments $L$ et $h$ une fonction
     heuristique de sélection de segment (prenant une liste en paramètre).
-    \ENSURE Construit un arbre BSP représentant l'ensemble de segments $L$.
+    \ENSURE -- (construit un arbre BSP représentant l'ensemble de segments $L$)
     \IF{$L$ est vide}
     \STATE $T\leftarrow$ Feuille()
     \ENDIF
@@ -107,7 +110,7 @@ l'arbre (voir l'algorithme \ref{algo:bsp}).
     \STATE $L_d\leftarrow$ Liste()
     \STATE $S \leftarrow \varnothing$
     \STATE $f\leftarrow$ équation de la droite passant par le segment $h(L)$
-    \FOR{$s=[p_1, p_2]\in L$}
+    \FOR{$s=[p_1, p_2]\in L$} \label{bsp:for}
     \IF{$f(p_1) = c$ et $f(p_2) = c$}
     \STATE $S\leftarrow S\cup\{s\}$
     \ELSIF{$f(p_1)\geq c$ et $f(p_2)\geq c$}
@@ -131,6 +134,45 @@ l'arbre (voir l'algorithme \ref{algo:bsp}).
     \ENDIF
   \end{algorithmic}
 \end{algorithm}
+
+\begin{prop}
+  L'algorithme de construction d'arbre BSP se termine.
+\end{prop}
+\begin{proof}
+  Prouvons ceci par induction sur la taille de la liste.
+  Si la liste est vide (cas de base), alors l'algorithme n'effectue
+  pas d'appel récursif et s'arrête.
+
+  Soit $n\geq 1$ un naturel. Supposons désormais (par induction) que pour
+  tout naturel $k\in\{0, \ldots, n-1\}$, l'algorithme s'arrête pour
+  une entrée de taille $k$. Montrons que si une liste de taille $n$
+  est donnée en entrée, alors l'algorithme s'arrête.
+
+  Il suffit de montrer que les listes $L_g$ et $L_d$ sont de taille
+  au plus $n-1$. \`{A} chaque passage dans la boucle pour (ligne \ref{bsp:for}), un segment
+  est placé soit dans l'ensemble $S$, soit dans une des deux listes
+  $L_g$ ou $L_d$, ou bien il est éclaté en deux moitiés placées
+  dans une liste chacune. En particulier, au cours d'une itération,
+  la taille des listes n'augmente pas si un segment est placé dans $S$
+  et sinon augmente d'au plus d'une unité.
+
+  Par choix de la droite de séparation,
+  au moins un segment y est inclus; dès lors, ce segment est stocké
+  dans $S$. Ceci implique que $L_d$ et $L_g$ contiennent au plus $n-1$
+  éléments, ce qui assure l'arrêt de l'algorithme par hypothèse d'induction.
+\end{proof}
+
+
+\section{Algorithme du peintre}
+L'algorithme du peintre est un algorithme permettant d'effectuer un
+affichage sans afficher les objets cachés par d'autres (\emph{hidden surface
+  removal}). \`{A} la manière d'un peintre, le principe de l'algorithme est
+de dessiner les objets dans un ordre tel qu'aucun objet à l'arrière-plan
+(vis-à-vis du point de vue) n'obscurcisse d'objet à l'avant-plan.
+\section{Calcul des parties visibles}
+
+
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../rapportGp1"
