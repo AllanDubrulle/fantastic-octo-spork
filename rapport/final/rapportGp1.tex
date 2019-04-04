@@ -1,0 +1,54 @@
+\documentclass[a4paper, 12pt]{article}
+% Instructions de compilation:
+% Une fois LaTeX, une fois BibTex, deux fois LaTeX
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+\usepackage{amsmath, amssymb, amsthm, verbatim}
+\usepackage{IEEEtrantools}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks, linkcolor=blue]{hyperref}
+\usepackage{epigraph}
+\usepackage{mathrsfs}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+% Définition des théorèmes
+\theoremstyle{definition} \newtheorem{df}{D\'{e}finition}[section]
+\theoremstyle{definition} \newtheorem{ex}[df]{Exemple}
+\theoremstyle{definition} \newtheorem{thm}[df]{Th\'{e}or\`{e}me}
+\theoremstyle{definition} \newtheorem{cor}[df]{Corollaire}
+\theoremstyle{definition} \newtheorem{lem}[df]{Lemme}
+\theoremstyle{definition} \newtheorem{prop}[df]{Proposition}
+\theoremstyle{definition} \newtheorem{rem}[df]{Remarque}
+
+% Traductions des macros pour algo
+\renewcommand{\listalgorithmname}{Liste des algorithmes}
+\floatname{algorithm}{Algorithme}
+\renewcommand{\algorithmicrequire}{\textbf{Entrée:}}
+\renewcommand{\algorithmicensure}{\textbf{Sortie:}}
+\renewcommand{\algorithmicif}{\textbf{si}}
+\renewcommand{\algorithmicthen}{\textbf{alors}}
+\renewcommand{\algorithmicfor}{\textbf{pour}}
+\renewcommand{\algorithmicdo}{\textbf{faire}}
+\renewcommand{\algorithmicelse}{\textbf{sinon}}
+\renewcommand{\algorithmicend}{\textbf{fin}}
+\renewcommand{\algorithmicreturn}{\textbf{retourner}}
+
+\title{Projet de Structures de Données II: rapport final}
+\author{A. Dubrulle, J. Main}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\section{Introduction}
+\input{sections/intro.tex}
+
+\section{Algorithmes et structures de données}
+\input{sections/algos.tex}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
