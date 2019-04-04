@@ -164,7 +164,7 @@ public class BSPTree
      */
     public int height()
     {
-        if (this == null || this.isEmpty())
+        if (this.isEmpty())
             return 0;
         else if (isLeaf())
             return 1;
@@ -182,7 +182,7 @@ public class BSPTree
      */
     public int size()
     {
-        if (this == null || this.isEmpty())
+        if (this.isEmpty())
             return 0;
         else if (isLeaf())
             return 1;
