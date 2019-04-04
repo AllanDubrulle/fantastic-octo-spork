@@ -43,8 +43,7 @@ public class TestConsole
                 System.out.printf("%22s|", "");
                 System.out.printf("%-12s|", "H lineaire");
                 System.out.printf("%-12s|", "H Premiere");
-                System.out.printf("%-11s|", "H aleatoire");
-                System.out.println("");
+                System.out.printf("%-11s|\n", "H aleatoire");
                 System.out.println(line);
                 affichageTest(choix);
                 choix = isEnd(sc);
