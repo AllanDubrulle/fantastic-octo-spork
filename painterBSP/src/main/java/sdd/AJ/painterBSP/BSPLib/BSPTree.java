@@ -147,10 +147,7 @@ public class BSPTree
      */
     public boolean isEmpty()
     {
-        if (list == null && left == null && right == null)
-            return true;
-        else
-            return false;
+        return list == null && left == null && right == null;
     }
 
     /**
@@ -168,8 +165,14 @@ public class BSPTree
      */
     public int height()
     {
-        if (isEmpty())
+        if (this == null || this.isEmpty())
             return 0;
+        else if (isLeaf())
+            return 1;
+        else if (left ==null && right!=null)
+            return 1 + right.height();
+        else if (left!=null && right == null)
+            return 1 + left.height();
         else
             return 1 + Math.max(left.height(), right.height());
     }
@@ -180,8 +183,14 @@ public class BSPTree
      */
     public int size()
     {
-        if (isEmpty())
+        if (this == null || this.isEmpty())
             return 0;
+        else if (isLeaf())
+            return 1;
+        else if (left ==null && right!=null)
+            return 1 + right.size();
+        else if (left!=null && right == null)
+            return 1 + left.size();
         else
             return 1 + left.size() + right.size();
     }
