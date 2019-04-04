@@ -6,30 +6,35 @@ utilisés pour stocker des ensembles de segments destinés à être affichés.
 
 Soit
 \begin{equation} \label{lin:forme}
-f: \mathbb R^2 \to \mathbb R: (x, y)\mapsto a_1x +a_2y
+f: \mathbb R^2 \to \mathbb R: (x, y)\mapsto ax +by
 \end{equation}
 une forme linéaire, et $c\in\mathbb R$ un réel. Alors, il est possible de
 partionner le plan $\mathbb R^2$ en trois sous-ensembles en le séparant
-par la droite $D = \{v\in\mathbb R^n\mid f(v) = c\}$; les demi-plans
-$D^+ = \{v\in\mathbb R^2\mid f(v) > c\}$,
-$D^- = \{v\in\mathbb R^2\mid f(v) < c\}$ et la droite $D$ elle-même
+par la droite $D = \{v\in\mathbb R^n\mid f(v) = c\}$;
+la droite $D$ elle-même et les demi-plans
+$\{v\in\mathbb R^2\mid f(v) > c\}$ et
+$\{v\in\mathbb R^2\mid f(v) < c\}$, notés respectivement $D^+$ et $D^-$
+dorénavant.
 (voir figure \ref{sep:ill}).
+
 
 \input{figures/separation}
 
-\begin{df}
+\begin{df}\label{def:bsp}
   Un arbre BSP $T$ est un arbre binaire tel que:
   \begin{enumerate}
   \item Chaque noeud contient un ensemble $S$ de segments (éventuellement
     vide).
-  \item Chaque noeud contient une équation de droite $D\equiv f(x, y) = c$ (où $f$
-    est une forme linéaire et $c$ est un nombre réel).
+  \item Chaque noeud contient une équation de droite $D\equiv f(x, y) = c$
+    (où $f$ est une forme linéaire et $c$ est un nombre réel).
   \item Tout segment dans $S$ est contenu dans la droite $D$.
   \item Chaque segment stocké dans le fils gauche $T^-$ (resp.
     le fils droit $T^+$) d'un noeud est contenu dans le demi-plan
     $D^-$ (resp. $D^+$).
   \end{enumerate}
 \end{df}
+Les notations adoptées dans la définition \ref{def:bsp} seront employées
+dans la suite de cette section.
 
 Afin de construire des arbres BSP à partir d'une liste $L$ de segments
 du plan, il faut à chaque fois sélectionner une droite par laquelle
@@ -95,7 +100,10 @@ cette intersection, sous l'hypothèse qu'elle existe.
 \end{proof}
 
 Ces deux résultats permettent de donner l'algorithme de construction de
-l'arbre (voir l'algorithme \ref{algo:bsp}).
+l'arbre (voir l'algorithme \ref{algo:bsp}). Au vu de l'approche adoptée,
+tout noeud interne contient au moins un fragment de segment (celui
+par lequel passe la droite qui sépare le plan en deux).
+
 \begin{algorithm}
   \caption{Build\_BSP($L, h$)}
   \begin{algorithmic}[1] \label{algo:bsp}
@@ -104,12 +112,12 @@ l'arbre (voir l'algorithme \ref{algo:bsp}).
     \ENSURE -- (construit un arbre BSP représentant l'ensemble de segments $L$)
     \IF{$L$ est vide}
     \STATE $T\leftarrow$ Feuille()
-    \ENDIF
-    \IF{$L$ est non vide}
+    \ELSIF{$L$ est non vide}
     \STATE $L_g\leftarrow$ Liste()
     \STATE $L_d\leftarrow$ Liste()
     \STATE $S \leftarrow \varnothing$
-    \STATE $f\leftarrow$ équation de la droite passant par le segment $h(L)$
+    \STATE $\left(f, c\right)\leftarrow$ forme linéaire et scalaire
+    associés à une équation de la droite passant par le segment $h(L)$
     \FOR{$s=[p_1, p_2]\in L$} \label{bsp:for}
     \IF{$f(p_1) = c$ et $f(p_2) = c$}
     \STATE $S\leftarrow S\cup\{s\}$
@@ -169,6 +177,84 @@ affichage sans afficher les objets cachés par d'autres (\emph{hidden surface
   removal}). \`{A} la manière d'un peintre, le principe de l'algorithme est
 de dessiner les objets dans un ordre tel qu'aucun objet à l'arrière-plan
 (vis-à-vis du point de vue) n'obscurcisse d'objet à l'avant-plan.
+
+Soit $D$ une droite du plan et $e$ un point représentant un oeil dans
+le plan.
+
+Si $e$ se trouve dans le demi-plan $D^+$, aucun objet dans le
+demi-plan $D^-$ ne peut faire obstruction à ceux dans $D$ et dans le
+demi-plan $D^+$, ils sont donc \og{}illustrés\fg{} avant ceux dans $D$ et $D^+$.
+Une illustration de ce cas est fournie à la figure \ref{peintre:ill}.
+Le comportement est symétrique dans le cas où $e$ est dans $D^-$.
+
+\input{figures/oeil_peintre}
+
+Si $e$ se trouve sur la droite $D$, alors aucun segment de $D$ n'est affiché;
+tout segment sur la droite est réduit à un point vis-à-vis de $e$ et donc ne
+doit être affiché. L'ordre de traitement des demi-plans $D^+$ et $D^-$ n'importe
+pas dans ce cas.
+
+L'algorithme est détaillé à l'algorithme \ref{algo:painter}.
+
+\begin{algorithm}
+  \caption{PaintersAlgorithm($T$, $e$)}
+  \begin{algorithmic}[1] \label{algo:painter}
+    \REQUIRE Un arbre BSP $T$ et un oeil $e$ (dont la position est $p=(x, y)$)
+    \ENSURE -- (la scène représentée par $T$ est visualisée par $e$)
+    \IF{$S\neq\varnothing$}
+    \STATE $D\leftarrow$ la droite stockée en $T$
+    \IF{$p\in D^+$}
+    \STATE PaintersAlgorithm($T^-$, $e$)
+    \STATE Visualiser les objets dans $S$
+    \STATE PaintersAlgorithm($T^+$, $e$)
+    \ELSIF{$p\in D^-$}
+    \STATE PaintersAlgorithm($T^+$, $e$)
+    \STATE Visualiser les objets dans $S$
+    \STATE PaintersAlgorithm($T^-$, $e$)
+    \ELSE
+    \STATE PaintersAlgorithm($T^+$, $e$)
+    \STATE PaintersAlgorithm($T^-$, $e$)
+    \ENDIF
+    \ENDIF
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{prop}[Complexité de l'algorithme du peintre dans le pire des cas]
+  Sous l'hypothèse que la visualisation des segments s'effectue
+  en temps constant, l'algorithme du peintre est linéaire en le
+  nombre de fragments de segments contenus dans $T$.
+\end{prop}
+\begin{proof}
+  Procédons à une analyse du nombre de noeuds visités et du travail local
+  par noeud.
+  \begin{itemize}
+  \item \textbf{Travail local par feuille}: par construction, une feuille
+    ne contient aucun segment. La seule opération effectuée est le test
+    $S\neq \varnothing$, qui est réalisé en temps constant $O(1)$.
+  \item \textbf{Travail local par noeud interne}: si l'oeil est sur la droite
+    stockée en le noeud, alors aucun travail n'est effectué. Donc dans le
+    pire des cas, l'oeil ne se trouve sur aucune des droites de séparation.
+
+    Chaque segment stocké dans l'ensemble $S$ est traité par l'oeil en
+    temps constant. Dès lors, le travail local est en $O(\mathrm{Card}(S))$.
+  \end{itemize}
+  Tous les noeuds de l'arbre sont visités. Soient $n_I$ le nombre de noeuds
+  internes de $T$, $n_F$ le nombre de feuilles de $T$, $V_i$ l'ensemble des
+  noeuds internes de $T$ et $N$ le nombre
+  de fragments stockés dans $T$.
+  Pour $v\in V_I$, on note $S_v$ l'ensemble de segments stockés en ce noeud.
+
+  Puisque $n_F = 2n_I + 1$, et que $n_I\leq N$,
+  la complexité de l'algorithme est:
+  $$ \sum_{v\in V_I}\left(\mathrm{Card}(S_v)\times O(1)\right) +
+  n_I \times O(1) \leq O(N) + O(2\times N) = O(N)$$
+\end{proof}
+
+Ce résultat permet l'observation suivante:
+\begin{cor}
+  L'efficacité de l'algorithme du peintre dépend directement
+  du nombre de fragments générés par la construction de $T$.
+\end{cor}
 \section{Calcul des parties visibles}
 
 
