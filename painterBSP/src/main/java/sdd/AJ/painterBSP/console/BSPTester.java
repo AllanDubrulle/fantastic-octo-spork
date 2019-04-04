@@ -63,7 +63,7 @@ public class BSPTester
         return end_cpu - start_cpu;
     }
     
-    public long heightTest()
+    public int heightTest()
     {
         return tree.height();
     }
@@ -76,7 +76,7 @@ public class BSPTester
         long end_cpu = thread.getCurrentThreadCpuTime();
         return end_cpu - start_cpu;
     }
-    public long sizeTest()
+    public int sizeTest()
     {
         return tree.size();
     }
