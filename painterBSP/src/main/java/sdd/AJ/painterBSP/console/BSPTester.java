@@ -55,12 +55,15 @@ public class BSPTester
     
     public long constructorCpuTime()
     {
+        /*long start_global = System.nanoTime();
+        long start_cpu = thread.getCurrentThreadCpuTime();
+        long start_user = thread.getCurrentThreadUserTime();*/
 
         long start_cpu = thread.getCurrentThreadCpuTime();
         @SuppressWarnings("unused")
         BSPTree temp = new BSPTree(getList(),getHeuristic());
         long end_cpu = thread.getCurrentThreadCpuTime();
-        return end_cpu - start_cpu;
+        return (end_cpu - start_cpu)/1000;
     }
     
     public int heightTest()
@@ -74,7 +77,7 @@ public class BSPTester
         long start_cpu = thread.getCurrentThreadCpuTime();
         tree.paintersAlgorithm((a,b,c) -> {}, eye);
         long end_cpu = thread.getCurrentThreadCpuTime();
-        return end_cpu - start_cpu;
+        return (end_cpu - start_cpu)/1000;
     }
     public int sizeTest()
     {

@@ -22,7 +22,7 @@ public class TestConsole
     public static void main(String[] args)
     {
        try
-        {
+       {
             IllustrationInputReader irr = new IllustrationInputReader(args[0]);
             h1BSP = new BSPTester(irr.getSegments(),new FirstHeuristic());
             linearBSP = new BSPTester(irr.getSegments(),new LinearHeuristic()); 
@@ -31,7 +31,7 @@ public class TestConsole
             randomBSP= new BSPTester(temp,new FirstHeuristic());
             
             line= "";
-            for (int i = 0 ; i <=72 ; i++ )
+            for (int i = 0 ; i <=60 ; i++ )
                 line+="-";
             
             Scanner sc = new Scanner(System.in);
@@ -40,10 +40,11 @@ public class TestConsole
             while (choix!=0)
             {
                 choix = menuChoixAnalyse(sc);
-                System.out.printf("%25s", "|");
-                System.out.printf("%15s", "linear|");
-                System.out.printf("%15s", "First heuristic|");
-                System.out.printf("%15s", "Random heuristic|" + "\n");
+                System.out.printf("%22s|", "");
+                System.out.printf("%-12s|", "H lineaire");
+                System.out.printf("%-12s|", "H Premiere");
+                System.out.printf("%-11s|", "H aleatoire");
+                System.out.println("");
                 System.out.println(line);
                 affichageTest(choix);
                 choix = isEnd(sc);
@@ -133,31 +134,31 @@ public class TestConsole
         switch(choix)
         {
             case 1:
-                System.out.printf("%24s|", "Taille");
-                System.out.printf("%14d|", linearBSP.sizeTest());
-                System.out.printf("%15d|", h1BSP.sizeTest());
-                System.out.printf("%16d|\n", randomBSP.sizeTest());
+                System.out.printf("%-22s|", "Taille");
+                System.out.printf("%-12d|", linearBSP.sizeTest());
+                System.out.printf("%-12d|", h1BSP.sizeTest());
+                System.out.printf("%-11d|\n", randomBSP.sizeTest());
                 System.out.println(line);
                 break;
             case 2:
-                System.out.printf("%24s|", "Hauteur");
-                System.out.printf("%14d|", linearBSP.heightTest());
-                System.out.printf("%15d|", h1BSP.heightTest());
-                System.out.printf("%16d|\n", randomBSP.heightTest());
+                System.out.printf("%-22s|", "Hauteur");
+                System.out.printf("%-12d|", linearBSP.heightTest());
+                System.out.printf("%-12d|", h1BSP.heightTest());
+                System.out.printf("%-11d|\n", randomBSP.heightTest());
                 System.out.println(line);
                 break; 
             case 3:
-                System.out.printf("%24s|", "Temps constructeur(ms)");
-                System.out.printf("%14d|", linearBSP.constructorCpuTime());
-                System.out.printf("%15d|", h1BSP.constructorCpuTime());
-                System.out.printf("%16d|\n", randomBSP.constructorCpuTime());
+                System.out.printf("%-22s|", "Temps constructeur(ms)");
+                System.out.printf("%-12d|", linearBSP.constructorCpuTime());
+                System.out.printf("%-12d|", h1BSP.constructorCpuTime());
+                System.out.printf("%-11d|\n", randomBSP.constructorCpuTime());
                 System.out.println(line);
                 break;
             case 4:
-                System.out.printf("%24s|", "Temps peintre(ms)");
-                System.out.printf("%14d|", linearBSP.painterCpuTime(0, 0, 1));
-                System.out.printf("%15d|", h1BSP.painterCpuTime(0, 0, 1));
-                System.out.printf("%16d|\n", randomBSP.painterCpuTime(0, 0, 1));
+                System.out.printf("%-22s|", "Temps peintre(ms)");
+                System.out.printf("%-12d|", linearBSP.painterCpuTime(0, 0, 1));
+                System.out.printf("%-12d|", h1BSP.painterCpuTime(0, 0, 1));
+                System.out.printf("%-11d|\n", randomBSP.painterCpuTime(0, 0, 1));
                 System.out.println(line);
                 break; 
             case 5:
