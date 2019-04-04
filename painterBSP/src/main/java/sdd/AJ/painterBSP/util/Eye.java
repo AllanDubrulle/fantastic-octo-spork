@@ -1,9 +1,8 @@
 package sdd.AJ.painterBSP.util;
 
-import sdd.AJ.painterBSP.util.Segment;
-import sdd.AJ.painterBSP.BSPLib.Painter;
-import java.lang.Math;
 import java.util.List;
+
+import sdd.AJ.painterBSP.BSPLib.Painter;
 
     /* Represents an eye located at given coordinates,
      * and in a specified direction.

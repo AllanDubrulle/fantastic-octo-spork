@@ -1,13 +1,9 @@
 package sdd.AJ.painterBSP.graphics;
 
-import sdd.AJ.painterBSP.BSPLib.Painter;
-import sdd.AJ.painterBSP.BSPLib.Painter;
-import javafx.scene.shape.Line;
-import javafx.scene.*;
-import javafx.scene.paint.*;
 import javafx.beans.binding.DoubleBinding;
-import sdd.AJ.painterBSP.util.*;
-import sdd.AJ.painterBSP.graphics.*;
+import javafx.scene.shape.Line;
+import sdd.AJ.painterBSP.BSPLib.Painter;
+import sdd.AJ.painterBSP.util.MyColor;
 
 /**
  * Graphical implementation of the Painter interface.

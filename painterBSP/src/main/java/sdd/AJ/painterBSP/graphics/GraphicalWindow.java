@@ -1,21 +1,20 @@
 package sdd.AJ.painterBSP.graphics;
 
-import java.util.Optional;
-import java.util.List;
-import sdd.AJ.painterBSP.util.*;
-import sdd.AJ.painterBSP.BSPLib.Heuristic.*;
-import sdd.AJ.painterBSP.graphics.*;
 import java.io.File;
 import java.io.IOException;
-import javafx.application.Application;
+import java.util.List;
+import java.util.Optional;
+
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Control;
@@ -26,19 +25,15 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.KeyCode;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import sdd.AJ.painterBSP.BSPLib.Heuristic.FirstHeuristic;
+import sdd.AJ.painterBSP.BSPLib.Heuristic.LinearHeuristic;
+import sdd.AJ.painterBSP.util.FileFormatException;
+import sdd.AJ.painterBSP.util.Segment;
 
 public class GraphicalWindow extends GridPane
 {
-    private Stage stage;
-    private GraphicalCore core;
     private Illustrator planeDrawing;
     private Label eyeParameters;
     private GraphicalPainter painter;
@@ -54,8 +49,6 @@ public class GraphicalWindow extends GridPane
                            *    Initial setup    *
         *************************************************************/
         super();
-        this.core = core;
-        this.stage = stage;
         setPrefSize(800, 600);
         interactiveMode = new SimpleBooleanProperty();
 

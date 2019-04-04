@@ -1,8 +1,8 @@
 package sdd.AJ.painterBSP.graphics;
 
-import javafx.scene.control.TextField;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.TextField;
 
 public class DoubleField extends TextField
 {

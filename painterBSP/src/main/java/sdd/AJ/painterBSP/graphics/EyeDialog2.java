@@ -1,16 +1,8 @@
 package sdd.AJ.painterBSP.graphics;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
-import javafx.util.converter.DoubleStringConverter;
-import javafx.scene.control.TextFormatter;
-import sdd.AJ.painterBSP.graphics.DoubleInputField;
 
 /**
  * Dialog box used to specify the coordinates and orientation of the eye,
@@ -24,7 +16,7 @@ public class EyeDialog2 extends Dialog<double[]>
     public EyeDialog2()
     {
         DialogPane pane = this.getDialogPane();
-        DoubleInputField dif = new DoubleInputField("Abscisse : ",
+        DoubleInput dif = new DoubleInput("Abscisse : ",
                                                     "Ordonnée : ",
                                                     "Angle : ");
         pane.setContent(dif);

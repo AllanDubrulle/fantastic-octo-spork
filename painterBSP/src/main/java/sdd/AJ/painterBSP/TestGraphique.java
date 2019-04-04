@@ -1,11 +1,9 @@
 package sdd.AJ.painterBSP;
 
-import sdd.AJ.painterBSP.graphics.GraphicalWindow;
-import sdd.AJ.painterBSP.graphics.GraphicalCore;
-import java.io.IOException;
 import javafx.application.Application;
-import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
+import sdd.AJ.painterBSP.graphics.GraphicalCore;
 
 /**
  * Main class of the graphical application.

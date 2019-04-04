@@ -1,13 +1,11 @@
 package sdd.AJ.painterBSP.graphics;
 
-import java.util.List;
+import javafx.beans.binding.DoubleBinding;
+import javafx.scene.Group;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.*;
-import javafx.scene.paint.*;
-import javafx.beans.binding.DoubleBinding;
-import sdd.AJ.painterBSP.util.*;
-import sdd.AJ.painterBSP.graphics.*;
+import sdd.AJ.painterBSP.util.MyColor;
 
 
 /**

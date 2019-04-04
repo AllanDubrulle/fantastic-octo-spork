@@ -1,8 +1,5 @@
 package sdd.AJ.painterBSP.util;
 
-import sdd.AJ.painterBSP.util.*;
-import sdd.AJ.painterBSP.graphics.*;
-
 /**
  * Class representing a segment represented its endpoints (x1, x2)
  * and (y1, y2), as well as a colour.

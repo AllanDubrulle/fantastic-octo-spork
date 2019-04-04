@@ -1,15 +1,14 @@
 package sdd.AJ.painterBSP.BSPLib;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.lang.Math;
+
 import sdd.AJ.painterBSP.BSPLib.Heuristic.Heuristic;
 import sdd.AJ.painterBSP.BSPLib.Heuristic.LinearHeuristic;
-import sdd.AJ.painterBSP.BSPLib.Painter;
 import sdd.AJ.painterBSP.util.Equation;
-import sdd.AJ.painterBSP.util.Segment;
 import sdd.AJ.painterBSP.util.Eye;
-import java.util.Collections;
+import sdd.AJ.painterBSP.util.Segment;
 
 public class BSPTree
 {

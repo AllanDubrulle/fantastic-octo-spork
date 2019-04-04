@@ -1,9 +1,7 @@
 package sdd.AJ.painterBSP;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import org.junit.Test;
 import org.junit.Assert;
+import org.junit.Test;
 
 import sdd.AJ.painterBSP.util.Eye;
 

@@ -1,15 +1,12 @@
 package sdd.AJ.painterBSP.util;
 
-import java.util.List;
-import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import java.util.StringTokenizer;
 import java.util.ArrayList;
-
-import sdd.AJ.painterBSP.util.*;
-import sdd.AJ.painterBSP.graphics.*;
+import java.util.List;
+import java.util.StringTokenizer;
 
 public class IllustrationInputReader
 {

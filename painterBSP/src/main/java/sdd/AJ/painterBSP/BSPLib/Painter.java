@@ -1,8 +1,6 @@
 package sdd.AJ.painterBSP.BSPLib;
 
-import sdd.AJ.painterBSP.util.Eye;
 import sdd.AJ.painterBSP.util.MyColor;
-import sdd.AJ.painterBSP.BSPLib.Painter;
 
 public interface Painter
 {

@@ -1,16 +1,8 @@
 package sdd.AJ.painterBSP.graphics;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
-import javafx.util.converter.DoubleStringConverter;
-import javafx.scene.control.TextFormatter;
-import sdd.AJ.painterBSP.graphics.DoubleInputField;
 
 /**
  * Dialog box used to specify a new step for the interactive
@@ -24,7 +16,7 @@ public class EyeDialog extends Dialog<Double>
     public EyeDialog()
     {
         DialogPane pane = this.getDialogPane();
-        DoubleInputField dif = new DoubleInputField("Pas : ");
+        DoubleInput dif = new DoubleInput("Pas : ");
         pane.setContent(dif);
         setHeaderText("Veuillez préciser la taille d'un\npas de l'oeil.\n"+
                       "Confirmer sans entrer de valeur\nrevient à mettre le pas à zéro.");

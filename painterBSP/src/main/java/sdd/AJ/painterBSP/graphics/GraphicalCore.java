@@ -1,34 +1,16 @@
 package sdd.AJ.painterBSP.graphics;
 
-import sdd.AJ.painterBSP.util.*;
-import sdd.AJ.painterBSP.graphics.*;
-import sdd.AJ.painterBSP.BSPLib.*;
-import sdd.AJ.painterBSP.BSPLib.Heuristic.*;
-import java.util.List;
-import java.util.Arrays;
 import java.io.File;
 import java.io.IOException;
-import javafx.application.Application;
-import javafx.geometry.HPos;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
-import javafx.stage.FileChooser;
+import java.util.List;
+
 import javafx.stage.Stage;
+import sdd.AJ.painterBSP.BSPLib.BSPTree;
+import sdd.AJ.painterBSP.BSPLib.Heuristic.Heuristic;
+import sdd.AJ.painterBSP.util.Eye;
+import sdd.AJ.painterBSP.util.FileFormatException;
+import sdd.AJ.painterBSP.util.IllustrationInputReader;
+import sdd.AJ.painterBSP.util.Segment;
 
 /**
  * Main logic class of the UI programme.

@@ -1,8 +1,5 @@
 package sdd.AJ.painterBSP.util;
 
-
-import sdd.AJ.painterBSP.util.Segment;
-
 /**
  * Class representing a line equation of the form:
  *                  f(x, y) = c
@@ -96,18 +93,6 @@ public class Equation
     public double getC()
     {
         return c;
-    }
-
-    private boolean relativeEquality(double a, double b)
-    {
-        double dist = Math.abs(a - b);
-
-        if (a == b)
-            return true;
-        else if (a == 0 || b == 0 || dist < Float.MIN_NORMAL)
-            return dist < EPS * Float.MIN_NORMAL;
-        else
-            return dist  / Math.min(Math.abs(a) + Math.abs(b), Float.MAX_VALUE) < EPS;
     }
 
 
