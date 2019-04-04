@@ -106,13 +106,13 @@ public class Eye
      */
     public void visualise(Segment s, Painter p)
     {
-        switch (isVisible(s.x1, s.x2, s.y1, s.y2))
+        switch (isVisible(s.u, s.v, s.x, s.y))
         {
             case COVERS:
                 p.draw(0, 1, s.getColor());
                 break;
             case INTERSECTS:
-                double[] proportion = getVisibleProportion(s.x1, s.x2, s.y1, s.y2);
+                double[] proportion = getVisibleProportion(s.u, s.v, s.x, s.y);
                 p.draw(proportion[0], proportion[1], s.getColor());
                 break;
             default: // OUT_OF_VIEW

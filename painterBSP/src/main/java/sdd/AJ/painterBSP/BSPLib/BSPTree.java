@@ -45,17 +45,17 @@ public class BSPTree
             {
                 // Case in which one of the ends of the segment is
                 // in the splitting line.
-                if (equation.isInLine(s.x1, s.x2))
+                if (equation.isInLine(s.u, s.v))
                 {
                     // We test whether the line segment s is contained
                     // in the splitting line.
-                    if (equation.isInLine(s.y1, s.y2))
+                    if (equation.isInLine(s.x, s.y))
                     {
                         this.list.add(s);
                     }
                     // Testing whether the line segment is in the
                     // positive half-plane
-                    else if (equation.isInPositivePlane(s.y1, s.y2))
+                    else if (equation.isInPositivePlane(s.x, s.y))
                     {
                         rightList.add(s);
                     }
@@ -68,9 +68,9 @@ public class BSPTree
 
                 // Case in which the other end of the segment is
                 // in the splitting line.
-                else if (equation.isInLine(s.y1, s.y2))
+                else if (equation.isInLine(s.x, s.y))
                 {
-                    if (equation.isInPositivePlane(s.x1, s.x2))
+                    if (equation.isInPositivePlane(s.u, s.v))
                     {
                         rightList.add(s);
                     }
@@ -81,9 +81,9 @@ public class BSPTree
                     }
                 }
 
-                else if (equation.isInPositivePlane(s.x1, s.x2))
+                else if (equation.isInPositivePlane(s.u, s.v))
                 {
-                    if (equation.isInPositivePlane(s.y1, s.y2))
+                    if (equation.isInPositivePlane(s.x, s.y))
                     {
                         rightList.add(s);
                     }
@@ -96,9 +96,9 @@ public class BSPTree
                     }
                 }
 
-                else if (equation.isInNegativePlane(s.x1, s.x2))
+                else if (equation.isInNegativePlane(s.u, s.v))
                 {
-                    if (equation.isInNegativePlane(s.y1, s.y2))
+                    if (equation.isInNegativePlane(s.x, s.y))
                     {
                         leftList.add(s);
                     }

@@ -85,8 +85,8 @@ public class Equation
      */
     public boolean liesInTwoHalfs(Segment s)
     {
-        return (isInNegativePlane(s.x1, s.x2) && isInPositivePlane(s.y1, s.y2))
-            || (isInPositivePlane(s.x1, s.x2) && isInNegativePlane(s.y1, s.y2));
+        return (isInNegativePlane(s.u, s.v) && isInPositivePlane(s.x, s.y))
+            || (isInPositivePlane(s.u, s.v) && isInNegativePlane(s.x, s.y));
     }
 
     /**

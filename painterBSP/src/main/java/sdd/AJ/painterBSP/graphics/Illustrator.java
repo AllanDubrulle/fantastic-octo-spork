@@ -38,7 +38,7 @@ public class Illustrator extends AbstractIllustrator
         {
             for (Segment s : lines)
                 {
-                    super.draw(s.x1, s.x2, s.y1, s.y2, s.getColor());
+                    super.draw(s.u, s.v, s.x, s.y, s.getColor());
                 }
             super.createBorder(xBound, yBound, GraphicalCore.MARGIN);
         }

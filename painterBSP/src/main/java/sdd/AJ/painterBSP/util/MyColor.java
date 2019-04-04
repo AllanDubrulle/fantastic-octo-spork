@@ -1,7 +1,7 @@
-package sdd.AJ.painterBSP.graphics;
+package sdd.AJ.painterBSP.util;
 
 /**
- * Enumeration reprensenting the colors that occur in the
+ * Enumeration representing the colors that occur in the
  * scenes of the assignment.
  */
 public enum MyColor

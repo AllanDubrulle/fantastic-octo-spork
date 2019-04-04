@@ -1,11 +1,6 @@
 package sdd.AJ.painterBSP.graphics;
 
-import sdd.AJ.painterBSP.util.Eye;
-import sdd.AJ.painterBSP.graphics.MyColor;
 import sdd.AJ.painterBSP.BSPLib.Painter;
-
-
-import sdd.AJ.painterBSP.graphics.MyColor;
 import sdd.AJ.painterBSP.BSPLib.Painter;
 import javafx.scene.shape.Line;
 import javafx.scene.*;

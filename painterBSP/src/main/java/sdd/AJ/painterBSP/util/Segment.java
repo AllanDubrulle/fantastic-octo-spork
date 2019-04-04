@@ -10,7 +10,7 @@ import sdd.AJ.painterBSP.graphics.*;
 public final class Segment
 {
 
-    public final double x1, x2, y1, y2; // Premier point (x1, x2) et deuxieme point (y1, y2)
+    public final double u, v, x, y; // Premier point (u, v) et deuxieme point (x, y)
     private final MyColor color;
 
     /**
@@ -18,10 +18,10 @@ public final class Segment
      */
     public Segment(double x1, double x2, double y1, double y2, MyColor color)
     {
-        this.x1 = x1;
-        this.x2 = x2;
-        this.y1 = y1;
-        this.y2 = y2;
+        this.u = x1;
+        this.v = x2;
+        this.x = y1;
+        this.y = y2;
         this.color = color;
     }
 
@@ -42,9 +42,9 @@ public final class Segment
      */
     public Equation lineEquation()
     {
-        double v1 = x1 - y1;
-        double v2 = y2 - x2;
-        double c = x1 * v2 + x2 * v1;
+        double v1 = u - x;
+        double v2 = y - v;
+        double c = u * v2 + v * v1;
         return new Equation(v2, v1, c);
     }
 
@@ -65,12 +65,12 @@ public final class Segment
         if (!equation.liesInTwoHalfs(this))
             throw new RuntimeException();
         double c = equation.getC();
-        double t = (c - equation.compute(y1, y2)) / (equation.compute(x1, x2) - equation.compute(y1, y2));
+        double t = (c - equation.compute(x, y)) / (equation.compute(u, v) - equation.compute(x, y));
         if (Math.abs(t)>1)
             System.out.println(t);
-        double z1 = t * x1 + (1 - t) * y1;
-        double z2 = t * x2 + (1 - t) * y2;
-        return new Segment[] { new Segment(x1, x2, z1, z2, color), new Segment(z1, z2, y1, y2, color) };
+        double z1 = t * u + (1 - t) * x;
+        double z2 = t * v + (1 - t) * y;
+        return new Segment[] { new Segment(u, v, z1, z2, color), new Segment(z1, z2, x, y, color) };
     }
 
     /**
@@ -82,9 +82,9 @@ public final class Segment
     {
         if (color != other.getColor())
             return false;
-        return (  x1 == other.x1 && x2 == other.x2 &&
-                  y1==other.y1 && y2 == other.y2 )      ||
-               (  y1 == other.x1 && y2 == other.x2 &&
-                  x1==other.y1 && x2 == other.y2 );
+        return (  u == other.u && v == other.v &&
+                  x==other.x && y == other.y )      ||
+               (  x == other.u && y == other.v &&
+                  u==other.x && v == other.y );
     }
 }
