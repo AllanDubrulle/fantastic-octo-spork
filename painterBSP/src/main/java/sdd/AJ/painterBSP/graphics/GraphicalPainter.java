@@ -1,5 +1,6 @@
 package sdd.AJ.painterBSP.graphics;
 
+import javafx.scene.paint.Color;
 import javafx.beans.binding.DoubleBinding;
 import javafx.scene.shape.Line;
 import sdd.AJ.painterBSP.BSPLib.Painter;
@@ -28,6 +29,19 @@ public class GraphicalPainter extends AbstractIllustrator
                              height/2);
         line.setStrokeWidth(10);
         line.setStroke(getFXColor(color));
+        super.getChildren().add(line);
+    }
+
+    @Override
+    public void clear()
+    {
+        super.clear();
+        Line line = new Line(0,
+                             parentHeightProperty.get()/2,
+                             parentWidthProperty.get(),
+                             parentHeightProperty.get()/2);
+        line.setStrokeWidth(10);
+        line.setStroke(Color.WHITE);
         super.getChildren().add(line);
     }
 
