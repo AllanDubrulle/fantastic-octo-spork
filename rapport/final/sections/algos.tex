@@ -244,10 +244,10 @@ L'algorithme est détaillé à l'algorithme \ref{algo:painter}.
   de fragments stockés dans $T$.
   Pour $v\in V_I$, on note $S_v$ l'ensemble de segments stockés en ce noeud.
 
-  Puisque $n_F = 2n_I + 1$, et que $n_I\leq N$,
+  Puisque $n_F \leq n_I + 1$, et que $n_I\leq N$,
   la complexité de l'algorithme est:
   $$ \sum_{v\in V_I}\left(\mathrm{Card}(S_v)\times O(1)\right) +
-  n_I \times O(1) \leq O(N) + O(2\times N) = O(N)$$
+  n_I \times O(1) \leq O(N) + O(N) = O(N)$$
 \end{proof}
 
 Ce résultat permet l'observation suivante:
