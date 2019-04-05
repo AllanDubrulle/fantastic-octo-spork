@@ -1,7 +1,5 @@
 package sdd.AJ.painterBSP.console;
 
-import java.lang.management.ManagementFactory;
-import java.lang.management.ThreadMXBean;
 import java.util.List;
 
 import sdd.AJ.painterBSP.BSPLib.BSPTree;
@@ -14,38 +12,19 @@ public class BSPTester
     private BSPTree tree;
     private List<Segment> list;
     private Heuristic heuristic;
-    private ThreadMXBean thread = ManagementFactory.getThreadMXBean();
+    private double mTimeConstructor;
     
-    public BSPTree getTree()
-    {
-        return tree;
-    }
-    
-    public void setTree(BSPTree tree)
-    {
-        this.tree = tree;
-    }
-    
+   
     public List<Segment> getList()
     {
         return list;
-    }
-
-    public void setList(List<Segment> list)
-    {
-        this.list = list;
     }
 
     public Heuristic getHeuristic()
     {
         return heuristic;
     }
-    
-    public void setHeuristic(Heuristic heuristic)
-    {
-        this.heuristic = heuristic;
-    }
-    
+
     /**
      * Class constructor.
      * @param list      the list of the segments in the scene to be pre-processed
@@ -54,9 +33,20 @@ public class BSPTester
      */
     public BSPTester( List<Segment>  list, Heuristic heuristic)
     {
-        this.tree = new BSPTree(list, heuristic);
-        this.setList(list);
+        this.list = list;
         this.heuristic = heuristic;
+        long start_cpu = System.nanoTime();
+        this.tree = new BSPTree(list,getHeuristic());
+        long end_cpu = System.nanoTime();
+        this.mTimeConstructor = (end_cpu - start_cpu);
+        for (int i=1; i<=10 ; i++)
+        {
+            start_cpu = System.nanoTime();
+            BSPTree temp = new BSPTree(getList(),getHeuristic());
+            end_cpu = System.nanoTime();
+            mTimeConstructor+= (end_cpu - start_cpu)/1000;
+        }
+        this.mTimeConstructor /= 10;
     }
     
     
@@ -66,17 +56,10 @@ public class BSPTester
      * subtract end_cpu and start_cpu give expected time for the method call. 
      * @return an integer equal to time in millisecond thanks to divise by 1000.
      */
-    public long constructorCpuTime()
+    public double constructorCpuTime()
     {
-        /*long start_global = System.nanoTime();
-        long start_cpu = thread.getCurrentThreadCpuTime();
-        long start_user = thread.getCurrentThreadUserTime();*/
 
-        long start_cpu = thread.getCurrentThreadCpuTime();
-        @SuppressWarnings("unused")
-        BSPTree temp = new BSPTree(getList(),getHeuristic());
-        long end_cpu = thread.getCurrentThreadCpuTime();
-        return (end_cpu - start_cpu)/1000;
+        return mTimeConstructor;
     }
     
     /**
@@ -87,7 +70,6 @@ public class BSPTester
     {
         return tree.height();
     }
-    
     
     /**
      * 
@@ -100,13 +82,18 @@ public class BSPTester
      * subtract end_cpu and start_cpu give expected time for the method call. 
      * @return an integer equal to time in millisecond thanks to divise by 1000.
      */
-    public long painterCpuTime(double x, double y, double angle)
+    public double painterCpuTime(double x, double y, double angle)
     {
         Eye eye = new Eye(x,y,angle);
-        long start_cpu = thread.getCurrentThreadCpuTime();
-        tree.paintersAlgorithm((a,b,c) -> {}, eye);
-        long end_cpu = thread.getCurrentThreadCpuTime();
-        return (end_cpu - start_cpu)/1000;
+        double res = 0;
+        for (int i=0; i<=50 ; i++)
+        {
+            long start_cpu = System.nanoTime();
+            tree.paintersAlgorithm((u,v,w)->{},eye);
+            long end_cpu = System.nanoTime();
+            res+= (end_cpu - start_cpu)/1000;
+        }
+        return res/50;
     }
     
     /**
