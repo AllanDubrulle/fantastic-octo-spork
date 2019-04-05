@@ -1,0 +1,23 @@
+\begin{figure}[!h]
+  \begin{center}
+    \caption{Partition du plan par une droite et deux demi-plans}%
+    \label{sep:ill}
+    \begin{tikzpicture}
+      \draw [->] (0, -2) -- (0, 2);
+      \draw [->] (-2, 0) -- (2, 0);
+      \draw (-2, -1) -- (2, 1) node[right] {$D$};
+      \fill [black, nearly transparent] %
+      (-2, -1) -- (2, 1) -- (2, -2) -- (-2, -2) -- cycle;
+      \draw (1, -0.5) node[right] {$D^-$};
+      \fill [black!20, nearly transparent] %
+      (-2, -1) -- (2, 1) -- (2, 2) -- (-2, 2) -- cycle;
+      \draw (-1, 1) node[right] {$D^+$};
+    \end{tikzpicture}
+\end{center}
+\end{figure}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../rapportGp1"
+%%% End:
