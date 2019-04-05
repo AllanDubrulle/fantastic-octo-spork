@@ -18,7 +18,12 @@ public class TestConsole
     private static BSPTester randomBSP;
     private static String line;
     
-    
+    /**
+     * Initialize the three testers for the scene given in argument. 
+     * initialize some variable used for the display and the input reader.
+     * @exception FileFormatException - the file doesn't correspond to a scene.
+     * @exception IOException - the file doesn't exist.
+     */
     public static void main(String[] args)
     {
        try
@@ -35,18 +40,18 @@ public class TestConsole
                 line+="-";
             
             Scanner sc = new Scanner(System.in);
-            int choix = -1;
+            int chose = -1;
            
-            while (choix!=0)
+            while (chose!=0)
             {
-                choix = menuChoixAnalyse(sc);
+                chose = menuChoixAnalyse(sc);
                 System.out.printf("%22s|", "");
                 System.out.printf("%-12s|", "H lineaire");
                 System.out.printf("%-12s|", "H Premiere");
                 System.out.printf("%-11s|\n", "H aleatoire");
                 System.out.println(line);
-                affichageTest(choix);
-                choix = isEnd(sc);
+                affichageTest(chose);
+                chose = isEnd(sc);
             }
             System.out.println("fin");
             sc.close();
@@ -62,7 +67,11 @@ public class TestConsole
         }
 
     }
-    
+    /** 
+     * @param sc - a Scanner object that can read input of user
+     * this function asks the user to input a integer between 0 and 1 
+     * if the input doesn't correspond whit that we repeat the message.
+     */
     private static int isEnd(Scanner sc)
     {
         int res = 0;
@@ -93,6 +102,11 @@ public class TestConsole
         
     }
 
+    /** 
+     * @param sc - a Scanner object that can read input of user
+     * this function asks the user to input a integer between 1 and 5  
+     * if the input doesn't correspond whit that we repeat the message.
+     */
     
     private static int menuChoixAnalyse(Scanner sc)
     {
@@ -127,7 +141,11 @@ public class TestConsole
         }
         return res;
     }
-    
+    /** 
+     * @int chose - a integer between 1 and 5
+     *  that correspond with a information about the BSPTREE
+     * if chose equal to 5 we display all information.
+     */
     private static void affichageTest(int choix)
     {
         switch(choix)
