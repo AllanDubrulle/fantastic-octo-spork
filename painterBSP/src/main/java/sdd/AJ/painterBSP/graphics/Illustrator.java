@@ -5,12 +5,15 @@ import java.util.List;
 import javafx.beans.binding.DoubleBinding;
 import sdd.AJ.painterBSP.util.MyColor;
 import sdd.AJ.painterBSP.util.Segment;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 
 public class Illustrator extends AbstractIllustrator
 {
 
     private List<Segment> lines;
     private boolean eyeDrawn;
+    private int xBound, yBound;
 
     /**
      * Class constructor.
@@ -24,6 +27,8 @@ public class Illustrator extends AbstractIllustrator
         super(parentWidthProperty, parentHeightProperty);
         lines = null;
         eyeDrawn = false;
+        this.xBound = 1;
+        this.yBound = 1;
     }
 
     /**
@@ -35,9 +40,9 @@ public class Illustrator extends AbstractIllustrator
         {
             for (Segment s : lines)
                 {
-                    super.draw(s.u, s.v, s.x, s.y, s.getColor());
+                    draw(s.u, s.v, s.x, s.y, s.getColor());
                 }
-            super.createBorder(xBound, yBound, GraphicalCore.MARGIN);
+            createBorder(xBound, yBound, GraphicalCore.MARGIN);
         }
     }
 
@@ -64,10 +69,10 @@ public class Illustrator extends AbstractIllustrator
             double b = Math.sin(angle);
             double dx = (bound / 10) * (a - b) * Math.sqrt(2) / 2;
             double dy = (bound / 10) * (a + b) * Math.sqrt(2) / 2;
-            super.draw(x, y, x + dx, y + dy, MyColor.NOIR);
+            draw(x, y, x + dx, y + dy, MyColor.NOIR);
             dx =  (bound / 10) * (a + b) * Math.sqrt(2) / 2;
             dy =  (bound / 10) *(b - a) * Math.sqrt(2) / 2;
-            super.draw(x, y, x + dx, y + dy, MyColor.NOIR);
+            draw(x, y, x + dx, y + dy, MyColor.NOIR);
             eyeDrawn = true;
         }
     }
@@ -91,5 +96,58 @@ public class Illustrator extends AbstractIllustrator
         xBound = newXBound;
         yBound = newYBound;
         lines = newLines;
+    }
+
+    /**
+     * Given a double, multiplies it by a constant so that when used to
+     * draw, the drawing is scaled to fit in the window.
+     * @param  toResize the value to be rescaled
+     * @return a properly scaled equivalent of the argument
+     */
+    private double scale(double toResize)
+    {
+        double width = parentWidthProperty.get();
+        double height = parentHeightProperty.get();
+        if (height > width)
+            return toResize * width / (2 * (xBound + GraphicalCore.MARGIN));
+        else
+            return toResize * height / (2 * (yBound + GraphicalCore.MARGIN));
+    }
+
+    /**
+     * Draws a colored line joining points (x1, x2) and (y1, y2).
+     * The line is scaled appropriately so that the drawing fits the
+     * container.
+     * @param x1 the first point's x-coordinate
+     * @param x2 the first point's y-coordinate
+     * @param y1 the second point's x-coordinate
+     * @param y2 the second point's y-coordinate
+     * @param color the color to be used in the drawing
+     */
+    private void draw(double x1, double x2, double y1, double y2, MyColor color)
+    {
+        Line line = new Line(scale(x1 + xBound),
+                             scale(-x2 + yBound),
+                             scale(y1 + xBound),
+                             scale(-y2 + yBound));
+        line.setStroke(getFXColor(color));
+        super.getChildren().add(line);
+    }
+
+        /**
+     * Creates a rectangular border around the illustration.
+     * @param x      half of the x bound of the drawing
+     * @param y      half of the y bound of the drawing
+     * @param margin the padding between the bounds of the drawing
+     *               and the container
+     */
+    private void createBorder(double x, double y, int margin)
+    {
+        Rectangle border = new Rectangle(scale(2* (x + margin)),
+                                         scale(2* (y + margin)));
+        border.setX(-scale(margin));
+        border.setY(-scale(margin));
+        border.setStyle("-fx-stroke:black; -fx-fill: rgba(0, 0, 0, 0);");
+        getChildren().add(border);
     }
 }
