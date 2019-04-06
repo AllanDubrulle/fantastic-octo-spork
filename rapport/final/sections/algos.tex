@@ -256,9 +256,152 @@ Ce résultat permet l'observation suivante:
   du nombre de fragments générés par la construction de $T$.
 \end{cor}
 \section{Calcul des parties visibles}
+Cette section s'attèle à expliquer la procédure mise en \oe{}vre pour déterminer
+quelle proportion d'un segment est visible, étant donné un \oe{}il. Tout d'abord,
+des critères de visibilités sont établis dans une première sous-section, suivi
+de l'élaboration d'une procédure pour calculer la proportion du champ de vision
+occupée par un segment donné.
 
+Tout au long de cette section, nous considérons un \oe{}il $e$, qui est la donnée à
+la fois d'un point $(x, y)$ du plan représentant sa position et d'un angle $\phi$
+qui représente la direction de vue de l'oeil. Autrement dit, l'orientation de
+l'oeil est donnée par le vecteur $d=(\cos(\phi), \sin(\phi))$. Dans le modèle
+adopté, l'oeil a une ouverture de $\pi/2$ radians.
 
+Sans perte de généralité, $(x, y) = (0, 0)$; si ce n'est pas le cas, tous les
+calculs peuvent être effectués après une translation de $-(x, y)$ de tous
+les objets considérés.
 
+La notation $\langle \cdot,\cdot\rangle$ est employée pour le produit scalaire usuel
+dans $\mathbb R^2$. La norme euclidienne d'un vecteur $v = (v_1, v_2)$ est notée
+$\|v\| = \sqrt{v_1^2 + v_2^2}$. Au vu de la formule fondamentale liant le
+sinus au cosinus, $\|d\| = 1$.
+
+\subsection{Région de points visibles}
+L'ensemble des points visibles est par définition l'ensemble
+des vecteurs\footnote{On identifie un point du plan au vecteur
+  joignant l'origine à ce point.} $v$ tel que l'angle non orienté formé
+par $v$ et $d$ est inférieur à $\pi/4$.
+
+Il s'agit également de la région délimitée par les demi-droites d'extrémité
+$(0, 0)$ dont les directions et sens respectifs sont
+$d_1 = (\cos(\phi + \pi/4), \sin(\phi + \pi/4))$ et
+$d_2 = (\cos(\phi - \pi/4), \sin(\phi - \pi/4))$.
+
+\subsection{Critère de visibilité}
+Soient $p_i=(u_i, v_i)$, $i = 1$, $2$ deux points du plan. Ici, nous nous
+intéressons à la question \og\emph{existe-t-il une partie du segment $[p_1, p_2]$
+  visible par $e$?}\fg.
+
+Avant d'étudier la question pour un segment entier, il est intéressant de
+se réduire au cas d'un point $p$ du plan, différent de l'origine:
+$p$ est dans le cône de vision de $e$
+si et seulement si l'angle (non orienté) entre la direction
+$d$ de l'\oe{}il et le vecteur $p$
+est inférieur
+à $\pi/4$. Ceci découle simplement de la définition de $e$ et de son ouverture
+de $\pi/2$ radians.
+
+\begin{lem}
+  La complexité en temps du calcul d'un angle entre un vecteur $p$ et $d$ est
+  $O(1)$.
+\end{lem}
+\begin{proof}
+  Par définition $\langle p, d\rangle = \|p\|\cdot \|d\| \cos(\theta)$ où $\theta$ est
+  l'angle non orienté entre $p$ et $d$. Dès lors,
+  $\cos(\theta) = \langle d, p\rangle/\|d\|$. L'emploi de $\arccos$ fournit
+  l'angle non orienté recherché.
+
+  \'Etant donné que seules des opérations mathématiques interviennent,
+  la complexité est $O(1)$.
+\end{proof}
+
+Dès qu'une des deux extrémités du segment $[p_1, p_2]$ appartient au
+cône visible par l'\oe{}il, le segment est partiellement
+visible. Il reste à étudier les configurations où ni $p_1$, ni $p_2$ est
+visible, mais le segment est tout de même partiellement dans le champ de vision.
+
+Deux configurations symétriques sont immédiatement à rejeter.
+\begin{obs}
+  Soit $D$ la droite de direction $d$ et passant par $(0, 0)$.
+  Si $p_1$ et $p_2$ se trouvent dans le même demi-plan par rapport à $D$,
+  et sont tous les deux hors de vue, alors le segment est complètement hors de vue.
+\end{obs}
+\begin{proof}
+  Sous ces hypothèses, les extrémités sont comprises dans l'intersection
+  de deux convexes du plan, qui est un convexe, ce qui implique
+  que le segment est dans cette intersection. Puisqu'un de ces convexes
+  est un ensemble de points hors de vue, cela implique que le segment
+  n'est pas visible par $e$.
+\end{proof}
+
+Il reste à traiter les configurations dans lesquelles $p_1$
+et $p_2$ sont dans des demi-plans différents par rapport à $D$.
+
+\begin{obs}
+  Soit $D$ la droite de direction $d$ et passant par $(0, 0)$.
+  Supposons que les extrémités $p_1$ et $p_2$ se trouvent
+  de part et d'autre de $D$ et ne sont pas visibles.
+  Alors le segment est partiellement visible
+  si et seulement si la droite passant par $p_1$
+  et $p_2$ est \og au-dessus\fg{} de $e$ relativement à $d$.
+
+  De plus, la seule possibilité si le segment est partiellement
+  visible est qu'il occupe tout le champ de vision.
+\end{obs}
+
+\begin{proof}
+  Supposons que le segment est partiellement visible. Alors il existe
+  un sous-segment visible, ce qui implique que la droite passe
+  au-dessus du point de passage (car elle est partiellement dans le champ
+  de vision).
+
+  Réciproquement, supposons qu'il n'y a pas de sous-segment visible.
+  Si la droite passait au-dessus de l'origine, alors nécessairement
+  les extrémités se trouvent dans le même demi-plan relativement à $D$,
+  ce qui constitue une contradiction.
+
+  Supposons désormais que le segment occupe une partie du champ de vision.
+  S'il n'occupait pas tout le champ de vision (par l'absurde), alors
+  une des extrémités serait visible, ce qui contredit l'hypothèse.
+\end{proof}
+
+\subsection{Calcul de proportion visible}
+
+Supposons désormais qu'une des extrémités est visible.
+Alors deux cas sont à distinguer; soit le second point est également
+visible, soit le second point est hors de vue.
+
+Dans le premier cas, il suffit de calculer l'angle entre $d$ et
+$p_1$ et $p_2$ puis de rapporter cette valeur dans l'intervalle
+$[0, 1]$ pour calculer la proportion du champ de vision occupée
+par un segment. On utilise la bijection décroissante suivante
+pour se ramener de l'intervalle $[-\pi/4, \pi/4]$ à l'intervalle
+$[0, 1]$.
+
+$$f:\left[-\frac{\pi}{4}, \frac{\pi}{4}\right]\to [0, 1]: \theta \mapsto 1 - \frac{2}{\pi}\left(\theta + \frac{\pi}{4}\right)$$
+
+Puisqu'augmenter un angle
+sens trigonométrique revient à avancer vers la gauche, alors qu'avancer
+dans l'intervalle $[0, 1]$ (qui est l'ensemble utilisé pour représenter
+la vision de l'\oe{}il) revient à progresser vers la droite, $f$ a été prise
+décroissante. Sans la décroissance, la gauche et la droite seraient inversées
+dans cette représentation.
+
+Le deuxième cas comporte deux sous-cas. Supposons que $p_1$
+soit le point visible. Soit $\theta_i$ l'angle entre
+$p_i$ et $d$ pour $i=1, 2$, alors soit $|\theta_1 - \theta_2|\leq\pi$,
+ou alors $|\theta_1 - \theta_2|>\pi$. Cette distance représente
+la longueur d'arc entre $p_1/\|p_1\|$ et $p_2/\|p_2\|$.
+
+Si cette longueur d'arc n'excède pas $\pi$, alors la droite
+joignant $p_1$ à $p_2$ passe au-dessus de l'origine (relativement
+à $d$). Dans ce cas, à $\theta_2$ est associée la valeur $0$
+si $\theta_2 > \pi/4$, et $1$ si $\theta_2 < -\pi/4$.
+
+Sinon, la droite joignant les deux points ne passe pas au-dessus de l'origine
+et donc si $\theta_2 >\pi/4$, la valeur $1$ lui est associée, sinon la valeur
+$0$ lui est associée.
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../rapportGp1"
