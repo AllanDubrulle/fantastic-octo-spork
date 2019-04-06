@@ -171,7 +171,7 @@ par lequel passe la droite qui sépare le plan en deux).
 \end{proof}
 
 
-\section{Algorithme du peintre}
+\subsection{Algorithme du peintre}
 L'algorithme du peintre est un algorithme permettant d'effectuer un
 affichage sans afficher les objets cachés par d'autres (\emph{hidden surface
   removal}). \`{A} la manière d'un peintre, le principe de l'algorithme est
@@ -255,14 +255,14 @@ Ce résultat permet l'observation suivante:
   L'efficacité de l'algorithme du peintre dépend directement
   du nombre de fragments générés par la construction de $T$.
 \end{cor}
-\section{Calcul des parties visibles}
+\subsubsection{Calcul des parties visibles}
 Cette section s'attèle à expliquer la procédure mise en \oe{}vre pour déterminer
 quelle proportion d'un segment est visible, étant donné un \oe{}il.
 Après introduction des notations, des critères de visibilités sont
 établis, suivis de l'élaboration d'une procédure pour calculer la
 proportion du champ de vision occupée par un segment donné.
 
-\subsection{Notations et terminologie}
+\subsubsection{Notations et terminologie}
 Tout au long de cette section, nous considérons un \oe{}il $e$, qui est la donnée à
 la fois d'un point $(x, y)$ du plan représentant sa position et d'un angle $\phi$
 qui représente la direction de vue de l'oeil. Autrement dit, l'orientation de
@@ -293,7 +293,7 @@ plutôt que \og{}un objet est élément (ou est inclus) au demi-plan positif $D^
 En effet, cela permet un vocabulaire plus imagé tout en restant cohérent
 avec la réalité mathématique (un exemple est donné à la figure \ref{sep:ill}).
 
-\subsection{Région de points visibles}
+\subsubsection{Région de points visibles}
 L'ensemble des points visibles est par définition l'ensemble
 des vecteurs\footnote{On identifie un point du plan au vecteur
   joignant l'origine à ce point.} $v$ tel que l'angle non orienté formé
@@ -313,7 +313,7 @@ normal $d_2$ (resp. $d_1$) est un sous-ensemble convexe de points non visibles.
 Une illustration est fournie à la figure \ref{vis:ill}.
 
 \input{figures/visibilite}
-\subsection{Critère de visibilité}
+\subsubsection{Critère de visibilité}
 Soient $p_i=(u_i, v_i)$, $i = 1$, $2$ deux points du plan. Ici, nous nous
 intéressons à la question \og\emph{existe-t-il une partie du segment $[p_1, p_2]$
   visible par $e$?}\fg.
@@ -405,7 +405,7 @@ et $p_2$ sont dans des demi-plans différents par rapport à $D$.
   une des extrémités serait visible, ce qui contredit l'hypothèse.
 \end{proof}
 
-\subsection{Calcul de proportion visible}
+\subsubsection{Calcul de proportion visible}
 Afin d'afficher la portion visible du segment,
 il suffit de déterminer quelle proportion d'arc  porte la couleur du segment.
 Pour ramener les segments sur le cercle trigonométrique, il suffit
