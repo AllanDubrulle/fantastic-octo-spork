@@ -300,10 +300,19 @@ des vecteurs\footnote{On identifie un point du plan au vecteur
 par $v$ et $d$ est inférieur à $\pi/4$.
 
 Il s'agit également de la région délimitée par les demi-droites d'extrémité
-$(0, 0)$ dont les directions et sens respectifs sont
+$(0, 0)$ dont les directions et sens respectifs sont donnés par
 $d_1 = (\cos(\phi + \pi/4), \sin(\phi + \pi/4))$ et
 $d_2 = (\cos(\phi - \pi/4), \sin(\phi - \pi/4))$.
 
+Notez que $d_1$ est un vecteur
+normal de la demi-droite de direction $d_2$ et réciproquement.
+Soient la droite $D_1$ (resp. $D_2$) de vecteur directeur $d_1$
+(resp. $d_2$). Il est important de remarquer
+que le demi-plan en dessous de $D_1$ (resp. $D_2$) relativement au vecteur
+normal $d_2$ (resp. $d_1$) est un sous-ensemble convexe de points non visibles.
+Une illustration est fournie à la figure \ref{vis:ill}.
+
+\input{figures/visibilite}
 \subsection{Critère de visibilité}
 Soient $p_i=(u_i, v_i)$, $i = 1$, $2$ deux points du plan. Ici, nous nous
 intéressons à la question \og\emph{existe-t-il une partie du segment $[p_1, p_2]$
