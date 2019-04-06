@@ -49,8 +49,10 @@ public class GraphicalWindow extends GridPane
                            *    Initial setup    *
         *************************************************************/
         super();
-        setPrefSize(800, 600);
+        setStyle("-fx-background-color:#f8f8ff;");
         interactiveMode = new SimpleBooleanProperty();
+        stage.setMaximized(true);
+        stage.setResizable(false);
 
         /************************************************************
          *            Setup of row and column constraints          *
@@ -103,7 +105,7 @@ public class GraphicalWindow extends GridPane
         add(planeDrawing, 1, 1);
 
         painter = new GraphicalPainter(widthProperty().multiply(0.75), heightProperty().multiply(0.1));
-        
+
         add(painter, 1, 3);
 
         /************************************************************
@@ -170,6 +172,7 @@ public class GraphicalWindow extends GridPane
         Button treeButton = new Button("Construire l'arbre");
         treeButton.setOnMouseClicked(x -> {
                 core.buildBSP();
+                core.display(painter);
         });
 
         /************************************************************
@@ -190,14 +193,10 @@ public class GraphicalWindow extends GridPane
         globalEyeButton.setOnMouseClicked(x -> {
                 Optional<double[]> t  = (new EyeDialog2()).showAndWait();
                 if (t.isPresent())
+                {
                     core.changeEye(t.get()[0], t.get()[1], t.get()[2]);
-                        });
-
-        Button paintButton = new Button("Dessiner la vue");
-        paintButton.setOnMouseClicked(x -> {
-                paintButton.setDisable(true);
-                core.display(painter);
-                paintButton.setDisable(false);
+                    core.display(painter);
+                }
             });
 
         /************************************************************
@@ -220,7 +219,7 @@ public class GraphicalWindow extends GridPane
 
         VBox ctrlBox2 = new VBox(8);
         ctrlBox2.setAlignment(Pos.CENTER);
-            ctrlBox2.getChildren().addAll(globalEyeButton, paintButton);
+            ctrlBox2.getChildren().add(globalEyeButton);
         add(ctrlBox2, 0, 2);
 
 
@@ -229,7 +228,7 @@ public class GraphicalWindow extends GridPane
         *************************************************************/
 
         for (Control c : new Control[]
-            { btnFile, heuristics, treeButton, eyeButton, globalEyeButton, paintButton})
+            { btnFile, heuristics, treeButton, eyeButton, globalEyeButton})
         {
             c.prefWidthProperty().bind(widthProperty().multiply(0.18));
             c.setFocusTraversable(false);
@@ -249,14 +248,6 @@ public class GraphicalWindow extends GridPane
                                      Boolean new_value)
                  {
                      eyeButton.setDisable(!new_value);
-                     if (new_value)
-                     {
-                         paintButton.setDisable(true);
-                     }
-                     else
-                     {
-                         paintButton.setDisable(false);
-                     }
                  }
              });
         interactiveMode.set(true);

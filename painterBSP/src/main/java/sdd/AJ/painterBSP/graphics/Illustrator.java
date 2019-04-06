@@ -149,5 +149,13 @@ public class Illustrator extends AbstractIllustrator
         border.setY(-scale(margin));
         border.setStyle("-fx-stroke:black; -fx-fill: rgba(0, 0, 0, 0);");
         getChildren().add(border);
+        // Outer border to prevent the drawing from shaking:
+        margin = 2* margin;
+        border = new Rectangle(scale(2* (x + margin)),
+                               scale(2* (y + margin)));
+        border.setX(-scale(margin));
+        border.setY(-scale(margin));
+        border.setStyle("-fx-fill: rgba(0, 0, 0, 0);");
+        getChildren().add(border);
     }
 }

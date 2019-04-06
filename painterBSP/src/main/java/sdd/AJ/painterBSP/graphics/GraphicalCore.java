@@ -24,7 +24,7 @@ public class GraphicalCore
     private int xBound, yBound;
     private boolean randomConstruction;
     private Heuristic heuristic;
-    private double step = 0.1;
+    private double step;
 
     public static final int MARGIN = 50;
 
@@ -38,6 +38,7 @@ public class GraphicalCore
         window.requestFocus();
         this.eye = new Eye(0, 0, 0);
         resetValues();
+        step = 3;
         randomConstruction = false;
         heuristic = null;
     }
@@ -45,7 +46,8 @@ public class GraphicalCore
     /**
      * Resets values of the core, that is the position of the eye,
      * the loaded segments and the tree (if they have been created or altered).
-     * The selected heuristic is not changed when this method is called.
+     * The selected heuristic is not changed when this method is called, nor
+     * is the size of a step.
      */
     private void resetValues()
     {
