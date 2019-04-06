@@ -1,0 +1,17 @@
+\begin{figure}[!h]
+  \begin{center}
+    \caption{Illustration d'un oeil}%
+    \label{oeil:ill}
+    \begin{tikzpicture}
+      \begin{scope}[rotate=10]
+        \draw (2, 0) -- (0, 0) node[left] {$(x, y$)}-- (0, 2);
+        \draw [->] (0, 0) -- (1.41421, 1.41421) node[above] {$d$};
+        \draw [thick,domain=0:90] plot ({2*cos(\x)}, {2*sin(\x)});
+      \end{scope}
+    \end{tikzpicture}
+\end{center}
+\end{figure}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../rapportGp1"
+%%% End:

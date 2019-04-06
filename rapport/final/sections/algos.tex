@@ -257,25 +257,41 @@ Ce résultat permet l'observation suivante:
 \end{cor}
 \section{Calcul des parties visibles}
 Cette section s'attèle à expliquer la procédure mise en \oe{}vre pour déterminer
-quelle proportion d'un segment est visible, étant donné un \oe{}il. Tout d'abord,
-des critères de visibilités sont établis dans une première sous-section, suivi
-de l'élaboration d'une procédure pour calculer la proportion du champ de vision
-occupée par un segment donné.
+quelle proportion d'un segment est visible, étant donné un \oe{}il.
+Après introduction des notations, des critères de visibilités sont
+établis, suivis de l'élaboration d'une procédure pour calculer la
+proportion du champ de vision occupée par un segment donné.
 
+\subsection{Notations et terminologie}
 Tout au long de cette section, nous considérons un \oe{}il $e$, qui est la donnée à
 la fois d'un point $(x, y)$ du plan représentant sa position et d'un angle $\phi$
 qui représente la direction de vue de l'oeil. Autrement dit, l'orientation de
 l'oeil est donnée par le vecteur $d=(\cos(\phi), \sin(\phi))$. Dans le modèle
-adopté, l'oeil a une ouverture de $\pi/2$ radians.
+adopté, l'oeil a une ouverture de $\pi/2$ radians. L'idée est de ramener
+les segments visibles sur un arc de cercle et d'évaluer la proportion d'arc
+à colorer. Une illustration de ce modèle est à la figure \ref{oeil:ill}.
 
-Sans perte de généralité, $(x, y) = (0, 0)$; si ce n'est pas le cas, tous les
+\input{figures/oeil_dir}
+
+Sans perte de généralité, il est fait l'hypothèse que $(x, y) = (0, 0)$;
+si ce n'est pas le cas, tous les
 calculs peuvent être effectués après une translation de $-(x, y)$ de tous
 les objets considérés.
 
 La notation $\langle \cdot,\cdot\rangle$ est employée pour le produit scalaire usuel
-dans $\mathbb R^2$. La norme euclidienne d'un vecteur $v = (v_1, v_2)$ est notée
-$\|v\| = \sqrt{v_1^2 + v_2^2}$. Au vu de la formule fondamentale liant le
+dans $\mathbb R^2$. Pour rappel, pour tous $v=(v_1, v_2)$,
+$w=(w_1, w_2)\in\mathbb R^2$, on définit
+$$\langle v, w\rangle = v_1 w_1 + v_2 w_2.$$
+La norme euclidienne d'un vecteur $v = (v_1, v_2)$ est notée
+$\|v\|$ et vaut $\sqrt{v_1^2 + v_2^2}$. Au vu de la formule fondamentale liant le
 sinus au cosinus, $\|d\| = 1$.
+
+\'Etant  donné un vecteur $n = (a, b)$ et une droite $D\equiv ax+by=c$
+(dont $n$ est un vecteur normal) il sera parfois dit
+\og un objet est au-dessus de la droite $D$ relativement à la direction $n$\fg{}
+plutôt que \og{}un objet est élément (ou est inclus) au demi-plan positif $D^+$\fg{}.
+En effet, cela permet un vocabulaire plus imagé tout en restant cohérent
+avec la réalité mathématique (un exemple est donné à la figure \ref{sep:ill}).
 
 \subsection{Région de points visibles}
 L'ensemble des points visibles est par définition l'ensemble
