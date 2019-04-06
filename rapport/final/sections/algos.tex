@@ -406,41 +406,45 @@ et $p_2$ sont dans des demi-plans différents par rapport à $D$.
 \end{proof}
 
 \subsection{Calcul de proportion visible}
+Afin d'afficher la portion visible du segment,
+il suffit de déterminer quelle proportion d'arc  porte la couleur du segment.
+Pour ramener les segments sur le cercle trigonométrique, il suffit
+de ramener les extrémités sur le cercle en les normalisant (c'est-à-dire en
+les divisant par leur norme) et
+de colorer l'arc de longueur moindre entre les points.
+L'idée sous-jacente est qu'aucun angle au centre d'un cercle ne
+peut excéder $\pi$ radians.
+\input{figures/config_prop}
 
-Supposons désormais qu'une des extrémités est visible.
-Alors deux cas sont à distinguer; soit le second point est également
-visible, soit le second point est hors de vue.
+Le segment représentant la vue de l'\oe{}il est identifié à l'intervalle
+$[0, 1]$. Après détermination des angles définissant l'arc de cercle
+à colorer, la bijection décroissante suivante est utilisée pour
+se ramener à l'intervalle $[0, 1]$:
+$$f:\left[-\frac{\pi}{4}, \frac{\pi}{4}\right]\to [0, 1]: \theta \mapsto 1 - \frac{2}{\pi}\left(\theta + \frac{\pi}{4}\right).$$
 
-Dans le premier cas, il suffit de calculer l'angle entre $d$ et
-$p_1$ et $p_2$ puis de rapporter cette valeur dans l'intervalle
-$[0, 1]$ pour calculer la proportion du champ de vision occupée
-par un segment. On utilise la bijection décroissante suivante
-pour se ramener de l'intervalle $[-\pi/4, \pi/4]$ à l'intervalle
-$[0, 1]$.
+La décroissance est imposée car l'accroissement des angles mène
+à une rotation vers la gauche alors que croître dans l'intervalle
+revient à avancer vers la droite.
 
-$$f:\left[-\frac{\pi}{4}, \frac{\pi}{4}\right]\to [0, 1]: \theta \mapsto 1 - \frac{2}{\pi}\left(\theta + \frac{\pi}{4}\right)$$
+Soient $\theta_1$ et $\theta_2$ les angles \emph{signés}
+entre $d$ et $p_1$ et $p_2$
+respectivement. Supposons que $\theta_1$ est dans l'intervalle $[-\pi/4, \pi/4]$
+(autrement dit $p_1$ est visible). Il n'est pas nécessaire de considérer
+les autres cas au vu de la section précédente. Les cas à distinguer selon
+$\theta_2$ sont les suivants:
 
-Puisqu'augmenter un angle
-sens trigonométrique revient à avancer vers la gauche, alors qu'avancer
-dans l'intervalle $[0, 1]$ (qui est l'ensemble utilisé pour représenter
-la vision de l'\oe{}il) revient à progresser vers la droite, $f$ a été prise
-décroissante. Sans la décroissance, la gauche et la droite seraient inversées
-dans cette représentation.
+\begin{itemize}
+  \item Si $\theta_2\in[-\pi/4, \pi/4]$, la partie à colorer de $[0, 1]$ est
+    l'intervalle (non orienté) $[f(\theta_1), f(\theta_2)]$.
+  \item Sinon, si $|\theta_2|>\pi/4$ et $|\theta_1-\theta_2|\leq \pi$,
+    on colore l'intervalle $[f(\theta_1), 1]$ si $\theta_2<-\pi/4$ et
+    $[0, f(\theta_1)]$ si $\theta_2>\pi/4$.
+  \item Sinon, si $|\theta_2|>\pi/4$ et $|\theta_1-\theta_2|> \pi$,
+    on colore l'intervalle $[0, f(\theta_1)]$ si $\theta_2<-\pi/4$ et
+    $[f(\theta_1), 1]$ si $\theta_2>\pi/4$.
+\end{itemize}
 
-Le deuxième cas comporte deux sous-cas. Supposons que $p_1$
-soit le point visible. Soit $\theta_i$ l'angle entre
-$p_i$ et $d$ pour $i=1, 2$, alors soit $|\theta_1 - \theta_2|\leq\pi$,
-ou alors $|\theta_1 - \theta_2|>\pi$. Cette distance représente
-la longueur d'arc entre $p_1/\|p_1\|$ et $p_2/\|p_2\|$.
 
-Si cette longueur d'arc n'excède pas $\pi$, alors la droite
-joignant $p_1$ à $p_2$ passe au-dessus de l'origine (relativement
-à $d$). Dans ce cas, à $\theta_2$ est associée la valeur $0$
-si $\theta_2 > \pi/4$, et $1$ si $\theta_2 < -\pi/4$.
-
-Sinon, la droite joignant les deux points ne passe pas au-dessus de l'origine
-et donc si $\theta_2 >\pi/4$, la valeur $1$ lui est associée, sinon la valeur
-$0$ lui est associée.
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../rapportGp1"
