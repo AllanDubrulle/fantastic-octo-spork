@@ -342,7 +342,7 @@ de $\pi/2$ radians.
 \end{proof}
 
 Dès qu'une des deux extrémités du segment $[p_1, p_2]$ appartient au
-cône visible par l'\oe{}il, le segment est partiellement
+cône visible par l'\oe{}il, le segment est (partiellement)
 visible. Il reste à étudier les configurations où ni $p_1$, ni $p_2$ est
 visible, mais le segment est tout de même partiellement dans le champ de vision.
 
@@ -353,11 +353,19 @@ Deux configurations symétriques sont immédiatement à rejeter.
   et sont tous les deux hors de vue, alors le segment est complètement hors de vue.
 \end{obs}
 \begin{proof}
+  Pour ne pas s'encombrer de lourdes notations, la preuve est effectuée
+  géométriquement.
+
   Sous ces hypothèses, les extrémités sont comprises dans l'intersection
-  de deux convexes du plan, qui est un convexe, ce qui implique
-  que le segment est dans cette intersection. Puisqu'un de ces convexes
-  est un ensemble de points hors de vue, cela implique que le segment
-  n'est pas visible par $e$.
+  de deux convexes du plan; le demi-plan relatif à $D$ et $D_i^-$ où la valeur
+  de $i$ à choisir est dépendante du demi-plan relatif à $D$ considéré.
+  Sur la figure \ref{vis:ill}, si les extrémités du segments étaient
+  à gauche relativement à $D$, alors elles seraient dans $D_1^-$ et
+  si elles étaient à droite, elles seraient dans $D_2^-$.
+
+  Ces deux demi-plans étant convexes, dans le premier cas le
+  segment serait contenu dans le demi-plan $D_1^-$ et dans le second
+  cas, il serait contenu dans le demi-plan $D_2^-$.
 \end{proof}
 
 Il reste à traiter les configurations dans lesquelles $p_1$
@@ -377,14 +385,20 @@ et $p_2$ sont dans des demi-plans différents par rapport à $D$.
 
 \begin{proof}
   Supposons que le segment est partiellement visible. Alors il existe
-  un sous-segment visible, ce qui implique que la droite passe
-  au-dessus du point de passage (car elle est partiellement dans le champ
-  de vision).
+  un point visible. Puisque la droite passant par $p_1$ et $p_2$ passe
+  par ce point et que ce point est au-dessus de l'origine relativement
+  à $d$, la droite est au-dessus de l'origine.
 
-  Réciproquement, supposons qu'il n'y a pas de sous-segment visible.
-  Si la droite passait au-dessus de l'origine, alors nécessairement
-  les extrémités se trouvent dans le même demi-plan relativement à $D$,
-  ce qui constitue une contradiction.
+
+  Réciproquement, supposons que la droite passe au-dessus de l'origine.
+  Soit $n\perp d$ un vecteur normal à $d$. Affirmer que la droite passe
+  au-dessus de l'origine revient à affirmer qu'il existe un point $p$ de $D$
+  dont les composantes sont $(0, \lambda)$ dans la base $(n, d)$ pour
+  un certain $\lambda>0$. Puisque l'angle associé à $p$ est $0$, $p$
+  est visible. Puisque par hypothèse, les extrémités du segment sont
+  supposées dans des demi-plans différents, leur première composante
+  dans la base $(n, d)$ est de signe opposée. Cela implique que $p$
+  est élément du segment.
 
   Supposons désormais que le segment occupe une partie du champ de vision.
   S'il n'occupait pas tout le champ de vision (par l'absurde), alors
