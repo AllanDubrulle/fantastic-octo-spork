@@ -142,22 +142,40 @@ public class Eye
         v1 = v1 - this.y;
         u2 = u2 - this.x;
         v2 = v2 - this.y;
-        // temp_i is cos(phi_i) where phi_i is the angle between
+        // temp_i is cos(theta_i) where phi_i is the angle between
         // (a, b) and (ui, vi) for i = 1, 2
         double temp1 = (a * u1 + b * v1)/Math.hypot(u1, v1);
         double temp2 = (a * u2 + b * v2)/ Math.hypot(u2, v2);
         temp1 = Math.acos(temp1);
         temp2 = Math.acos(temp2);
         // now temp_i is the unsigned phi, to sign it we use the fact that being to the right => negative angle
-        temp1 = isToTheRight(u1, v1) ? -temp1:  temp1;
-        temp2 = isToTheRight(u2, v2) ? -temp2 : temp2;
+        double phi1 = isToTheRight(u1, v1) ? -temp1:  temp1;
+        double phi2 = isToTheRight(u2, v2) ? -temp2 : temp2;
 
-        // We now consider the bijection f(x) = (x + pi/4) / (pi/2)
-        // f: [-pi/4, pi/4] -> [0, 1] plus the cases when temp_i
-        // exceeds the considered interval
+        // If the arc length between the angles is lower than pi, then
+        // we can directly map the angles in [0, 1] using function f
 
-        start= f(temp1);
-        end = f(temp2);
+        if (Math.abs(phi1 - phi2) <= Math.PI)
+        {
+            start= f(phi1);
+            end = f(phi2);
+        }
+
+        // Otherwise, there are extreme cases which must be distinguished
+        else
+        {
+            if( Math.abs(phi1) <= Math.PI /4)
+            {
+                start = f(phi1);
+                end = 1- f(phi2);
+            }
+            else
+            {
+                start = f(phi2);
+                end = 1 - f(phi1);
+            }
+        }
+
         return new double[] { start, end };
     }
 
