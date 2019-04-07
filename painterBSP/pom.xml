@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>sdd.AJ</groupId>
-  <artifactId>painterBSP</artifactId>
-  <version>1-GUI</version>
+  <artifactId>BSPPainter</artifactId>
+  <version>TestGraphique-1.0</version>
   <packaging>jar</packaging>
 
-  <name>painterBSP</name>
+  <name>BSPPainter</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -18,53 +18,33 @@
   <build>
     <plugins>
       <plugin>
-      <!-- Build an executable JAR
-           We configure the 'maven-jar-plugin' -->
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-jar-plugin</artifactId>
-      <!--	Removes the error messages by specifying
-      		the version for the jar plugin -->
-      <version>2.3.2</version>
-      <configuration>
-        <archive>
-          <manifest>
-            <addClasspath>true</addClasspath>
-            <classpathPrefix>lib</classpathPrefix>
-            <mainClass>sdd.AJ.painterBSP.TestGraphique</mainClass>
-          </manifest>
-        </archive>
-      </configuration>
+	<!-- Build an executable JAR
+             We configure the 'maven-jar-plugin' -->
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-jar-plugin</artifactId>
+	<!--	Removes the error messages by specifying
+      	    the version for the jar plugin -->
+	<version>2.3.2</version>
+	<configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>lib</classpathPrefix>
+              <mainClass>sdd.AJ.painterBSP.TestGraphique</mainClass>
+            </manifest>
+          </archive>
+	</configuration>
       </plugin>
-      
       <!-- based on answer at following URL: -->
       <!-- https://stackoverflow.com/questions/15798936/creating-two-executable-jars-using-maven-assembly-plugin -->
       <plugin>
-	<artifactId>maven-assembly-plugin</artifactId>
-	<version>2.4</version>
-	<executions>
-          <execution>
-            <id>build-graphical</id>
-            <configuration>
-              <appendAssemblyId>false</appendAssemblyId>
-              <archive>
-                <manifest>
-                  <mainClass>sdd.AJ.painterBSP.TestGraphique</mainClass>
-                </manifest>
-              </archive>
-              <descriptorRefs>
-                <descriptorRef>jar-with-dependencies</descriptorRef>
-              </descriptorRefs>
-              <finalName>BSPPainter-TestGraphique</finalName>
-            </configuration>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.4</version>
+        <executions>
           <execution>
             <id>build-console</id>
             <configuration>
-              <appendAssemblyId>false</appendAssemblyId>
+              <appendAssemblyId>true</appendAssemblyId>
               <archive>
                 <manifest>
                   <mainClass>sdd.AJ.painterBSP.console.TestConsole</mainClass>
@@ -80,7 +60,20 @@
               <goal>single</goal>
             </goals>
           </execution>
-	</executions>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+	<version>3.1.0</version>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

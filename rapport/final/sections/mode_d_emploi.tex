@@ -1,10 +1,30 @@
 \subsection{Compilation}
-% Todo
+La compilation du programme s'effectue en ligne de commande à l'aide
+de l'outil Maven (\url{https://maven.apache.org/}). Dans la racine
+du projet (où se trouve le fichier \texttt{pom.xml}),
+via la ligne de commande, l'instruction
+\begin{center}
+  \texttt{
+    mvn install
+  }
+\end{center}
+compile le projet et les tests unitaires, exécute les tests unitaires
+et génère trois fichiers au format \emph{.jar} dans le répertoire
+\texttt{target}:
+\begin{itemize}
+\item le programme avec interface graphique correspond au fichier
+  \\ \texttt{BSPPainter-TestGraphique-1.0.jar};
+\item le programme en ligne de commande correspond au fichier
+  \\ \texttt{BSPPainter-TestConsole-jar-with-dependencies.jar};
+\item la javadoc du projet est générée dans l'archive (non exécutable)
+  \\ \texttt{BSPPainter-TestGraphique-1.0-javadoc.jar}.
+\end{itemize}
+
 \subsection{Programme en console}
 Le programme en console s'exécute avec la commande :
 \begin{center}
   \texttt{
-    java -jar target/BSPPainter-TestConsole.jar nomdufichier
+    java -jar BSPPainter-TestConsole-jar-with-dependencies.jar nomdufichier
   }
 \end{center}
 
