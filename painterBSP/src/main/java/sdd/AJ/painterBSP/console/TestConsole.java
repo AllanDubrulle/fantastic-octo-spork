@@ -32,7 +32,7 @@ public class TestConsole
             linearBSP = new BSPTester(irr.getSegments(),new LinearHeuristic()); 
             ArrayList<Segment> temp= (ArrayList<Segment>) irr.getSegments();
             Collections.shuffle(temp);
-            randomBSP= new BSPTester(temp,new FirstHeuristic());
+            randomBSP= new BSPTester(temp,new LinearHeuristic());
             
             line= "";
             for (int i = 0 ; i <=60 ; i++ )

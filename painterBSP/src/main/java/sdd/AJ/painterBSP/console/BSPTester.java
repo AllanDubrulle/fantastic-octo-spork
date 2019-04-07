@@ -38,15 +38,16 @@ public class BSPTester
         long start_cpu = System.nanoTime();
         this.tree = new BSPTree(list,getHeuristic());
         long end_cpu = System.nanoTime();
+        int avgNbr= 10;
         this.mTimeConstructor = (end_cpu - start_cpu);
-        for (int i=1; i<=10 ; i++)
+        for (int i=1; i<=avgNbr; i++)
         {
             start_cpu = System.nanoTime();
             BSPTree temp = new BSPTree(getList(),getHeuristic());
             end_cpu = System.nanoTime();
             mTimeConstructor+= (end_cpu - start_cpu)/1000;
         }
-        this.mTimeConstructor /= 10;
+        this.mTimeConstructor /= avgNbr;
     }
     
     
@@ -86,18 +87,18 @@ public class BSPTester
     {
         Eye eye = new Eye(x,y,angle);
         double res = 0;
-        for (int i=0; i<=50 ; i++)
+        int avgNbr = 30;
+        for (int i=0; i<=avgNbr ; i++)
         {
             long start_cpu = System.nanoTime();
             tree.paintersAlgorithm((u,v,w)->{},eye);
             long end_cpu = System.nanoTime();
             res+= (end_cpu - start_cpu)/1000;
         }
-        return res/50;
+        return res/avgNbr;
     }
     
     /**
-     * Recursively computes the size of the tree.
      * @return an integer equal to the amount of nodes in the tree
      */
     public int sizeTest()
