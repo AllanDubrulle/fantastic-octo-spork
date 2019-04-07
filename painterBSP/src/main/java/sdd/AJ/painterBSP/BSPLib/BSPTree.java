@@ -10,6 +10,10 @@ import sdd.AJ.painterBSP.util.Equation;
 import sdd.AJ.painterBSP.util.Eye;
 import sdd.AJ.painterBSP.util.Segment;
 
+/**
+ * Java implementation of a 2D binary space partition tree.
+ * Contains an implementation of the painter's algorithm.
+ */
 public class BSPTree
 {
     private List<Segment> list;
@@ -132,8 +136,8 @@ public class BSPTree
     }
 
     /**
-     * Getter for the equation of the splitting plane
-     * @return the equation of the of the splitting plane
+     * Getter for the equation of the splitting line.
+     * @return the equation of the of the splitting line
      */
     public Equation getEquation()
     {
@@ -141,7 +145,7 @@ public class BSPTree
     }
 
     /**
-     * Tests if the tree is empty
+     * Tests if the tree is empty.
      * @return true iff the tree contains no data and has no children
      */
     public boolean isEmpty()
@@ -150,7 +154,7 @@ public class BSPTree
     }
 
     /**
-     * Tests if the tree consists of only a leaf
+     * Tests if the tree consists of only a leaf.
      * @return true iff the tree has no children
      */
     public boolean isLeaf()

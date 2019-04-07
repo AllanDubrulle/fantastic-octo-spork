@@ -2,6 +2,10 @@ package sdd.AJ.painterBSP.BSPLib;
 
 import sdd.AJ.painterBSP.util.MyColor;
 
+/**
+ * Abstraction of a painter.
+ * Functional interface.
+ */
 public interface Painter
 {
     /**
