@@ -30,7 +30,7 @@ public class GraphicalCore
 
     /**
      * Class constructor.
-     * @param window the main window of the programme
+     * @param stage the javafx stage which will contain the window
      */
     public GraphicalCore(Stage stage)
     {
@@ -84,8 +84,9 @@ public class GraphicalCore
 
     /**
      * Loads a new file using an IllustrationInputReader.
-     * If the load is successful, resets all values (by calling
-     * the resetValues() method. Otherwise throws an exception to
+     * If the load is successful, resets all values besides step
+     * and heuristic, then sets variables according to new file.
+     * Otherwise throws an exception to
      * be handled by the caller.
      * @param file the file to be loaded into the programme
      * @throws IOException
@@ -112,12 +113,14 @@ public class GraphicalCore
     public void buildBSP()
     {
         if (segments == null)
-            window.warn("Aucun fichier n'est chargé.\n"+
-                        "Veuillez charger un fichier valable.");
+            window.warn(String.format(
+                        "Aucun fichier n'est chargé.%n"+
+                        "Veuillez charger un fichier valable."));
 
         else if (heuristic == null && !randomConstruction)
-            window.warn("Aucune heuristique n'est sélectionnée.\n"+
-                        "Veuillez en sélectionner une.");
+            window.warn(String.format(
+                        "Aucune heuristique n'est sélectionnée.%n"+
+                        "Veuillez en sélectionner une."));
         else
         {
             if (randomConstruction)

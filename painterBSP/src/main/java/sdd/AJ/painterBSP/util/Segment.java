@@ -59,7 +59,6 @@ public final class Segment
      * s'' lies in the half-plane containing (x, y).
      * Throws a RuntimeException if the precondition is not met.
      * @param equation the planar equation used to define the half-planes
-     * @param c        the scalar used to define the half-planes
      * @return an array containing two segments [s', s''] as previously
      *          described
      */

@@ -20,7 +20,8 @@ public class EyeDialog2 extends Dialog<double[]>
                                                     "Ordonnée : ",
                                                     "Angle : ");
         pane.setContent(dif);
-        setHeaderText("Sélectionnez les coordonnées\net l'orientation de l'oeil.");
+        setHeaderText(String.format("Sélectionnez les coordonnées%n"+
+                                    "et l'orientation de l'oeil."));
         setTitle("Paramètres de l'oeil (mode non interactif)");
         pane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 

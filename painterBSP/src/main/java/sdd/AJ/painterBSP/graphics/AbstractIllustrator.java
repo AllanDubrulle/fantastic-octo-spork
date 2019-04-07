@@ -39,9 +39,9 @@ public abstract class AbstractIllustrator extends Group
     }
 
     /**
-     * Returns the JavaFX color matching with the parameter.
-     * @param the color of which a FX version is requested
-     * @return the matching JavaFX color
+     * Returns the JavaFX colour matching with the parameter.
+     * @param color the colour of which a FX version is requested
+     * @return the matching JavaFX colour
      */
     protected static Color getFXColor(MyColor color)
     {

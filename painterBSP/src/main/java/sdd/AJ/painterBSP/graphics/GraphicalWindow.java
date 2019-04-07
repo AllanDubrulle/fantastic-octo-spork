@@ -42,6 +42,7 @@ public class GraphicalWindow extends GridPane
     /**
      * Class constructor.
      * @param stage the stage of the JavaFX Application the window is used in
+     * @param core the core to which this window is linked
      */
     public GraphicalWindow(Stage stage, GraphicalCore core)
     {
@@ -297,6 +298,7 @@ public class GraphicalWindow extends GridPane
     {
         planeDrawing.update(xBound, yBound, segments);
         planeDrawing.clear();
+        painter.clear();
         planeDrawing.draw();
     }
 

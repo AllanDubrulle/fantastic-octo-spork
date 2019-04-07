@@ -203,7 +203,7 @@ public class BSPTree
      * Given a painter and an eye,
      * applies the painter's algorithm to depict what is
      * seen by the eye.
-     * @param the painter used to depict what is seen
+     * @param p the painter used to depict what is seen
      * @param eye  the viewpoint from which the scene is to be processed
      */
     public void paintersAlgorithm(Painter p, Eye eye)

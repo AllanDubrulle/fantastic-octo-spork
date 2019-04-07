@@ -13,6 +13,10 @@ import sdd.AJ.painterBSP.util.MyColor;
 public class GraphicalPainter extends AbstractIllustrator
     implements Painter
 {
+    /**
+     * Class constructor.
+     * @see sdd.AJ.painterBSP.graphics.AbstractIllustrator
+     */
     public GraphicalPainter(DoubleBinding parentWidthProperty, DoubleBinding parentHeightProperty)
     {
         super(parentWidthProperty, parentHeightProperty);

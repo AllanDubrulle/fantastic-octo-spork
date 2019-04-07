@@ -134,7 +134,7 @@ public class Illustrator extends AbstractIllustrator
         super.getChildren().add(line);
     }
 
-        /**
+    /**
      * Creates a rectangular border around the illustration.
      * @param x      half of the x bound of the drawing
      * @param y      half of the y bound of the drawing

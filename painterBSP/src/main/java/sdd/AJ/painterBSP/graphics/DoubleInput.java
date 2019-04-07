@@ -7,15 +7,17 @@ import javafx.scene.layout.GridPane;
 /**
  * A descendant of VBox containing one or multiple TextFields
  * of which inputs are restricted to decimal numbers.
+ * @see sdd.AJ.painterBSP.graphics.DoubleField
  */
 public class DoubleInput extends GridPane
 {
 
     private DoubleField[] fields;
+    
     /**
      * Class constructor.
      * @param labels the labels of the fields. The amount of labels given
-     *               is the amount of fields appearing
+     *               matches the amount of fields appearing
      */
     public DoubleInput(String... labels)
     {
@@ -33,6 +35,12 @@ public class DoubleInput extends GridPane
         }
     }
 
+    /**
+     * Reads the values in the different fields. If a field
+     * has nothing inside, its value is considered to be 0.
+     * @return the values in the fields in an array ordered
+     * the same way as the labels are
+     */
     public double[] getValues()
     {
         double[] val = new double[fields.length];

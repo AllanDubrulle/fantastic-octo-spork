@@ -15,6 +15,6 @@ public interface Painter
      * @param end   percentage at which the painting stops
      * @param color the colour to be used for painting
      */
-    public void draw(double start, double finish, MyColor color);
+    public void draw(double start, double end, MyColor color);
 
 }

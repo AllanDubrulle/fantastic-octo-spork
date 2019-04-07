@@ -4,6 +4,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
 
+/**
+ * Textfield restricted to floating-point inputs in a decimal format.
+ */
 public class DoubleField extends TextField
 {
     public DoubleField()
@@ -20,10 +23,11 @@ public class DoubleField extends TextField
             });
         setPromptText("0");
     }
+
     /**
      * Returns the value currently entered in the field.
      * If no text is entered, returns 0
-     * @return the value currently given
+     * @return the value currently given, 0 if none
      */
     public double getValue()
     {

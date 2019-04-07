@@ -18,8 +18,10 @@ public class EyeDialog extends Dialog<Double>
         DialogPane pane = this.getDialogPane();
         DoubleInput dif = new DoubleInput("Pas : ");
         pane.setContent(dif);
-        setHeaderText("Veuillez préciser la taille d'un\npas de l'oeil.\n"+
-                      "Confirmer sans entrer de valeur\nrevient à mettre le pas à zéro.");
+        setHeaderText(String.format("Veuillez préciser la taille d'un%n"+
+                                    "pas de l'oeil.%n"+
+                                    "Confirmer sans entrer de valeur%n"+
+                                    "revient à mettre le pas à zéro."));
         setTitle("Paramètres de l'oeil (interactif)");
         pane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
