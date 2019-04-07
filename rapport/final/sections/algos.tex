@@ -333,7 +333,7 @@ est inférieur
 à $\pi/4$. Ceci découle simplement de la définition de $e$ et de son ouverture
 de $\pi/2$ radians.
 
-\begin{lem}
+\begin{lem}\label{lem:angle}
   La complexité en temps du calcul d'un angle entre un vecteur $p$ et $d$ est
   $O(1)$.
 \end{lem}
@@ -414,7 +414,7 @@ et $p_2$ sont dans des demi-plans différents par rapport à $D$.
   S'il n'occupait pas tout le champ de vision (par l'absurde), alors
   une des extrémités serait visible, ce qui contredit l'hypothèse.
 \end{proof}
-\begin{lem}
+\begin{lem}\label{lem:couvr}
   La vérification de l'observation \ref{obs:couvr} peut être effectuée en
   temps constant.
 \end{lem}
@@ -475,33 +475,93 @@ $\theta_2$ sont les suivants:
 \subsubsection{Algorithmes}
 
 Afin d'effectuer les calculs de complexités de la procédure
-de visualisation, les algorithmes sont présentés de manière
-brève dans cette section.
+de visualisation, les algorithmes associés sont présentés
+dans cette section.
 
 \begin{algorithm}
-  \caption{estVisible($s=[p_1, p_2]$, $e$)}
-  \begin{algorithmic}[1] \label{algo:painter}
+  \caption{estVisible($s=[p_1, p_2]$, $e$)}\label{algo:estvis}
+  \begin{algorithmic}[1]
     \REQUIRE Un oeil $e$ positionné en $(0, 0)$ d'angle $\phi$ et un segment $s$
     donné par ses extrémités $p_1$, $p_2$.
     \ENSURE un signal indiquant si le segment a une extrémité visible,
     s'il obstrue complètement la vue ou s'il n'est pas visible.
     \STATE $d\leftarrow (\cos(\phi), \sin(\phi))$
-    \STATE $\theta_1\leftarrow$ l'angle entre $d$ et $p_1$
-    \STATE $\theta_2\leftarrow$ l'angle entre $d$ et $p_2$
+    \STATE $\theta_1\leftarrow$ l'angle entre $d$ et $p_1$ \label{r1:estvis}
+    \STATE $\theta_2\leftarrow$ l'angle entre $d$ et $p_2$ \label{r2:estvis}
     \IF{$\theta_1\in[-\pi/4, \pi/4]\lor \theta_2\in[-\pi/4, \pi/4]$}
     \RETURN \og{}une extrémité est visible\fg{}
     \ELSIF{$\theta_1$ et $\theta_2$ ont le même signe}
     \RETURN \og le segment n'est pas visible \fg \\
     \COMMENT{les extrémités sont dans le même demi-plan par rapport à $D$}
-    \ENDIF
-    \IF{la droite passant par $p_1$ et $p_2$ est au-dessus de $(0, 0)$ relativement à $d$}
+    \ELSIF{la droite passant par $p_1$ et $p_2$ est au-dessus de $(0, 0)$ relativement à $d$} \label{r3:estvis}
     \RETURN \og le segment couvre la vue\fg
     \ELSE
     \RETURN \og le segment n'est pas visible \fg
     \ENDIF
   \end{algorithmic}
 \end{algorithm}
-%%% Local Variables:
+
+\begin{prop}
+  La complexité de l'algorithme \ref{algo:estvis} est $O(1)$.
+\end{prop}
+\begin{proof}
+  Les lemmes \ref{lem:angle} et \ref{lem:couvr} assurent que
+  les instructions \ref{r1:estvis}, \ref{r2:estvis} et \ref{r3:estvis} sont en temps
+  constant. Les autres instructions sont toutes en temps constant, car il s'agit
+  de comparaisons de nombres.
+\end{proof}
+
+\begin{algorithm}
+  \caption{proportionVisible($e$, $s$)}
+  \begin{algorithmic}[1] \label{algo:propvis}
+    \REQUIRE Un oeil $e$ positionné en $(0, 0)$ d'angle $\phi$ et un segment $s$
+    donné par ses extrémités $p_1$, $p_2$ dont une des extrémités est visible.
+    \ENSURE un couple de réels entre $0$ et $1$  indiquant le sous-intervalle
+    de vue occupé par $s$.
+    \STATE $d\leftarrow (\cos(\phi), \sin(\phi))$
+    \STATE $\theta_1\leftarrow$ l'angle entre $d$ et $p_1$ \label{r1:propvis}
+    \STATE $\theta_2\leftarrow$ l'angle entre $d$ et $p_2$ \label{r2:propvis}
+    \STATE $f\leftarrow$ la fonction $
+    [-\pi/4, \pi/4]\to [0, 1]: x\mapsto 1 - (x+\pi/4) \times 2/\pi$
+    \IF{$\theta_1\in[-\pi/4, \pi/4]\land \theta_2\in[-\pi/4, \pi/4]$}
+    \RETURN $(f(\theta_1), f(\theta_2))$
+    \ELSE
+    \IF{$\theta_1\notin[-\pi/4, \pi/4]$}
+    \STATE échanger $\theta_1$ et $\theta_2$
+    \COMMENT{ceci assure $\theta_1\in[-\pi/4, \pi/4]$ et
+      $\theta_2\notin[-\pi/4, \pi/4]$}
+    \ENDIF
+    \IF{$|\theta_1-\theta_2|\leq\pi$}
+    \IF{$\theta_2>\pi/4$}
+    \RETURN $(0, f(\theta_1))$
+    \ELSE
+    \RETURN $(f(\theta_1), 1)$
+    \ENDIF
+    \ELSIF{$|\theta_1-\theta_2|>\pi$}
+    \IF{$\theta_2>\pi/4$}
+    \RETURN $(f(\theta_1), 1)$
+    \ELSE
+    \RETURN $(0, f(\theta_1))$
+    \ENDIF
+    \ENDIF
+    \ENDIF
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{prop}
+  La complexité de l'algorithme \ref{algo:propvis} est $O(1)$.
+\end{prop}
+\begin{proof}
+  Le lemme \ref{lem:angle} assure que les instructions \ref{r1:propvis} et
+  \ref{r2:propvis} sont en temps constant. Le calcul de la fonction $f$
+  est également réalisée en temps constant. Les différentes instructions
+  conditionnelles étant toutes également en $O(1)$, la complexité de
+  l'algorithme est bien $O(1)$.
+\end{proof}
+
+
+
+%%%Local Variables:
 %%% mode: latex
 %%% TeX-master: "../rapportGp1"
 %%% End:
