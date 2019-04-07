@@ -1,32 +1,57 @@
 \subsection{Compilation}
 % Todo
 \subsection{Programme en console}
-le programme en console s'exécute avec la commande :
+Le programme en console s'exécute avec la commande :
+\begin{center}
+  \texttt{
+    java -jar target/BSPPainter-TestConsole.jar nomdufichier
+  }
+\end{center}
 
-java -jar target/BSPPainter-TestConsole.jar nomdufichier.txt
+Si le fichier n'est pas trouvable ou n'existe pas, le programme
+s'arrêtera après avoir déclenché une \texttt{IOException}.
+Le fichier soumis doit être au format spécifique des scènes.
+Dans le cas contraire, le programme lancera une \texttt{FileFormatException}
+et se coupera.
 
-Si le fichier n'est pas trouvable ou n'existe pas, le programme s'arrêtera après avoir déclenché une IOException.
+Le programme effectue une partie des calculs au démarrage.
+Quelques secondes peuvent donc s'écouler avant le moindre affichage
+si le fichier est conséquent.
 
-De plus, Le fichier passé en argument doit être au format spécifique des scènes. Dans le cas contraire, le programme lancera une FileFormatException et se coupera.
+Le premier panneau d'affichage demande d'entrer un
+nombre entre $1$ et $5$. Pour chaque valeur, le programme
+spécifie les informations affichées.
+La console bouclera sur ce panneau tant que
+l'entrée de l'utilisateur n'est pas un nombre
+compris entre $1$ et $5$.
 
-Le programme effectue une partie des calculs au démarrage. Quelques secondes peuvent donc s'écoulaient avant le moindre affichage si le fichier est conséquent.
+Si l'utilisateur choisit d'afficher les performances de l'algorithme
+du peintre, un nouveau menu s'affichera demandant à l'utilisateur
+d'entrer les positions de l'oeil. Le format est précisé
+dans le menu et est le suivant :
+\begin{itemize}
+\item En premier, la coordonnée $x$ de l'oeil en nombre
+  flottant suivie du caractère \og;\fg{}.
+\item Deuxièmement, la coordonnée $y$ de l'oeil en
+  nombre flottant suivie du caractère \og;\fg.
+\item Finalement, l'angle qui correspond à la direction
+  de l'oeil tel que décrit dans la section \ref{not:oeil}.
+\end{itemize}
+Un exemple d'entrée valide est:
+\begin{center}
+  \texttt{
+    100.45;235.5;2.57
+  }
+\end{center}
 
-Le premier panneau d'affichage demande d'entrer un nombre entre 1 et 5. Pour chaque valeur, le programme spécifie les informations affichés.
+Si l'entrée contient trop de caractères séparés par des points-virgules,
+l'entrée sera rejetée. Il en va de même si l'une des 3 valeurs fournies
+n'est pas un nombre.
+Le programme affichera alors les informations souhaitées.
 
-La console bouclera sur ce panneau tant que l'entrée de l'utilisateur n'est pas un nombre ou n'est pas compris entre 1 et 5.
-
-Si l'utilisateur choisit d'afficher les performances de l'algorithme du peintre, un nouveau menu s'affichera demandant à l'utilisateur d'entrer les positions de l'oeil. Le format est précisé dans le menu et est le suivant :
-
-En premier, la coordonnée x de l'oeil en nombre flottant suivie du caractère ';'.
-
-Deuxième, la coordonnée y de l'oeil en nombre flottant suivie du caractère';'.
-
-Finalement, l'angle qui correspond à la direction de l'oeil tel que décrit dans la section \ref{not:oeil}.
-% faire le lien vers la section 2.3.1
-
-Si l'entrée contient trop de caractère séparé par ';', l'entrée sera rejettée. Il en va de même si l'une des 3 valeurs n'est pas un nombre. 
-
-Le programme affichera alors les informations souhaitées et lancera une nouvelle boucle similaire à la première. Cette fois-ci, Les nombres à entrer sont 1 ou 0. 0 ferme le programme tandis que 1 remet le programme dans la précédente boucle.
+Après cet affichage, le programme propose deux options numérotées par
+$0$ et $1$: $0$ ferme le programme tandis que $1$ affiche à nouveau
+le premier menu.
 
 %%%Local Variables:
 %%% mode: latex
