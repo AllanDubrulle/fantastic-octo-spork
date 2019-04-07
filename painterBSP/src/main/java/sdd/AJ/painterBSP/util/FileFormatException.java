@@ -1,5 +1,8 @@
 package sdd.AJ.painterBSP.util;
 
+/**
+ * Exception thrown when an input file does not match the expected format.
+ */
 public class FileFormatException extends Exception
 {
     FileFormatException()

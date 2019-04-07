@@ -4,9 +4,10 @@ import java.util.List;
 
 import sdd.AJ.painterBSP.BSPLib.Painter;
 
-    /* Represents an eye located at given coordinates,
-     * and in a specified direction.
-     */
+/**
+ * Represents an eye located at given coordinates,
+ * and in a specified direction.
+ */
 public class Eye
 {
     public static final int COVERS = 1;
@@ -27,20 +28,20 @@ public class Eye
     {
         this.x = x;
         this.y = y;
-        this.angle = angle;
+        this.setAngle(angle);
     }
 
     /**
      * Updates all fields of the eye with given parameters.
-     * @param x      x-coordinate of the eye
-     * @param y      y-coordinate of the eye
-     * @param angle  angle representing the forward direction
+     * @param x      new x-coordinate of the eye
+     * @param y      new y-coordinate of the eye
+     * @param angle  new angle representing the forward direction
      */
     public void update(double x, double y, double angle)
     {
         this.x = x;
         this.y = y;
-        this.angle = angle;
+        this.setAngle(angle);
     }
 
     /**
@@ -48,47 +49,55 @@ public class Eye
      */
     public void resetPosition()
     {
-        //resets values to 0
         this.x = 0;
         this.y = 0;
         this.angle = 0;
     }
 
-
+    /**
+     * Getter for x
+     * @return the x-coordinate of the eye
+     */
     public double getX()
     {
         return x;
     }
 
-    public void setX(double x)
-    {
-        this.x = x;
-    }
-
+    /**
+     * Getter for y
+     * @return the y-coordinate of the eye
+     */
     public double getY()
     {
         return y;
     }
 
-    public void setY(double y)
-    {
-        this.y = y;
-    }
+    /**
+     * Getter for angle
+     * @return the angle representing the direction of view
+     */
     public double getAngle()
     {
         return angle;
     }
 
+    /**
+     * Setter for angle. Ensures angle remains between 0 and 2 * pi.
+     * @param angle an angle representing the new direction of view
+     */
     public void setAngle(double angle)
     {
-        // Mesure principale entre -PI et PI
-        while (angle >  Math.PI)
-            angle -= 2 * Math.PI;
-        while (angle <= -Math.PI)
-            angle += 2 * Math.PI;
-        this.angle = angle;
+        if (angle >= 0)
+            this.angle = angle % (2 * Math.PI);
+        else
+            setAngle(angle + 2 * Math.PI);
     }
 
+    /**
+     * Draws each (visible) segment in a list using the given painter.
+     * @param list the list of segments to be drawn (if necessary)
+     * @param p the painter tasked with drawing
+     */
     public void visualiseList(List<Segment> list, Painter p)
     {
         for (Segment s: list)
@@ -148,7 +157,8 @@ public class Eye
         double temp2 = (a * u2 + b * v2)/ Math.hypot(u2, v2);
         temp1 = Math.acos(temp1);
         temp2 = Math.acos(temp2);
-        // now temp_i is the unsigned phi, to sign it we use the fact that being to the right => negative angle
+        // now temp_i is the unsigned phi, to sign it we use
+        // the fact that being to the right => negative angle
         double phi1 = isToTheRight(u1, v1) ? -temp1:  temp1;
         double phi2 = isToTheRight(u2, v2) ? -temp2 : temp2;
 
@@ -175,7 +185,6 @@ public class Eye
                 end = 1 - f(phi1);
             }
         }
-
         return new double[] { start, end };
     }
 
@@ -183,6 +192,8 @@ public class Eye
      * Decreasing bijection between [-pi/4, pi/4] and [0, 1]
      * extended as follows: if x < -pi/4, then f(x) = 1
      *                      if x > pi/4 then f(x) = 0
+     * @param x the function argument
+     * @return f(x)
      */
     private double f(double x)
     {
@@ -227,8 +238,7 @@ public class Eye
             return INTERSECTS;
         else if ( scal2 >= Math.hypot(u2, v2) * Math.sqrt(2)/ 2)
             return INTERSECTS;
-        // As the view angle is a convex subset of the plane,
-        // if both points lie on a same side (left or right) of
+        // If both points lie on a same side (left or right) of
         // the eye, then the segment is not visible.
         // Moreover, the segment cannot be seen if both points
         // lie beneath the eye.
@@ -251,14 +261,14 @@ public class Eye
 
         if (isToTheRight(u1, v1))
         {
-            if (!beneathOrigin(u2, v2, u1, v1))
+            if (!beneathOrigin(u1, v1, u2, v2))
                 return COVERS;
             else
                 return OUT_OF_VIEW;
         }
         else if (isToTheRight(u2, v2))
         {
-            if (!beneathOrigin(u1, v1, u2, v2))
+            if (!beneathOrigin(u2, v2, u1, v1))
                 return COVERS;
         }
 
@@ -280,11 +290,11 @@ public class Eye
      * Returns true iff the line represented by the normal
      * vector ((v2 - v1), (u1 - u2)), is beneath (0, 0),
      * relatively to the direction given by the normal vector
-     * (that is the vector (u2-u1, v2 -v1) rotated 90 degrees to the left).
+     * (that is the vector (u2 - u1, v2 - v1) rotated 90 degrees to the right).
      */
     private boolean beneathOrigin(double u1, double v1, double u2, double v2)
     {
-        return (v2 - v1) * u1 + (u1 - u2) * v1 >= 0;
+        return (v2 - v1) * u1 + (u1 - u2) * v1 < 0;
     }
 
 }

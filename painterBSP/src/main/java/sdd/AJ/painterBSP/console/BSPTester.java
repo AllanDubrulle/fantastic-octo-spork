@@ -7,23 +7,16 @@ import sdd.AJ.painterBSP.BSPLib.Heuristic.Heuristic;
 import sdd.AJ.painterBSP.util.Eye;
 import sdd.AJ.painterBSP.util.Segment;
 
+/**
+ * Class used to conduct performance tests on heuristics used
+ * for BSP tree construction.
+ */
 public class BSPTester
 {
     private BSPTree tree;
     private List<Segment> list;
     private Heuristic heuristic;
     private double mTimeConstructor;
-    
-   
-    public List<Segment> getList()
-    {
-        return list;
-    }
-
-    public Heuristic getHeuristic()
-    {
-        return heuristic;
-    }
 
     /**
      * Class constructor.
@@ -49,12 +42,12 @@ public class BSPTester
         }
         this.mTimeConstructor /= avgNbr;
     }
-    
-    
+
+
     /**
      * Construct a new BSPTree with this heuristic.
      * We use CpuTime representing time elapsed from the start of the programme.
-     * subtract end_cpu and start_cpu give expected time for the method call. 
+     * subtract end_cpu and start_cpu give expected time for the method call.
      * @return an integer equal to time in millisecond thanks to divise by 1000.
      */
     public double constructorCpuTime()
@@ -62,7 +55,7 @@ public class BSPTester
 
         return mTimeConstructor;
     }
-    
+
     /**
      * Recursively computes the height of the tree.
      * @return an integer equal to the height of the tree
@@ -71,16 +64,16 @@ public class BSPTester
     {
         return tree.height();
     }
-    
+
     /**
-     * 
+     *
      * @param x      x-coordinate of the eye
      * @param y      y-coordinate of the eye
      * @param angle  angle representing the forward direction
      * Apply the painter's algorithm with a eye constructed with x ,y, angle and this BSPTree.
      * As we don't want to display something, we use a empty painter.
      * We use CpuTime representing time elapsed from the start of the programme.
-     * subtract end_cpu and start_cpu give expected time for the method call. 
+     * subtract end_cpu and start_cpu give expected time for the method call.
      * @return an integer equal to time in millisecond thanks to divise by 1000.
      */
     public double painterCpuTime(double x, double y, double angle)
@@ -97,7 +90,7 @@ public class BSPTester
         }
         return res/avgNbr;
     }
-    
+
     /**
      * @return an integer equal to the amount of nodes in the tree
      */
@@ -105,6 +98,14 @@ public class BSPTester
     {
         return tree.size();
     }
-    
-  
+
+    public List<Segment> getList()
+    {
+        return list;
+    }
+
+    public Heuristic getHeuristic()
+    {
+        return heuristic;
+    }
 }

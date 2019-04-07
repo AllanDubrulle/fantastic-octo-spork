@@ -5,7 +5,8 @@ package sdd.AJ.painterBSP.util;
  *                  f(x, y) = c
  * where f(x, y) = nx * x + ny * y is a functional.
  * Contains utility methods to determine whether
- * a point is contained in the represented line.
+ * a point is contained in the represented line,
+ * or in one of the halfs planes defined by the line.
  */
 public class Equation
 {
@@ -41,36 +42,35 @@ public class Equation
 
     /**
      * Determines whether a point lies in the positive half-plane.
-     * @param x1 the first component of the point
-     * @param x2 the second component of the point
-     * @return true iff (x1, x2) is such that f(x1, x2) >= c
+     * @param x the first component of the point
+     * @param y the second component of the point
+     * @return true iff (x, y) is such that f(x, y) >= c
      */
-    public boolean isInPositivePlane(double x1, double x2)
+    public boolean isInPositivePlane(double x, double y)
     {
-        return nx * x1 + ny * x2 >= c + EPS;
+        return nx * x + ny * y >= c + EPS;
     }
 
     /**
      * Determines whether a point lies in the negative half-plane.
-     * @param x1 the first component of the point
-     * @param x2 the second component of the point
-     * @return true iff (x1, x2) is such that f(x1, x2) <= c
+     * @param x the first component of the point
+     * @param y the second component of the point
+     * @return true iff (x, y) is such that f(x, y) <= c
      */
-    public boolean isInNegativePlane(double x1, double x2)
+    public boolean isInNegativePlane(double x, double y)
     {
-        return nx * x1 + ny * x2 <= c - EPS;
+        return nx * x + ny * y <= c - EPS;
     }
 
     /**
      * Determines whether a point lies in the line.
-     * @param x1 the first component of the point
-     * @param x2 the second component of the point
-     * @return true iff (x1, x2) is such that f(x1, x2) ~ c
+     * @param x the first component of the point
+     * @param y the second component of the point
+     * @return true iff (x, y) is such that f(x, y) ~ c
      */
-    public boolean isInLine(double x1, double x2)
+    public boolean isInLine(double x, double y)
     {
-        return Math.abs(nx * x1 + ny * x2- c)< EPS;
-        //return relativeEquality(nx * x1 + ny * x2,  c);
+        return Math.abs(nx * x + ny * y- c)< EPS;
     }
 
     /**
@@ -94,6 +94,5 @@ public class Equation
     {
         return c;
     }
-
 
 }

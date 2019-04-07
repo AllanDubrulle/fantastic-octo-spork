@@ -8,11 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+/**
+ * Class used to read a file. Stores the data in the read
+ * file as instance variables. Data is a representation of a scene.
+ * Has multiple constructors to enable multiple ways of reading
+ * (via a path or a File object)
+ */
 public class IllustrationInputReader
 {
     private int n, xBound, yBound;
     private List<Segment> segments;
 
+    /**
+     * Class constructor.
+     * @param filename the name of the file to be read
+     * @throws IOException if a I/O problem occurs during the reading
+     * @throws FileFormatException if any other issue arises during the reading
+     */
     public IllustrationInputReader(String filename)
         throws IOException, FileFormatException
     {
@@ -22,6 +34,12 @@ public class IllustrationInputReader
         }
     }
 
+    /**
+     * Class constructor.
+     * @param f the file to be read
+     * @throws IOException if a I/O problem occurs during the reading
+     * @throws FileFormatException if any other issue arises during the reading
+     */
     public IllustrationInputReader(File f) throws
         IOException, FileFormatException
     {
@@ -31,6 +49,10 @@ public class IllustrationInputReader
         }
     }
 
+    /**
+     * Support method to avoid code duplication in constructors.
+     * @param bf a BufferedReader containing a file to be read
+     */
     private void processFile(BufferedReader br)
         throws IOException, FileFormatException
     {
@@ -64,16 +86,28 @@ public class IllustrationInputReader
     }
 
 
+    /**
+     * Getter for the x-coordinate bound on the scene.
+     * @return the bound on x-coordinates
+     */
     public int getXBound()
     {
         return xBound;
     }
 
+    /**
+     * Getter for the y-coordinate bound on the scene.
+     * @return the bound on y-coordinates
+     */
     public int getYBound()
     {
         return yBound;
     }
 
+    /**
+     * Getter for the list of segments representing the scene.
+     * @return the list of segments representing the scene
+     */
     public List<Segment> getSegments()
     {
         return segments;

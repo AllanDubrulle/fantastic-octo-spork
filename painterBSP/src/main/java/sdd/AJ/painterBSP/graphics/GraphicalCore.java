@@ -78,7 +78,7 @@ public class GraphicalCore
         else if (y < - (yBound + MARGIN))
             y = - yBound - MARGIN;
         eye.update(x, y, angle);
-        window.displayEyeParameters(x, y, angle);
+        window.displayEyeParameters(eye.getX(), eye.getY(), eye.getAngle());
         window.drawEye(eye.getX(), eye.getY(), eye.getAngle());
     }
 
