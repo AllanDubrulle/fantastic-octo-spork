@@ -90,13 +90,17 @@ cette intersection, sous l'hypothèse qu'elle existe.
   et $p_2 = (x_2, y_2)$ deux points tels que $p_1\in D^+$ et $p_2\in D^-$.
 
   Alors l'intersection du segment $[p_1, p_2]$ est donnée par $t_0p_1 + (1-t_0)p_2$
-  où $t_0 = $.
+  où $$t_0 = \frac{c-f(p_2)}{f(p_1)-f(p_2)}.$$.
 \end{lem}
 \begin{proof}
   Tout point de $[p_1, p_2]$ s'écrit $tp_1 + (1-t)p_2$ pour un certain
-  $t\in [0, 1]$.
+  $t\in [0, 1]$. Puisqu'il existe une intersection entre $[p_1, p_2]$ et
+  $D$, cela implique que $f(p_1)\neq f(p_2)$, sinon le segment serait
+  parallèle à la droite.
+
   L'intersection vérifie $f(t_0p_1 + (1-t_0)p_2) = c$. La linéarité de la
-  fonction $f$ fournit $$t_0 = \frac{c-f(p_2)}{f(p_1)-f(p_2)}.$$
+  fonction $f$ fournit $t_0(f(p_1) - f(p_2)) = c - f(p_2)$. L'égalité
+  du lemme est  obtenue en divisant les deux membres par $f(p_1) - f(p_2)\neq 0$.
 \end{proof}
 
 Ces deux résultats permettent de donner l'algorithme de construction de
@@ -255,7 +259,7 @@ Ce résultat permet l'observation suivante:
   L'efficacité de l'algorithme du peintre dépend directement
   du nombre de fragments générés par la construction de $T$.
 \end{cor}
-\subsubsection{Calcul des parties visibles}
+\subsection{Calcul des parties visibles}
 Cette section s'attèle à expliquer la procédure mise en \oe{}vre pour déterminer
 quelle proportion d'un segment est visible, étant donné un \oe{}il.
 Après introduction des notations, des critères de visibilités sont
@@ -292,6 +296,8 @@ sinus au cosinus, $\|d\| = 1$.
 plutôt que \og{}un objet est élément (ou est inclus) au demi-plan positif $D^+$\fg{}.
 En effet, cela permet un vocabulaire plus imagé tout en restant cohérent
 avec la réalité mathématique (un exemple est donné à la figure \ref{sep:ill}).
+
+Dans la suite, la droite de direction $d$ et passant par $(0, 0)$ est notée $D$.
 
 \subsubsection{Région de points visibles}
 L'ensemble des points visibles est par définition l'ensemble
@@ -333,9 +339,14 @@ de $\pi/2$ radians.
 \end{lem}
 \begin{proof}
   Par définition $\langle p, d\rangle = \|p\|\cdot \|d\| \cos(\theta)$ où $\theta$ est
-  l'angle non orienté entre $p$ et $d$. Dès lors,
-  $\cos(\theta) = \langle d, p\rangle/\|d\|$. L'emploi de $\arccos$ fournit
-  l'angle non orienté recherché.
+  l'angle non orienté entre $p$ et $d$. Pour signer l'angle
+  Dès lors, $\cos(\theta) = \langle d, p\rangle/\|d\|$. L'emploi de $\arccos$
+  fournit l'angle non orienté recherché.
+
+  Signer l'angle revient à déterminer
+  dans quel demi-plan par rapport à la droite $D$ se trouve $p$.
+  Au vu du lemme \ref{lem:droite}, la détermination de l'équation de $D$
+  peut être effectuée en temps constant.
 
   \'Etant donné que seules des opérations mathématiques interviennent,
   la complexité est $O(1)$.
@@ -348,7 +359,6 @@ visible, mais le segment est tout de même partiellement dans le champ de vision
 
 Deux configurations symétriques sont immédiatement à rejeter.
 \begin{obs}
-  Soit $D$ la droite de direction $d$ et passant par $(0, 0)$.
   Si $p_1$ et $p_2$ se trouvent dans le même demi-plan par rapport à $D$,
   et sont tous les deux hors de vue, alors le segment est complètement hors de vue.
 \end{obs}
@@ -371,7 +381,7 @@ Deux configurations symétriques sont immédiatement à rejeter.
 Il reste à traiter les configurations dans lesquelles $p_1$
 et $p_2$ sont dans des demi-plans différents par rapport à $D$.
 
-\begin{obs}
+\begin{obs}\label{obs:couvr}
   Soit $D$ la droite de direction $d$ et passant par $(0, 0)$.
   Supposons que les extrémités $p_1$ et $p_2$ se trouvent
   de part et d'autre de $D$ et ne sont pas visibles.
@@ -403,6 +413,24 @@ et $p_2$ sont dans des demi-plans différents par rapport à $D$.
   Supposons désormais que le segment occupe une partie du champ de vision.
   S'il n'occupait pas tout le champ de vision (par l'absurde), alors
   une des extrémités serait visible, ce qui contredit l'hypothèse.
+\end{proof}
+\begin{lem}
+  La vérification de l'observation \ref{obs:couvr} peut être effectuée en
+  temps constant.
+\end{lem}
+\begin{proof}
+  Quitte à échanger $p_1$ et $p_2$, on peut supposer $p_1$ à gauche
+  (en imaginant que $d$ indique le haut) de la droite $D$.
+  Soit $n$ le vecteur joignant $p_2$ à $p_1$ auquel est appliqué
+  une rotation de $\pi/2$ vers la droite, c'est-à-dire la fonction
+  $$ \rho_{-\pi/2}:\mathbb R^2\to\mathbb R^2: (u, v)\mapsto (v, -u),$$
+  alors l'équation de droite $\langle w, n\rangle = \langle p_1, n\rangle$
+  est une équation de la droite passant par $p_1$ et $p_2$.
+  Si $\langle p_1, n\rangle$ est positif, alors la droite passe au-dessus
+  de l'origine.
+
+  \'Etant donné que seules des opérations arithmétiques et des comparaisons
+  sont effectuées, ce calcul s'effectue en temps constant.
 \end{proof}
 
 \subsubsection{Calcul de proportion visible}
@@ -444,7 +472,35 @@ $\theta_2$ sont les suivants:
     $[f(\theta_1), 1]$ si $\theta_2>\pi/4$.
 \end{itemize}
 
+\subsubsection{Algorithmes}
 
+Afin d'effectuer les calculs de complexités de la procédure
+de visualisation, les algorithmes sont présentés de manière
+brève dans cette section.
+
+\begin{algorithm}
+  \caption{estVisible($s=[p_1, p_2]$, $e$)}
+  \begin{algorithmic}[1] \label{algo:painter}
+    \REQUIRE Un oeil $e$ positionné en $(0, 0)$ d'angle $\phi$ et un segment $s$
+    donné par ses extrémités $p_1$, $p_2$.
+    \ENSURE un signal indiquant si le segment a une extrémité visible,
+    s'il obstrue complètement la vue ou s'il n'est pas visible.
+    \STATE $d\leftarrow (\cos(\phi), \sin(\phi))$
+    \STATE $\theta_1\leftarrow$ l'angle entre $d$ et $p_1$
+    \STATE $\theta_2\leftarrow$ l'angle entre $d$ et $p_2$
+    \IF{$\theta_1\in[-\pi/4, \pi/4]\lor \theta_2\in[-\pi/4, \pi/4]$}
+    \RETURN \og{}une extrémité est visible\fg{}
+    \ELSIF{$\theta_1$ et $\theta_2$ ont le même signe}
+    \RETURN \og le segment n'est pas visible \fg \\
+    \COMMENT{les extrémités sont dans le même demi-plan par rapport à $D$}
+    \ENDIF
+    \IF{la droite passant par $p_1$ et $p_2$ est au-dessus de $(0, 0)$ relativement à $d$}
+    \RETURN \og le segment couvre la vue\fg
+    \ELSE
+    \RETURN \og le segment n'est pas visible \fg
+    \ENDIF
+  \end{algorithmic}
+\end{algorithm}
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../rapportGp1"
