@@ -109,24 +109,31 @@ public class GraphicalCore
      * Builds a BSP tree using the selected heuristic and the loaded
      * segments. If either one of these is not specified, the window
      * notifies the user.
+     * @return true if a BSP has been built, false otherwise
      */
-    public void buildBSP()
+    public boolean buildBSP()
     {
         if (segments == null)
+        {
             window.warn(String.format(
                         "Aucun fichier n'est chargé.%n"+
                         "Veuillez charger un fichier valable."));
-
+            return false;
+        }
         else if (heuristic == null && !randomConstruction)
+        {
             window.warn(String.format(
                         "Aucune heuristique n'est sélectionnée.%n"+
                         "Veuillez en sélectionner une."));
+            return false;
+        }
         else
         {
             if (randomConstruction)
                 tree = BSPTree.RandomBSPTree(segments);
             else
                 tree = new BSPTree(segments, heuristic);
+            return true;
         }
     }
 

@@ -35,7 +35,7 @@ import sdd.AJ.painterBSP.util.Segment;
 public class GraphicalWindow extends GridPane
 {
     private Illustrator planeDrawing;
-    private Label eyeParameters;
+    private Label eyeParameters, treeLabel, interactiveLabel;
     private GraphicalPainter painter;
     private BooleanProperty interactiveMode;
 
@@ -122,6 +122,7 @@ public class GraphicalWindow extends GridPane
                 try
                 {
                     core.loadFile(file);
+                    treeLabel.setText("Arbre non construit");
                 }
 
                 catch (IOException e)
@@ -168,13 +169,16 @@ public class GraphicalWindow extends GridPane
                          });
 
         /************************************************************
-                *          Tree construction button          *
+                *          Tree button and label          *
         *************************************************************/
+        treeLabel = new Label("Arbre non construit");
+
         Button treeButton = new Button("Construire l'arbre");
         treeButton.setOnMouseClicked(x -> {
-                core.buildBSP();
+                if (core.buildBSP())
+                    treeLabel.setText("Arbre construit");
                 core.display(painter);
-        });
+            });
 
         /************************************************************
               *          Eye related buttons and menus       *
@@ -201,6 +205,60 @@ public class GraphicalWindow extends GridPane
             });
 
         /************************************************************
+                     *          Interactive mode              *
+        *************************************************************/
+        // Real-time display using painter's algorithm when this mode
+        // is toggled
+        interactiveLabel = new Label("");
+        interactiveMode.addListener(
+            new ChangeListener<Boolean>()
+            {
+                @Override
+                public void changed(ObservableValue ov,
+                                    Boolean value,
+                                    Boolean new_value)
+                {
+                    eyeButton.setDisable(!new_value);
+                    if (new_value)
+                        interactiveLabel.setText("Mode interactif actif");
+                    else
+                        interactiveLabel.setText("Mode interactif inactif");
+                }
+            });
+        interactiveMode.set(true);
+        setOnKeyPressed(ke -> //ke is a KeyEvent in this case
+            {
+                if (interactiveMode.get())
+                    switch (ke.getCode())
+                    {
+                    case A:
+                        core.eyeRotateLeft();
+                        core.display(painter);
+                        break;
+                    case E:
+                        core.eyeRotateRight();
+                        core.display(painter);
+                        break;
+                    case Z:
+                        core.eyeUp();
+                        core.display(painter);
+                        break;
+                    case Q:
+                        core.eyeLeft();
+                        core.display(painter);
+                        break;
+                    case S:
+                        core.eyeDown();
+                        core.display(painter);
+                        break;
+                    case D:
+                        core.eyeRight();
+                        core.display(painter);
+                        break;
+                    }
+            });
+
+        /************************************************************
                 *       Layout: Control options (upper)       *
         *************************************************************/
         VBox ctrlBox = new VBox(8);
@@ -209,6 +267,7 @@ public class GraphicalWindow extends GridPane
         ctrlBox.getChildren().addAll(btnFile,
                                      heuristics,
                                      treeButton,
+                                     treeLabel,
                                      eyeButton,
                                      eyeParameters);
         add(ctrlBox, 0, 1);
@@ -220,7 +279,7 @@ public class GraphicalWindow extends GridPane
 
         VBox ctrlBox2 = new VBox(8);
         ctrlBox2.setAlignment(Pos.CENTER);
-            ctrlBox2.getChildren().add(globalEyeButton);
+        ctrlBox2.getChildren().addAll(globalEyeButton, interactiveLabel);
         add(ctrlBox2, 0, 2);
 
 
@@ -234,55 +293,6 @@ public class GraphicalWindow extends GridPane
             c.prefWidthProperty().bind(widthProperty().multiply(0.18));
             c.setFocusTraversable(false);
         }
-
-        /************************************************************
-                     *          Interactive mode              *
-        *************************************************************/
-        // Real-time display using painter's algorithm when this mode
-        // is toggled
-        interactiveMode.addListener(
-             new ChangeListener<Boolean>()
-             {
-                 @Override
-                 public void changed(ObservableValue ov,
-                                     Boolean value,
-                                     Boolean new_value)
-                 {
-                     eyeButton.setDisable(!new_value);
-                 }
-             });
-        interactiveMode.set(true);
-        setOnKeyPressed(ke -> //ke is a KeyEvent in this case
-                        {
-                            if (interactiveMode.get())
-                            switch (ke.getCode())
-                            {
-                                case A:
-                                core.eyeRotateLeft();
-                                core.display(painter);
-                                break;
-                                case E:
-                                core.eyeRotateRight();
-                                core.display(painter);
-                                break;
-                                case Z:
-                                core.eyeUp();
-                                core.display(painter);
-                                break;
-                                case Q:
-                                core.eyeLeft();
-                                core.display(painter);
-                                break;
-                                case S:
-                                core.eyeDown();
-                                core.display(painter);
-                                break;
-                                case D:
-                                core.eyeRight();
-                                core.display(painter);
-                                break;
-                            }
-                        });
     }
 
     /**
