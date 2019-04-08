@@ -282,9 +282,9 @@ si ce n'est pas le cas, tous les
 calculs peuvent être effectués après une translation de $-(x, y)$ de tous
 les objets considérés.
 
-La notation $\langle \cdot,\cdot\rangle$ est employée pour le produit scalaire usuel
-dans $\mathbb R^2$. Pour rappel, pour tous $v=(v_1, v_2)$,
-$w=(w_1, w_2)\in\mathbb R^2$, on définit
+La notation $\langle \cdot,\cdot\rangle$ est employée pour le produit
+scalaire usuel dans $\mathbb R^2$. Pour rappel,
+pour tous $v=(v_1, v_2)$, $w=(w_1, w_2)\in\mathbb R^2$, on définit
 $$\langle v, w\rangle = v_1 w_1 + v_2 w_2.$$
 La norme euclidienne d'un vecteur $v = (v_1, v_2)$ est notée
 $\|v\|$ et vaut $\sqrt{v_1^2 + v_2^2}$. Au vu de la formule fondamentale liant le
@@ -296,6 +296,11 @@ sinus au cosinus, $\|d\| = 1$.
 plutôt que \og{}un objet est élément (ou est inclus) au demi-plan positif $D^+$\fg{}.
 En effet, cela permet un vocabulaire plus imagé tout en restant cohérent
 avec la réalité mathématique (un exemple est donné à la figure \ref{sep:ill}).
+
+Une équation de droite de $D$ peut également être donnée via le produit scalaire;
+si la droite $D$ passe par le point $p$, alors une équation est donnée par
+$\langle w, n\rangle = \langle p, n\rangle$ où $w=(w_1, w_2)\in\mathbb R^2$ est
+la variable de l'équation et $n$ désigne un vecteur normal à $D$.
 
 Dans la suite, la droite de direction $d$ et passant par $(0, 0)$ est notée $D$.
 \subsubsection{Région de points visibles}
@@ -462,13 +467,18 @@ $\theta_2$ sont les suivants:
 
 \begin{itemize}
   \item Si $\theta_2\in[-\pi/4, \pi/4]$, la partie à colorer de $[0, 1]$ est
-    l'intervalle (non orienté) $[f(\theta_1), f(\theta_2)]$.
+    l'intervalle (non orienté) $[f(\theta_1), f(\theta_2)]$
+    (se référer à la première illustration de la figure \ref{config:ill}).
   \item Sinon, si $|\theta_2|>\pi/4$ et $|\theta_1-\theta_2|\leq \pi$,
     on colore l'intervalle $[f(\theta_1), 1]$ si $\theta_2<-\pi/4$ et
-    $[0, f(\theta_1)]$ si $\theta_2>\pi/4$.
+    $[0, f(\theta_1)]$ si $\theta_2>\pi/4$
+    (voir la deuxième illustration de la figure \ref{config:ill}).
   \item Sinon, si $|\theta_2|>\pi/4$ et $|\theta_1-\theta_2|> \pi$,
     on colore l'intervalle $[0, f(\theta_1)]$ si $\theta_2<-\pi/4$ et
-    $[f(\theta_1), 1]$ si $\theta_2>\pi/4$.
+    $[f(\theta_1), 1]$ si $\theta_2>\pi/4$. La dernière illustration
+    de la figure \ref{config:ill} exemplifie cette situation. L'arc
+    de longueur $|\theta_1-\theta_2|$ est dessiné en rouge
+    pour le mettre en évidence.
 \end{itemize}
 
 \subsubsection{Algorithmes}
