@@ -184,7 +184,7 @@ public class GraphicalWindow extends GridPane
 
         Button eyeButton = new Button("Configurer l'oeil");
         eyeButton.setOnMouseClicked(x -> {
-                Optional<Double> t  = (new EyeDialog()).showAndWait();
+                Optional<Double> t  = (new EyeStepDialog()).showAndWait();
                 if (t.isPresent())
                     core.setStep(t.get());
                 requestFocus();
@@ -192,7 +192,7 @@ public class GraphicalWindow extends GridPane
 
         Button globalEyeButton = new Button("Déplacer l'oeil");
         globalEyeButton.setOnMouseClicked(x -> {
-                Optional<double[]> t  = (new EyeDialog2()).showAndWait();
+                Optional<double[]> t  = (new EyePositionDialog()).showAndWait();
                 if (t.isPresent())
                 {
                     core.changeEye(t.get()[0], t.get()[1], t.get()[2]);

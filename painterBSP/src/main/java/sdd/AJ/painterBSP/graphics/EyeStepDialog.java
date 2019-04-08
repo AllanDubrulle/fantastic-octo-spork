@@ -8,12 +8,12 @@ import javafx.scene.control.DialogPane;
  * Dialog box used to specify a new step for the interactive
  * mode (where the eye is moved using the AZEQSD keys).
  */
-public class EyeDialog extends Dialog<Double>
+public class EyeStepDialog extends Dialog<Double>
 {
     /**
      * Class constructor.
      */
-    public EyeDialog()
+    public EyeStepDialog()
     {
         DialogPane pane = this.getDialogPane();
         DoubleInput dif = new DoubleInput("Pas : ");

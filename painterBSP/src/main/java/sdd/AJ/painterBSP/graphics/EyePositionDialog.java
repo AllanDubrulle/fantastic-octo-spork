@@ -8,12 +8,12 @@ import javafx.scene.control.DialogPane;
  * Dialog box used to specify the coordinates and orientation of the eye,
  * used when a heavy file is loaded (instead of interactive mode).
  */
-public class EyeDialog2 extends Dialog<double[]>
+public class EyePositionDialog extends Dialog<double[]>
 {
     /**
      * Class constructor.
      */
-    public EyeDialog2()
+    public EyePositionDialog()
     {
         DialogPane pane = this.getDialogPane();
         DoubleInput dif = new DoubleInput("Abscisse : ",
