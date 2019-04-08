@@ -73,6 +73,57 @@ Après cet affichage, le programme propose deux options numérotées par
 $0$ et $1$: $0$ ferme le programme tandis que $1$ affiche à nouveau
 le premier menu.
 
+\subsection{Interface graphique utilisateur}
+\subsubsection*{\'Exécution du programme}
+Le programme en interface graphique est exécuté, via la ligne de commande,
+à l'aide de la commande:
+\begin{center}
+  \texttt{
+    java -jar BSPPainter-TestGraphique-1.0.jar
+  }.
+\end{center}
+\subsubsection*{Description des boutons}
+Plusieurs boutons et informations sont affichés sur le côté gauche de
+la fenêtre. Une brève description de chaque bouton est donnée ci-dessous.
+\begin{itemize}
+\item Le bouton \emph{Sélectionner un fichier} ouvre une fenêtre utilisée
+  pour sélectionner un fichier représentant une scène, qui sera affichée
+  directement si elle est valide, en plus d'une bordure noire indiquant
+  la zone dans laquelle est contraint de rester l\oe{}il.
+\item Un menu déroulant permettant de choisir parmi les heuristiques
+  de construction d'arbre BSP disponibles.
+\item Le bouton \emph{Construire l'arbre} construit, sur base du fichier
+  chargé et de l'heuristique sélectionnée, un arbre BSP.
+  Si une de ces informations n'est pas spécifiée, un message d'erreur s'affiche.
+  Appuyer de nouveau sur le bouton après la construction d'un premier arbre
+  remplace l'arbre courant par un nouveau.
+
+  En-dessous de ce bouton se trouve un message indiquant si  un arbre BSP a été
+  construit ou non.
+\item L'option suivante \emph{Déplacer l'\oe{}il} permet de sélectionner
+  la position de l'oeil. Pour des raisons d'affichages, les coordonnées de
+  l'\oe{}il sont restreintes. Les coordonnées et l'angle courants de
+  l'\oe{}il sont spécifiés sous le bouton. Après déplacement, si un arbre
+  BSP existe, la vue de l'\oe{}il est automatiquement affichée dans la région
+  en bas à droite de la fenêtre.
+\item Plus bas, un bouton \emph{configurer l'\oe{}il} permet de régler la
+  taille d'un pas en mode interactif (voir ci-après). Le status du mode
+  interactif (actif ou non) est indiqué en dessous du bouton; si
+  le mode interactif est inactif, le bouton n'est pas utilisable.
+\end{itemize}
+\subsubsection*{Mode interactif}
+Pour les fichiers de taille moindre, il est possible de déplacer
+l'\oe{}il à l'aide de certaines touches du clavier. Les
+touches actives sont les suivantes:
+\begin{itemize}
+\item \texttt{A}: tourne l'\oe{}il de $0.01$ radians vers la gauche;
+\item \texttt{E}: tourne l'\oe{}il de $0.01$ radians vers la droite;
+\item \texttt{Z}: déplace l'\oe{}il d'un pas vers le haut;
+\item \texttt{Q}: déplace l'\oe{}il d'un pas vers le gauche;
+\item \texttt{S}: déplace l'\oe{}il d'un pas vers le bas;
+\item \texttt{D}: déplace l'\oe{}il d'un pas vers le droite.
+\end{itemize}
+La taille d'un pas est à spécifier via le bouton \emph{configurer l'\oe{}il}.
 %%%Local Variables:
 %%% mode: latex
 %%% TeX-master: "../rapportGp1"

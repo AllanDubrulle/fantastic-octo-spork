@@ -186,16 +186,16 @@ public class GraphicalWindow extends GridPane
         eyeParameters = new Label("");
         eyeParameters.setWrapText(true);
 
-        Button eyeButton = new Button("Configurer l'oeil");
-        eyeButton.setOnMouseClicked(x -> {
+        Button eyeStepButton = new Button("Configurer l'oeil");
+        eyeStepButton.setOnMouseClicked(x -> {
                 Optional<Double> t  = (new EyeStepDialog()).showAndWait();
                 if (t.isPresent())
                     core.setStep(t.get());
                 requestFocus();
             });
 
-        Button globalEyeButton = new Button("Déplacer l'oeil");
-        globalEyeButton.setOnMouseClicked(x -> {
+        Button eyePosButton = new Button("Déplacer l'oeil");
+        eyePosButton.setOnMouseClicked(x -> {
                 Optional<double[]> t  = (new EyePositionDialog()).showAndWait();
                 if (t.isPresent())
                 {
@@ -218,7 +218,7 @@ public class GraphicalWindow extends GridPane
                                     Boolean value,
                                     Boolean new_value)
                 {
-                    eyeButton.setDisable(!new_value);
+                    eyeStepButton.setDisable(!new_value);
                     if (new_value)
                         interactiveLabel.setText("Mode interactif actif");
                     else
@@ -255,6 +255,8 @@ public class GraphicalWindow extends GridPane
                         core.eyeRight();
                         core.display(painter);
                         break;
+                    default:
+                        ; //Do nothing
                     }
             });
 
@@ -268,7 +270,7 @@ public class GraphicalWindow extends GridPane
                                      heuristics,
                                      treeButton,
                                      treeLabel,
-                                     eyeButton,
+                                     eyePosButton,
                                      eyeParameters);
         add(ctrlBox, 0, 1);
 
@@ -279,7 +281,7 @@ public class GraphicalWindow extends GridPane
 
         VBox ctrlBox2 = new VBox(8);
         ctrlBox2.setAlignment(Pos.CENTER);
-        ctrlBox2.getChildren().addAll(globalEyeButton, interactiveLabel);
+        ctrlBox2.getChildren().addAll(eyeStepButton, interactiveLabel);
         add(ctrlBox2, 0, 2);
 
 
@@ -288,7 +290,7 @@ public class GraphicalWindow extends GridPane
         *************************************************************/
 
         for (Control c : new Control[]
-            { btnFile, heuristics, treeButton, eyeButton, globalEyeButton})
+            { btnFile, heuristics, treeButton, eyeStepButton, eyePosButton})
         {
             c.prefWidthProperty().bind(widthProperty().multiply(0.18));
             c.setFocusTraversable(false);
