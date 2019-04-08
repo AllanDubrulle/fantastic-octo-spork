@@ -1,15 +1,12 @@
 package sdd.AJ.painterBSP.console;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
 import sdd.AJ.painterBSP.BSPLib.Heuristic.FirstHeuristic;
 import sdd.AJ.painterBSP.BSPLib.Heuristic.LinearHeuristic;
 import sdd.AJ.painterBSP.util.FileFormatException;
 import sdd.AJ.painterBSP.util.IllustrationInputReader;
-import sdd.AJ.painterBSP.util.Segment;
 
 public class TestConsole
 {

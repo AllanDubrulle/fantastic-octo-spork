@@ -2,10 +2,9 @@ package sdd.AJ.painterBSP.console;
 
 import java.util.List;
 
-import sdd.AJ.painterBSP.BSPLib.Heuristic.Heuristic;
 import sdd.AJ.painterBSP.BSPLib.BSPTree;
-import sdd.AJ.painterBSP.util.Segment;
 import sdd.AJ.painterBSP.util.Eye;
+import sdd.AJ.painterBSP.util.Segment;
 
 public abstract class BSPTester
 {
