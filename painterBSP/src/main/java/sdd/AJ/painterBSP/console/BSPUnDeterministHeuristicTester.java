@@ -41,7 +41,7 @@ public class BSPUnDeterministHeuristicTester extends BSPTester
     }
 
     @Override
-    public double painterCpuTime(double x, double y, double angle)
+    public int painterCpuTime(double x, double y, double angle)
     {
         Eye eye = new Eye(x,y,angle);
         double res = 0;
@@ -49,7 +49,7 @@ public class BSPUnDeterministHeuristicTester extends BSPTester
         {
             res += painterCpuTimeTree(bspList[i],eye);
         }
-        return res/avgNbr;
+        return (int) res/avgNbr;
     }
 
     @Override

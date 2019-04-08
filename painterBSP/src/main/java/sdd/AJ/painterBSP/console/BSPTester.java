@@ -11,7 +11,7 @@ public abstract class BSPTester
 {
     protected int avgNbr=30;
     protected List<Segment> list;
-    protected double avgConstructorTime;
+    protected int avgConstructorTime;
 
     public BSPTester(List<Segment> list)
     {
@@ -29,7 +29,7 @@ public abstract class BSPTester
      * subtract end_cpu and start_cpu give expected time for the method call.
      * @return an integer equal to time in millisecond thanks to divise by 1000.
      */
-    public double constructorCpuTime()
+    public int constructorCpuTime()
     {
         return avgConstructorTime;
     }
@@ -51,14 +51,14 @@ public abstract class BSPTester
     * subtract end_cpu and start_cpu give expected time for the method call.
     * @return an integer equal to time in millisecond thanks to divise by 1000.
     */
-    public abstract double painterCpuTime(double x, double y, double angle);
+    public abstract int painterCpuTime(double x, double y, double angle);
 
     /**
      * @return an integer equal to the amount of nodes in the tree
      */
     public abstract double sizeTest();
 
-    protected double painterCpuTimeTree(BSPTree tree, Eye eye)
+    protected int painterCpuTimeTree(BSPTree tree, Eye eye)
     {
         double res = 0;
         long start_cpu;
@@ -70,6 +70,6 @@ public abstract class BSPTester
             end_cpu = System.nanoTime();
             res+= (end_cpu - start_cpu)/1000;
         }
-        return res/avgNbr;
+        return (int) res/avgNbr;
     }
 }
