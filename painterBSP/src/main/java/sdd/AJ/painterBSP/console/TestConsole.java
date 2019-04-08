@@ -13,7 +13,8 @@ import sdd.AJ.painterBSP.util.Segment;
 
 public class TestConsole
 {
-    private static BSPTester h1BSP,linearBSP,randomBSP;
+    static BSPDeterministHeuristicTester h1BSP,linearBSP;
+    private static BSPUnDeterministHeuristicTester randomBSP;
     private static double x,y,angle;
     private static String line;
     
@@ -28,11 +29,9 @@ public class TestConsole
        try
        {
             IllustrationInputReader irr = new IllustrationInputReader(args[0]);
-            h1BSP = new BSPTester(irr.getSegments(),new FirstHeuristic());
-            linearBSP = new BSPTester(irr.getSegments(),new LinearHeuristic()); 
-            ArrayList<Segment> temp= (ArrayList<Segment>) irr.getSegments();
-            Collections.shuffle(temp);
-            randomBSP= new BSPTester(temp,new LinearHeuristic());
+            h1BSP = new BSPDeterministHeuristicTester(irr.getSegments(),new FirstHeuristic());
+            linearBSP = new BSPDeterministHeuristicTester(irr.getSegments(),new LinearHeuristic()); 
+            randomBSP= new BSPUnDeterministHeuristicTester(irr.getSegments(),new LinearHeuristic());
             
             line= "";
             for (int i = 0 ; i <=60 ; i++ )
@@ -178,16 +177,16 @@ public class TestConsole
         {
             case 1:
                 System.out.printf("%-22s|", "Taille");
-                System.out.printf("%-12d|", linearBSP.sizeTest());
-                System.out.printf("%-12d|", h1BSP.sizeTest());
-                System.out.printf("%-11d|\n", randomBSP.sizeTest());
+                System.out.printf("%-12.0f|", linearBSP.sizeTest());
+                System.out.printf("%-12.0f|", h1BSP.sizeTest());
+                System.out.printf("%-11.1f|\n", randomBSP.sizeTest());
                 System.out.println(line);
                 break;
             case 2:
                 System.out.printf("%-22s|", "Hauteur");
-                System.out.printf("%-12d|", linearBSP.heightTest());
-                System.out.printf("%-12d|", h1BSP.heightTest());
-                System.out.printf("%-11d|\n", randomBSP.heightTest());
+                System.out.printf("%-12.0f|", linearBSP.heightTest());
+                System.out.printf("%-12.0f|", h1BSP.heightTest());
+                System.out.printf("%-11.1f|\n", randomBSP.heightTest());
                 System.out.println(line);
                 break; 
             case 3:
