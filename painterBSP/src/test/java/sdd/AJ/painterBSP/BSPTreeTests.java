@@ -24,6 +24,6 @@ public class BSPTreeTests
     @Test
     public void stackoverflow()
     {
-         BSPTree test = BSPTree.RandomBSPTree(segmentList);
+         BSPTree test = BSPTree.randomBSPTree(segmentList);
     }
 }

@@ -130,7 +130,7 @@ public class GraphicalCore
         else
         {
             if (randomConstruction)
-                tree = BSPTree.RandomBSPTree(segments);
+                tree = BSPTree.randomBSPTree(segments);
             else
                 tree = new BSPTree(segments, heuristic);
             return true;

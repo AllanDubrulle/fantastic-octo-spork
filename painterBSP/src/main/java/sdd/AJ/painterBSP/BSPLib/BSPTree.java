@@ -126,7 +126,7 @@ public class BSPTree
      * @param list the list of the segments in the scene to be pre-processed
      * @return a BSPTree built representing the scene
      */
-    public static BSPTree RandomBSPTree(List<Segment> list)
+    public static BSPTree randomBSPTree(List<Segment> list)
     {
         list = new ArrayList<Segment>(list);
         // Copy the parameter to avoid side-effects.
