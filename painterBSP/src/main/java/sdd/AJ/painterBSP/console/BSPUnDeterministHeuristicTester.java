@@ -61,7 +61,7 @@ public class BSPUnDeterministHeuristicTester extends BSPTester
             long end_cpu = System.nanoTime();
             res+= (end_cpu - start_cpu)/1000;
         }
-        return res;
+        return res/avgNbr;
         
     }
 
