@@ -51,11 +51,13 @@ public class BSPDeterministHeuristicTester extends BSPTester
     {
         Eye eye = new Eye(x,y,angle);
         double res = 0;
+        long start_cpu;
+        long end_cpu;
         for (int i=0; i<=avgNbr ; i++)
         {
-            long start_cpu = System.nanoTime();
+            start_cpu = System.nanoTime();
             tree.paintersAlgorithm((u,v,w)->{},eye);
-            long end_cpu = System.nanoTime();
+            end_cpu = System.nanoTime();
             res+= (end_cpu - start_cpu)/1000;
         }
         return res/avgNbr;

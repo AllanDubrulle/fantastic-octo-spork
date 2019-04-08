@@ -14,13 +14,14 @@ public class BSPUnDeterministHeuristicTester extends BSPTester
     public BSPUnDeterministHeuristicTester(List<Segment> list, Heuristic heuristic)
     {
         super(list,heuristic);
-        
+        long start_cpu;
+        long end_cpu;
         for (int i= 0;i<avgNbr;i++)
         {
             Collections.shuffle(getList()); //effet de bord 
-            long start_cpu = System.nanoTime();
+            start_cpu = System.nanoTime();
             BSPTree temp = new BSPTree(getList(),getHeuristic());
-            long end_cpu = System.nanoTime();
+            end_cpu = System.nanoTime();
             listBSP[i]= temp;
             this.avgTimeConstructor += (end_cpu - start_cpu)/1000;
         }
@@ -36,7 +37,7 @@ public class BSPUnDeterministHeuristicTester extends BSPTester
         {
             res+=listBSP[i].height();
         }
-        return res/avgNbr; // division entière
+        return res/avgNbr; 
     }
 
     @Override
@@ -54,11 +55,13 @@ public class BSPUnDeterministHeuristicTester extends BSPTester
     private double painterCpuTimeTree(BSPTree tree, Eye eye)
     {
         double res = 0;
+        long start_cpu;
+        long end_cpu;
         for (int i=0; i<avgNbr ; i++)
         {
-            long start_cpu = System.nanoTime();
+            start_cpu = System.nanoTime();
             tree.paintersAlgorithm((u,v,w)->{},eye);
-            long end_cpu = System.nanoTime();
+            end_cpu = System.nanoTime();
             res+= (end_cpu - start_cpu)/1000;
         }
         return res/avgNbr;
@@ -73,7 +76,7 @@ public class BSPUnDeterministHeuristicTester extends BSPTester
         {
             res+=listBSP[i].size();
         }
-        return res/avgNbr; // division entière
+        return res/avgNbr; 
     }
 
 }
