@@ -114,7 +114,7 @@ public class GraphicalWindow extends GridPane
         *************************************************************/
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Sélectionnez le fichier à traiter");
-        Button btnFile = new Button("Input file");
+        Button btnFile = new Button("Sélectionner un fichier");
         btnFile.setOnMouseClicked(x -> {
             File file = fileChooser.showOpenDialog(stage);
             if (file != null)
