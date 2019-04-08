@@ -30,7 +30,7 @@ public class TestConsole
             IllustrationInputReader irr = new IllustrationInputReader(args[0]);
             h1BSP = new BSPDeterministHeuristicTester(irr.getSegments(),new FirstHeuristic());
             linearBSP = new BSPDeterministHeuristicTester(irr.getSegments(),new LinearHeuristic());
-            randomBSP= new BSPUnDeterministHeuristicTester(irr.getSegments(),new LinearHeuristic());
+            randomBSP= new BSPUnDeterministHeuristicTester(irr.getSegments());
 
             line= "";
             for (int i = 0 ; i <=60 ; i++ )

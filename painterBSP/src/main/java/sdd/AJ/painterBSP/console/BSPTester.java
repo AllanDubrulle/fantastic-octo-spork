@@ -3,31 +3,26 @@ package sdd.AJ.painterBSP.console;
 import java.util.List;
 
 import sdd.AJ.painterBSP.BSPLib.Heuristic.Heuristic;
+import sdd.AJ.painterBSP.BSPLib.BSPTree;
 import sdd.AJ.painterBSP.util.Segment;
+import sdd.AJ.painterBSP.util.Eye;
 
 public abstract class BSPTester
 {
     protected int avgNbr=30;
     protected List<Segment> list;
-    protected Heuristic heuristic;
-    protected double avgTimeConstructor;
-    
-    public BSPTester(List<Segment> list, Heuristic heuristic)
+    protected double avgConstructorTime;
+
+    public BSPTester(List<Segment> list)
     {
         this.list= list;
-        this.heuristic = heuristic;
     }
-    
+
     public List<Segment> getList()
     {
         return list;
     }
 
-    public Heuristic getHeuristic()
-    {
-        return heuristic;
-    }
-    
     /**
      * Construct a new BSPTree with this heuristic.
      * We use CpuTime representing time elapsed from the start of the programme.
@@ -36,7 +31,7 @@ public abstract class BSPTester
      */
     public double constructorCpuTime()
     {
-        return avgTimeConstructor;
+        return avgConstructorTime;
     }
 
     /**
@@ -44,7 +39,7 @@ public abstract class BSPTester
      * @return an integer equal to the height of the tree
      */
     public abstract double heightTest();
-    
+
     /**
     *
     * @param x      x-coordinate of the eye
@@ -57,9 +52,24 @@ public abstract class BSPTester
     * @return an integer equal to time in millisecond thanks to divise by 1000.
     */
     public abstract double painterCpuTime(double x, double y, double angle);
-    
+
     /**
      * @return an integer equal to the amount of nodes in the tree
      */
     public abstract double sizeTest();
+
+    protected double painterCpuTimeTree(BSPTree tree, Eye eye)
+    {
+        double res = 0;
+        long start_cpu;
+        long end_cpu;
+        for (int i=0; i<avgNbr ; i++)
+        {
+            start_cpu = System.nanoTime();
+            tree.paintersAlgorithm((u,v,w)->{},eye);
+            end_cpu = System.nanoTime();
+            res+= (end_cpu - start_cpu)/1000;
+        }
+        return res/avgNbr;
+    }
 }

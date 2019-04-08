@@ -13,8 +13,9 @@ import sdd.AJ.painterBSP.util.Segment;
  */
 public class BSPDeterministHeuristicTester extends BSPTester
 {
-    
+
     private BSPTree tree;
+    private Heuristic heuristic;
 
     /**
      * Class constructor.
@@ -24,21 +25,23 @@ public class BSPDeterministHeuristicTester extends BSPTester
      */
     public BSPDeterministHeuristicTester( List<Segment>  list, Heuristic heuristic)
     {
-        super(list,heuristic);
+        super(list);
+        this.heuristic = heuristic;
         long start_cpu = System.nanoTime();
-        this.tree = new BSPTree(list,getHeuristic());
+        this.tree = new BSPTree(list, heuristic);
         long end_cpu = System.nanoTime();
-        this.avgTimeConstructor = (end_cpu - start_cpu);
+        this.avgConstructorTime = (end_cpu - start_cpu);
+        BSPTree temp;
         for (int i=1; i<=avgNbr; i++)
         {
             start_cpu = System.nanoTime();
-            BSPTree temp = new BSPTree(getList(),getHeuristic());
+            temp = new BSPTree(getList(), heuristic);
             end_cpu = System.nanoTime();
-            avgTimeConstructor+= (end_cpu - start_cpu)/1000;
+            avgConstructorTime+= (end_cpu - start_cpu)/1000;
         }
-        this.avgTimeConstructor /= avgNbr;
+        this.avgConstructorTime /= avgNbr;
     }
-    
+
     @Override
     public double heightTest()
     {
@@ -49,18 +52,8 @@ public class BSPDeterministHeuristicTester extends BSPTester
     @Override
     public double painterCpuTime(double x, double y, double angle)
     {
-        Eye eye = new Eye(x,y,angle);
-        double res = 0;
-        long start_cpu;
-        long end_cpu;
-        for (int i=0; i<=avgNbr ; i++)
-        {
-            start_cpu = System.nanoTime();
-            tree.paintersAlgorithm((u,v,w)->{},eye);
-            end_cpu = System.nanoTime();
-            res+= (end_cpu - start_cpu)/1000;
-        }
-        return res/avgNbr;
+        Eye eye = new Eye(x, y, angle);
+        return painterCpuTimeTree(tree, eye);
     }
 
 

@@ -10,22 +10,22 @@ import sdd.AJ.painterBSP.util.Segment;
 
 public class BSPUnDeterministHeuristicTester extends BSPTester
 {
-    private BSPTree[] listBSP = new BSPTree[this.avgNbr]; 
-    public BSPUnDeterministHeuristicTester(List<Segment> list, Heuristic heuristic)
+    private BSPTree[] bspList = new BSPTree[this.avgNbr];
+    public BSPUnDeterministHeuristicTester(List<Segment> list)
     {
-        super(list,heuristic);
+        super(list);
         long start_cpu;
         long end_cpu;
+        BSPTree temp;
         for (int i= 0;i<avgNbr;i++)
         {
-            Collections.shuffle(getList()); //effet de bord 
             start_cpu = System.nanoTime();
-            BSPTree temp = new BSPTree(getList(),getHeuristic());
+            temp = BSPTree.RandomBSPTree(getList());
             end_cpu = System.nanoTime();
-            listBSP[i]= temp;
-            this.avgTimeConstructor += (end_cpu - start_cpu)/1000;
+            bspList[i]= temp;
+            this.avgConstructorTime += (end_cpu - start_cpu)/1000;
         }
-        this.avgTimeConstructor /= avgNbr;
+        this.avgConstructorTime /= avgNbr;
     }
 
 
@@ -35,9 +35,9 @@ public class BSPUnDeterministHeuristicTester extends BSPTester
         double res = 0;
         for (int i= 0;i<avgNbr;i++)
         {
-            res+=listBSP[i].height();
+            res+=bspList[i].height();
         }
-        return res/avgNbr; 
+        return res/avgNbr;
     }
 
     @Override
@@ -47,25 +47,9 @@ public class BSPUnDeterministHeuristicTester extends BSPTester
         double res = 0;
         for (int i=0; i<avgNbr ; i++)
         {
-            res += painterCpuTimeTree(listBSP[i],eye);
+            res += painterCpuTimeTree(bspList[i],eye);
         }
         return res/avgNbr;
-    }
-    
-    private double painterCpuTimeTree(BSPTree tree, Eye eye)
-    {
-        double res = 0;
-        long start_cpu;
-        long end_cpu;
-        for (int i=0; i<avgNbr ; i++)
-        {
-            start_cpu = System.nanoTime();
-            tree.paintersAlgorithm((u,v,w)->{},eye);
-            end_cpu = System.nanoTime();
-            res+= (end_cpu - start_cpu)/1000;
-        }
-        return res/avgNbr;
-        
     }
 
     @Override
@@ -74,9 +58,9 @@ public class BSPUnDeterministHeuristicTester extends BSPTester
         double res = 0;
         for (int i= 0;i<avgNbr;i++)
         {
-            res+=listBSP[i].size();
+            res+=bspList[i].size();
         }
-        return res/avgNbr; 
+        return res/avgNbr;
     }
 
 }
