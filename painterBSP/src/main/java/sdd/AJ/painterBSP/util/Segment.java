@@ -18,6 +18,7 @@ public final class Segment
      * @param v the y-coordinate of the first point
      * @param x the x-coordinate of the second point
      * @param y the y-coordinate of the second point
+     * @param color the colour of the segment
      */
     public Segment(double u, double v, double x, double y, MyColor color)
     {
@@ -52,8 +53,8 @@ public final class Segment
     }
 
     /**
-     * Given an planar equation f(x, y) = 0 and a number c, such
-     * that (f(u, v) - c) * (f(x, y) - c) < 0,
+     * Given an line equation f(x, y) = 0 and a number c, such
+     * that (f(u, v) - c) * (f(x, y) - c) is strictly negative,
      * breaks the segment in two halfs s' and s'' such that
      * s' lies in the half-plane containing (u, v)
      * s'' lies in the half-plane containing (x, y).

@@ -44,7 +44,7 @@ public class Equation
      * Determines whether a point lies in the positive half-plane.
      * @param x the first component of the point
      * @param y the second component of the point
-     * @return true iff (x, y) is such that f(x, y) >= c
+     * @return true iff (x, y) is such that f(x, y) is greater or equal to c
      */
     public boolean isInPositivePlane(double x, double y)
     {
@@ -55,7 +55,7 @@ public class Equation
      * Determines whether a point lies in the negative half-plane.
      * @param x the first component of the point
      * @param y the second component of the point
-     * @return true iff (x, y) is such that f(x, y) <= c
+     * @return true iff (x, y) is such that f(x, y) lesser or equal to c
      */
     public boolean isInNegativePlane(double x, double y)
     {

@@ -16,6 +16,10 @@ public class GraphicalPainter extends AbstractIllustrator
     /**
      * Class constructor.
      * @see sdd.AJ.painterBSP.graphics.AbstractIllustrator
+     * @param parentWidthProperty the width property of the container,
+     * used to scale the view (even if the window is resized).
+     * @param parentHeightProperty the height property of the container,
+     * used to scale the view (even if the window is resized).
      */
     public GraphicalPainter(DoubleBinding parentWidthProperty, DoubleBinding parentHeightProperty)
     {

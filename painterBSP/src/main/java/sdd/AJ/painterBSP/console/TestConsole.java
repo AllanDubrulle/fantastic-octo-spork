@@ -17,12 +17,11 @@ public class TestConsole
     private static BSPUnDeterministHeuristicTester randomBSP;
     private static double x,y,angle;
     private static String line;
-    
+
     /**
-     * Initialize the three testers for the scene given in argument. 
+     * Initialize the three testers for the scene given in argument.
      * initialize some variable used for the display and the input reader.
-     * @exception FileFormatException - the file doesn't correspond to a scene.
-     * @exception IOException - the file doesn't exist.
+     * @param args the command line arguments
      */
     public static void main(String[] args)
     {
@@ -30,16 +29,16 @@ public class TestConsole
        {
             IllustrationInputReader irr = new IllustrationInputReader(args[0]);
             h1BSP = new BSPDeterministHeuristicTester(irr.getSegments(),new FirstHeuristic());
-            linearBSP = new BSPDeterministHeuristicTester(irr.getSegments(),new LinearHeuristic()); 
+            linearBSP = new BSPDeterministHeuristicTester(irr.getSegments(),new LinearHeuristic());
             randomBSP= new BSPUnDeterministHeuristicTester(irr.getSegments(),new LinearHeuristic());
-            
+
             line= "";
             for (int i = 0 ; i <=60 ; i++ )
                 line+="-";
-            
+
             Scanner sc = new Scanner(System.in);
             int chose = -1;
-           
+
             while (chose!=0)
             {
                 chose = menuChose(sc);
@@ -59,7 +58,7 @@ public class TestConsole
         catch (IOException e)
         {
             System.out.println("Fichier introuvable");
-        } 
+        }
         catch (FileFormatException e)
         {
             e.getMessage();
@@ -76,7 +75,7 @@ public class TestConsole
             System.out.println("Coordonnée x ; Coordonné y ; Angle");
             try
             {
-                String recu = sc.nextLine().trim(); // changeer le nom 
+                String recu = sc.nextLine().trim(); // changeer le nom
                 String[] values = recu.split(";");
                 if(values.length==3)
                 {
@@ -95,11 +94,11 @@ public class TestConsole
             }
 
         }
-        
+
     }
-    /** 
+    /**
      * @param sc - a Scanner object that can read input of user
-     * this function asks the user to input a integer between 0 and 1 
+     * this function asks the user to input a integer between 0 and 1
      * if the input doesn't correspond whit that we repeat the message.
      */
     private static int isEnd(Scanner sc)
@@ -111,7 +110,7 @@ public class TestConsole
             {
                 System.out.println("Voulez-vous continuer?");
                 System.out.println("0- fin");
-                System.out.println("1- Continuer"); 
+                System.out.println("1- Continuer");
                 String recu = sc.nextLine().trim();
                 res = Integer.parseInt(recu);
                 if (res>=0 && res <=1)
@@ -126,18 +125,18 @@ public class TestConsole
             System.out.println("Entree invalide. Veuillez taper un chiffre entre 0 et 1.\n");
         }
         return res;
-        
+
     }
 
-    /** 
+    /**
      * @param sc - a Scanner object that can read input of user
-     * this function asks the user to input a integer between 1 and 5  
+     * this function asks the user to input a integer between 1 and 5
      * if the input doesn't correspond whit that we repeat the message.
      */
-    
+
     private static int menuChose(Scanner sc)
     {
-        
+
         int res = 0;
         while (true)
         {
@@ -149,7 +148,7 @@ public class TestConsole
                 System.out.println("2- Hauteur de l'arbre");
                 System.out.println("3- Temps cpu du constructeur");
                 System.out.println("4- Temps cpu de l'algo du peintre");
-                System.out.println("5- Tout");  
+                System.out.println("5- Tout");
                 String recu = sc.nextLine().trim();
                 res = Integer.parseInt(recu);
                 if (res>=1 && res <=5)
@@ -166,7 +165,7 @@ public class TestConsole
         }
         return res;
     }
-    /** 
+    /**
      * @param chose - a integer between 1 and 5
      *  that correspond with a information about the BSPTREE
      * if chose equal to 5 we display all information.
@@ -188,7 +187,7 @@ public class TestConsole
                 System.out.printf("%-12.0f|", h1BSP.heightTest());
                 System.out.printf("%-11.1f|\n", randomBSP.heightTest());
                 System.out.println(line);
-                break; 
+                break;
             case 3:
                 System.out.printf("%-22s|", "Temps constructeur(ms)");
                 System.out.printf("%-12.1f|", linearBSP.constructorCpuTime());
@@ -202,11 +201,11 @@ public class TestConsole
                 System.out.printf("%-12.1f|", h1BSP.painterCpuTime(x, y, angle));
                 System.out.printf("%-11.1f|\n", randomBSP.painterCpuTime(x, y, angle));
                 System.out.println(line);
-                break; 
+                break;
             case 5:
                 for (int i = 0; i<=4;i++)
                     displayTests(i);
         }
-        
+
     }
 }
