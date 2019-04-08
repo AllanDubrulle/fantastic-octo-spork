@@ -15,15 +15,16 @@ public class BSPUnDeterministHeuristicTester extends BSPTester
         long start_cpu;
         long end_cpu;
         BSPTree temp;
+        double res =0;
         for (int i= 0;i<avgNbr;i++)
         {
             start_cpu = System.nanoTime();
             temp = BSPTree.randomBSPTree(getList());
             end_cpu = System.nanoTime();
             bspList[i]= temp;
-            this.avgConstructorTime += (end_cpu - start_cpu)/1000;
+            res += (end_cpu - start_cpu)/1000;
         }
-        this.avgConstructorTime /= avgNbr;
+        this.avgConstructorTime = (int) (res/avgNbr);
     }
 
 
