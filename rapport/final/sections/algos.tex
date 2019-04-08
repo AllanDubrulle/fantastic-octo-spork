@@ -243,7 +243,7 @@ L'algorithme est détaillé à l'algorithme \ref{algo:painter}.
     temps constant. Dès lors, le travail local est en $O(\mathrm{Card}(S))$.
   \end{itemize}
   Tous les noeuds de l'arbre sont visités. Soient $n_I$ le nombre de noeuds
-  internes de $T$, $n_F$ le nombre de feuilles de $T$, $V_i$ l'ensemble des
+  internes de $T$, $n_F$ le nombre de feuilles de $T$, $V_I$ l'ensemble des
   noeuds internes de $T$ et $N$ le nombre
   de fragments stockés dans $T$.
   Pour $v\in V_I$, on note $S_v$ l'ensemble de segments stockés en ce noeud.
@@ -260,7 +260,7 @@ Ce résultat permet l'observation suivante:
   du nombre de fragments générés par la construction de $T$.
 \end{cor}
 \subsection{Calcul des parties visibles}
-Cette section s'attèle à expliquer la procédure mise en \oe{}vre pour déterminer
+Cette section s'attèle à expliquer la procédure mise en \oe{}uvre pour déterminer
 quelle proportion d'un segment est visible, étant donné un \oe{}il.
 Après introduction des notations, des critères de visibilités sont
 établis, suivis de l'élaboration d'une procédure pour calculer la
@@ -338,8 +338,8 @@ de $\pi/2$ radians.
 \end{lem}
 \begin{proof}
   Par définition $\langle p, d\rangle = \|p\|\cdot \|d\| \cos(\theta)$ où $\theta$ est
-  l'angle non orienté entre $p$ et $d$. Pour signer l'angle
-  Dès lors, $\cos(\theta) = \langle d, p\rangle/\|d\|$. L'emploi de $\arccos$
+  l'angle non orienté entre $p$ et $d$.
+  Dès lors, $\cos(\theta) = \langle p, d\rangle/\|d\|$. L'emploi de $\arccos$
   fournit l'angle non orienté recherché.
 
   Signer l'angle revient à déterminer
