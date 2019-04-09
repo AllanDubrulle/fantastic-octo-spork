@@ -1,31 +1,42 @@
-\subsection{Heuristiques H1}
-\subsubsection{Raisonnement}
-Soientt $v$ un noeud de l'arbre. $s$ et $s'$ deux segments de $I_v$ tel que $s \ne s'$.
-
+\subsection{Heuristique H1}
+\subsubsection*{Raisonnement}
+Soient $v$ un noeud de l'arbre, $s$ et $s'$ deux segments
+de $I_v$ tels que $s \ne s'$.
+% rappeler ce que I_v, je sais pas si tu comptais
+% le faire avant cette sous-sous-section
 Plusieurs configurations sont possibles.
 \begin{enumerate}
-\item  $D_s \eq D_{s'} $.
-\item $D_s$ parrallèle à $D_{s'} $.
-\item $s$ et $s'$ s'intersecte
-\item $D_{s'}$ intersecte $s$ en un point n'appartenant pas à $s'$.
-\item le symétrique du cas précédent.
+\item  $D_s = D_{s'} $. \label{h1:enum1}
+\item $D_s$ parallèle à $D_{s'} $. \label{h1:enum2}
+\item $s$ et $s'$ s'intersectent \label{h1:enum3}
+\item $D_{s'}$ intersecte $s$ en un point n'appartenant pas à $s'$.\label{h1:enum4}
+\item le symétrique du cas précédent. \label{h1:enum5}
 \end{enumerate}
 
-Il est important de remarquer que ces cas sont 2 à 2 disjoints et donc en particulier 4 et 5 sont disjoints.
-Supposons que pour tout $s$,$s' \in I_v $ tel que $s \neq s'$, $s$ n'intersecte pas $s'$
-Le principe de H1 est de choisir le segment $s$ qui maximise le nombre de cas 4 pour $s' \in I_v$.
-Par ce choix, le nombre de cas 5 est minimisé.
+Il est important de remarquer que ces cas sont deux-à-deux disjoints
+et donc en particulier \ref{h1:enum4} et \ref{h1:enum5} sont disjoints.
+Supposons que pour tout $s$, $s' \in I_v $ tel que $s \neq s'$,
+$s$ n'intersecte pas $s'$
+
+Le principe de H1 est de choisir le segment $s$ qui maximise
+le nombre de cas \ref{h1:enum4} pour $s' \in I_v$.
+Par ce choix, le nombre de cas \ref{h1:enum5} est minimisé.
 Par conséquent, la droite $D_s$ intersecte un nombre minimal de segment $s'$.
 Ce qui équivaut au fait que $f_D$ sera minimal.
 
 
 Remarquons que pour l'heuristique H1, les 2 premiers cas ne sont pas exploités.
-Tandis que le cas 3 est un cas pathologique ne pouvant pas être résolu par H1.
-l'efficacité de H1 est donc limité si le nombre de cas 3 est important.
+Tandis que le cas \ref{h1:enum3} est un cas pathologique ne pouvant pas
+être résolu par H1.
+L'efficacité de H1 est donc limitée si le nombre de cas
+\ref{h1:enum3} est important.
 
-H1 réduit le nombre de fragments pour réduire la taille de l'arbre et donc améliorer le temps de l'algorithme du peintre qui dépend fortement de la taille de l'arbre.
+H1 réduit le nombre de fragments pour réduire la taille de l'arbre
+et donc améliorer le temps de l'algorithme du peintre qui dépend
+fortement de la taille de l'arbre et du nombre de fragments générés (par
+le corollaire \ref{peintre:cor}).
 
-\subsubsection{Algorithme}
+\subsubsection*{Algorithme}
 \begin{algorithm}
   \caption{H1($I_v$)}
   \begin{algorithmic}[1] \label{algo:propvis}
@@ -34,14 +45,22 @@ H1 réduit le nombre de fragments pour réduire la taille de l'arbre et donc am�
     \FOR{$s \in I_v$}
     \FOR{$s' \in I_v$}
     \IF{$s \neq s'$ et  $D_{s'}$ intersecte $s$}
-    \state $g_s++$
+    \STATE $g_s++$
     \ENDIF
     \ENDFOR
     \ENDFOR
     \RETURN $max\{g_s|s\in I_v\}$
   \end{algorithmic}
 \end{algorithm}
-\subsubsection{Complexité}
-Soient $v$ un noeud de l'arbre. L'algorithme itère sur chaque segment $s \in I_v$.
-On réitère ensuite sur chaque segment $s' \in I_v$. Tandis que l'intérieur des boucles correspond à du calcul et est donc en $O(1)$.
-Soit $N \eq Card(I_v)$. On obtient que H1 est en $O(N²)$
+\subsubsection*{Complexité}
+Soient $v$ un noeud de l'arbre. L'algorithme itère sur chaque segment
+$s \in I_v$.
+On réitère ensuite sur chaque segment $s' \in I_v$.
+Tandis que l'intérieur des boucles correspond à du calcul et
+est donc en $O(1)$. Soit $N = Card(I_v)$. On obtient que H1 est en $O(N^2)$
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../rapportGp1"
+%%% End:
