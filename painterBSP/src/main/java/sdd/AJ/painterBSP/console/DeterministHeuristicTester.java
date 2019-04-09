@@ -11,7 +11,7 @@ import sdd.AJ.painterBSP.util.Segment;
  * Class used to conduct performance tests on heuristics used
  * for BSP tree construction.
  */
-public class BSPDeterministHeuristicTester extends BSPTester
+public class DeterministHeuristicTester extends BSPTester
 {
 
     private BSPTree tree;
@@ -23,7 +23,7 @@ public class BSPDeterministHeuristicTester extends BSPTester
      * @param heuristic the heuristic used to select the segment used
      *                  to define the splitting plane
      */
-    public BSPDeterministHeuristicTester( List<Segment>  list, Heuristic heuristic)
+    public DeterministHeuristicTester( List<Segment>  list, Heuristic heuristic)
     {
         super(list);
         this.heuristic = heuristic;

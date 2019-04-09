@@ -10,8 +10,8 @@ import sdd.AJ.painterBSP.util.IllustrationInputReader;
 
 public class TestConsole
 {
-    static BSPDeterministHeuristicTester h1BSP,linearBSP;
-    private static BSPUnDeterministHeuristicTester randomBSP;
+    static DeterministHeuristicTester h1BSP,linearBSP;
+    private static RandomHeuristicTester randomBSP;
     private static double x,y,angle;
     private static String line;
 
@@ -25,9 +25,9 @@ public class TestConsole
        try
        {
             IllustrationInputReader irr = new IllustrationInputReader(args[0]);
-            h1BSP = new BSPDeterministHeuristicTester(irr.getSegments(),new FirstHeuristic());
-            linearBSP = new BSPDeterministHeuristicTester(irr.getSegments(),new LinearHeuristic());
-            randomBSP= new BSPUnDeterministHeuristicTester(irr.getSegments());
+            h1BSP = new DeterministHeuristicTester(irr.getSegments(),new FirstHeuristic());
+            linearBSP = new DeterministHeuristicTester(irr.getSegments(),new LinearHeuristic());
+            randomBSP= new RandomHeuristicTester(irr.getSegments());
 
             line= "";
             for (int i = 0 ; i <=60 ; i++ )

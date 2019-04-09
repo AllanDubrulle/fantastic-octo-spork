@@ -6,10 +6,10 @@ import sdd.AJ.painterBSP.BSPLib.BSPTree;
 import sdd.AJ.painterBSP.util.Eye;
 import sdd.AJ.painterBSP.util.Segment;
 
-public class BSPUnDeterministHeuristicTester extends BSPTester
+public class RandomHeuristicTester extends BSPTester
 {
     private BSPTree[] bspList = new BSPTree[this.avgNbr];
-    public BSPUnDeterministHeuristicTester(List<Segment> list)
+    public RandomHeuristicTester(List<Segment> list)
     {
         super(list);
         long start_cpu;
