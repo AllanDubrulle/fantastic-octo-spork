@@ -1,22 +1,22 @@
 \subsection{Heuristique H1}
-Soient $S$ un ensemble de segment, $s$ et $s'$ deux segments
+Soient $S$ un ensemble de segments, $s$ et $s'$ deux segments
 de $S$ tels que $s \ne s'$.
-Plusieurs configurations sont possibles.
+Plusieurs configurations sont possibles:
 \begin{enumerate}
-\item les droites  $D_s$ et  $D_{s'}$ sont confondues. \label{h1:enum1}
-\item la droite $D_s$ parallèle à $D_{s'} $. \label{h1:enum2}
-\item les segments $s$ et $s'$ ont une extrémité en commun \label{h1:enum3}
-\item la droite $D_{s'}$ intersecte $s$ en un point n'appartenant pas à $s'$.\label{h1:enum4}
+\item les droites  $D_s$ et  $D_{s'}$ sont confondues; \label{h1:enum1}
+\item la droite $D_s$ est parallèle à $D_{s'} $; \label{h1:enum2}
+\item les segments $s$ et $s'$ ont une extrémité en commun; \label{h1:enum3}
+\item la droite $D_{s'}$ intersecte $s$ en un point n'appartenant pas à $s'$;\label{h1:enum4}
 \item le symétrique du cas précédent. \label{h1:enum5}
 \end{enumerate}
 
 Il est important de remarquer que ces cas sont deux-à-deux disjoints
-et donc en particulier \ref{h1:enum4} et \ref{h1:enum5} sont disjoints.
+et donc en particulier les cas \ref{h1:enum4} et \ref{h1:enum5} sont disjoints.
 Supposons que pour tout $s$, $s' \in S $ tel que $s \neq s'$,
-les segments $s$ et $s'$ n'ont pas une extrémité en commun.
+les segments $s$ et $s'$ n'ont pas d'extrémité en commun.
 
-Soit $g_s =$ nombre de droites $D'$ supportant un segment $s' \neq s$ de $S$ qui intersectent
-le segments.
+Soit $g_s$ le nombre de droites $D'$ supportant un segment $s' \neq s$
+de $S$ qui intersectent le segment $s$.
 
 Maximiser $g_s$ pour $s \in S$ revient à choisir le segment $s$ qui maximise
 le nombre de cas \ref{h1:enum4} pour $s' \in S$.
@@ -33,33 +33,40 @@ L'efficacité de H1 est donc limitée si le nombre de cas
 H1 réduit le nombre de fragments pour réduire la taille de l'arbre
 et donc améliorer le temps de l'algorithme du peintre qui dépend
 fortement de la taille de l'arbre et du nombre de fragments générés (par
-le corollaire \ref{peintre:cor}).
+le corollaire \ref{peintre:cor}). L'algorithme \ref{algo:h1} détaille
+la procédure associée à H1.
 
 \begin{algorithm}
   \caption{H1($S$)}
-  \begin{algorithmic}[1] \label{algo:propvis}
-    \REQUIRE $S$ un ensemble de segment.
+  \begin{algorithmic}[1] \label{algo:h1}
+    \REQUIRE $S$ un ensemble de segments non vide.
     \ENSURE $s$ tel que $g_s$ est maximal.
+    \STATE$r\leftarrow$ le premier segment de $S$
+    \FOR{$s \in S$}
+    \STATE $g_s\leftarrow 0$
+    \ENDFOR
     \FOR{$s \in S$}
     \FOR{$s' \in S$}
     \IF{$s \neq s'$ et  $D_{s'}$ intersecte $s$}
-    \STATE $g_s++$
+    \STATE $g_s\leftarrow g_s +1$
     \ENDIF
     \ENDFOR
+    \IF{$g_s>g_r$}
+    \STATE $r\leftarrow s$
+    \ENDIF
     \ENDFOR
-    \RETURN $max\{g_s|s\in S\}$
+    \RETURN $r$
   \end{algorithmic}
 \end{algorithm}
 
-Soit $N = Card(S)$.
 \begin{prop}
-  L'algorithme H1 est en $O(N^2)$.
+  Soit $N = \mathrm{Card}(S)$. L'algorithme H1 est en $O(N^2)$.
 \end{prop}
 \begin{proof}
   L'algorithme itère sur chaque segment $s \in S$.
   On réitère ensuite sur chaque segment $s' \in S$.
-  Tandis que l'intérieur des boucles correspond à du calcul et
-  est donc en $O(1)$.  On obtient que H1 est en $N*(N*O(1)) = O(N^2)$
+  L'intérieur des boucles correspond à du calcul et
+  est donc en $O(1)$. On obtient que H1 est en $N\times(N\times{}O(1)) = O(N^2)$
 \end{proof}
 
 
