@@ -1,36 +1,44 @@
 \subsection{Heuristique H1}
 Soient $S$ un ensemble de segments, $s$ et $s'$ deux segments
-de $S$ tels que $s \ne s'$.
+de $S$ tels que $s \ne s'$. La droite supportant le segment $s$ (resp. $s'$
+) est notée $D_s$ (resp. $D_{s'}$).
 Plusieurs configurations sont possibles:
 \begin{enumerate}
 \item les droites  $D_s$ et  $D_{s'}$ sont confondues; \label{h1:enum1}
-\item la droite $D_s$ est parallèle à $D_{s'} $; \label{h1:enum2}
-\item les segments $s$ et $s'$ ont une extrémité en commun; \label{h1:enum3}
-\item la droite $D_{s'}$ intersecte $s$ en un point n'appartenant pas à $s'$;\label{h1:enum4}
-\item le symétrique du cas précédent. \label{h1:enum5}
+\item la droite $D_s$ est parallèle à $D_{s'} $ et elles sont disjointes; \label{h1:enum2}
+\item les segments $s$ et $s'$ ont une intersection; \label{h1:enum3}
+\item la droite $D_{s'}$ intersecte $s$ en un point
+  n'appartenant pas à $s'$;\label{h1:enum4}
+\item la droite $D_{s}$ intersecte $s'$ en un point
+  n'appartenant pas à $s$; \label{h1:enum5}
+\item les droites $D_s$ et $D_{s'}$ s'intersectent en un point n'appartenant ni
+  à $s$, ni à $s'$. \label{h1:enum6}
 \end{enumerate}
 
-Il est important de remarquer que ces cas sont deux-à-deux disjoints
-et donc en particulier les cas \ref{h1:enum4} et \ref{h1:enum5} sont disjoints.
-Supposons que pour tout $s$, $s' \in S $ tel que $s \neq s'$,
-les segments $s$ et $s'$ n'ont pas d'extrémité en commun.
+Il est important de remarquer que ces cas sont deux-à-deux disjoints.
+En particulier les cas \ref{h1:enum4} et \ref{h1:enum5} sont disjoints.
 
 Soit $g_s$ le nombre de droites $D'$ supportant un segment $s' \neq s$
 de $S$ qui intersectent le segment $s$.
 
 Maximiser $g_s$ pour $s \in S$ revient à choisir le segment $s$ qui maximise
-le nombre de cas \ref{h1:enum4} pour $s' \in S$.
+le nombre de cas \ref{h1:enum3} et \ref{h1:enum4} pour $s' \in S$.
 Par ce choix, le nombre de cas \ref{h1:enum5} est minimisé.
-Par conséquent, la droite $D_s$ intersecte un nombre minimal de segment $s'$.
-Ce qui équivaut au fait que $f_D$ sera minimal.
+Par conséquent, on peut espérer que la droite $D_s$ intersecte un
+nombre minimal de segment $s'$, ce qui équivaut au fait que le
+nombre de fragment généré en séparant le plan par $D_s$ sera minimal.
 
+Remarquons que pour cette heuristique, les 2 premiers cas ainsi que
+le cas \ref{h1:enum6} ne sont pas exploités.
+Le cas \ref{h1:enum3} est un cas particulier pour l'heuristique;
+il est intéressant de noter que si deux segments s'intersectent
+en un point différent de l'une de leurs extrémités, alors ils devront
+éventuellement être fragmentés, et s'ils partagent une extrémité, alors
+en choisir la droite supportant un des segments pour séparer le plan ne
+fragmentera pas le premier.
 
-Remarquons que pour l'heuristique H1, les 2 premiers cas ne sont pas exploités.
-Tandis que le cas \ref{h1:enum3} est un cas pathologique n'étant pas résolu par H1.
-L'efficacité de H1 est donc limitée si le nombre de cas
-\ref{h1:enum3} est important.
-
-H1 réduit le nombre de fragments pour réduire la taille de l'arbre
+Cette heuristique a pour but d'espérer une réduction du nombre de fragments
+pour diminuer la taille de l'arbre
 et donc améliorer le temps de l'algorithme du peintre qui dépend
 fortement de la taille de l'arbre et du nombre de fragments générés (par
 le corollaire \ref{peintre:cor}). L'algorithme \ref{algo:h1} détaille
