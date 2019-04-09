@@ -1,10 +1,12 @@
-package sdd.AJ.painterBSP.console;
+package sdd.AJ.painterBSP;
 
 import java.io.IOException;
 import java.util.Scanner;
 
 import sdd.AJ.painterBSP.BSPLib.Heuristic.FirstHeuristic;
 import sdd.AJ.painterBSP.BSPLib.Heuristic.LinearHeuristic;
+import sdd.AJ.painterBSP.console.DeterministHeuristicTester;
+import sdd.AJ.painterBSP.console.RandomHeuristicTester;
 import sdd.AJ.painterBSP.util.FileFormatException;
 import sdd.AJ.painterBSP.util.IllustrationInputReader;
 
