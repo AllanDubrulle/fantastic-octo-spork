@@ -1,4 +1,23 @@
-% TODO Introduire le problème
+% contexte
+Le présent document se concentre sur un problème d'affichage graphique;
+étant donné un point de vue, comment représenter ce qu'il voit en
+prenant en compte le fait que certains objets en cachent d'autres.
+Il s'agit d'afficher à partir d'un ensemble de segments dans le
+plan, afficher ce que voit un point de vue donné (voir les figures
+\ref{intro:ill}, \ref{intro2:ill}).
+
+L'algorithme du peintre est l'approche adoptée pour résoudre le problème et
+la structure de donnée associée, l'arbre BSP
+(\emph{binary space partition tree}), est étudié.
+Une implémentation en Java des arbres BSP et de l'algorithme
+du peintre a été réalisée. Plusieurs
+heuristiques de construction d'arbres BSP sont présentées et
+comparées à l'aide de tests effectués via l'implémentation
+de l'algorithme réalisée en Java.
+
+Le mode d'emploi de l'application
+est également fourni dans ce rapport.
+
 \input{figures/mise_en_contexte}
 
 %%% Local Variables:
