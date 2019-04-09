@@ -41,15 +41,18 @@ public class TestConsole
             while (chose!=0)
             {
                 chose = menuChose(sc);
-                if (chose==4 || chose ==5)
-                    displayEyeMenu(sc);
-                System.out.printf("%22s|", "");
-                System.out.printf("%-12s|", "H lineaire");
-                System.out.printf("%-12s|", "H Premiere");
-                System.out.printf("%-11s|\n", "H aleatoire");
-                System.out.println(line);
-                displayTests(chose);
-                chose = isEnd(sc);
+                if (chose!=0)
+                {
+                    if (chose==4 || chose ==5)
+                        displayEyeMenu(sc);
+                    System.out.printf("%22s|", "");
+                    System.out.printf("%-12s|", "H lineaire");
+                    System.out.printf("%-12s|", "H Premiere");
+                    System.out.printf("%-11s|\n", "H aleatoire");
+                    System.out.println(line);
+                    displayTests(chose);
+                    chose = isEnd(sc);
+                }
             }
             System.out.println("fin");
             sc.close();
@@ -129,7 +132,7 @@ public class TestConsole
 
     /**
      * @param sc - a Scanner object that can read input of user
-     * this function asks the user to input a integer between 1 and 5
+     * this function asks the user to input a integer between 0 and 5
      * if the input doesn't correspond whit that we repeat the message.
      */
 
@@ -143,6 +146,7 @@ public class TestConsole
             {
                 System.out.println("Veuillez choisir la donnée à analyser");
                 System.out.println("En tapant le chiffre correspondant:");
+                System.out.println("0- Sortir du programme");
                 System.out.println("1- Taille de l'arbre");
                 System.out.println("2- Hauteur de l'arbre");
                 System.out.println("3- Temps cpu du constructeur");
@@ -150,16 +154,16 @@ public class TestConsole
                 System.out.println("5- Tout");
                 String recu = sc.nextLine().trim();
                 res = Integer.parseInt(recu);
-                if (res>=1 && res <=5)
+                if (res>=0 && res <=5)
                     break;
-                System.out.println("Chiffre non compris entre 1 et 5");
+                System.out.println("Chiffre non compris entre 0 et 5");
             }
             catch (java.lang.NumberFormatException e)
             {
                 System.out.println("Pas un chiffre.");
 
             }
-            System.out.println("Entree invalide. Veuillez taper un chiffre entre 1 et 5.\n");
+            System.out.println("Entree invalide. Veuillez taper un chiffre entre 0 et 5.\n");
 
         }
         return res;
