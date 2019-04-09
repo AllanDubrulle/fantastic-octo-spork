@@ -47,7 +47,7 @@
               <appendAssemblyId>true</appendAssemblyId>
               <archive>
                 <manifest>
-                  <mainClass>sdd.AJ.painterBSP.console.TestConsole</mainClass>
+                  <mainClass>sdd.AJ.painterBSP.TestConsole</mainClass>
                 </manifest>
               </archive>
               <descriptorRefs>
