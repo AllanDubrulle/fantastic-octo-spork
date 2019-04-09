@@ -37,9 +37,9 @@ public class BSPDeterministHeuristicTester extends BSPTester
             start_cpu = System.nanoTime();
             temp = new BSPTree(getList(), heuristic);
             end_cpu = System.nanoTime();
-            res+= (end_cpu - start_cpu)/1000;
+            res+= (end_cpu - start_cpu)/1000000.;
         }
-        this.avgConstructorTime = (int) res/avgNbr;
+        this.avgConstructorTime = res/avgNbr;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class BSPDeterministHeuristicTester extends BSPTester
 
 
     @Override
-    public int painterCpuTime(double x, double y, double angle)
+    public double painterCpuTime(double x, double y, double angle)
     {
         Eye eye = new Eye(x, y, angle);
         return painterCpuTimeTree(tree, eye);
