@@ -30,7 +30,7 @@ public class BSPDeterministHeuristicTester extends BSPTester
         long start_cpu = System.nanoTime();
         this.tree = new BSPTree(list, heuristic);
         long end_cpu = System.nanoTime();
-        double res = (end_cpu - start_cpu)/1000;
+        double res = (end_cpu - start_cpu)/1000000.;
         BSPTree temp;
         for (int i=1; i<=avgNbr; i++)
         {
