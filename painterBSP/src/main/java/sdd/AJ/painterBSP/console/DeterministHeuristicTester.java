@@ -22,6 +22,8 @@ public class DeterministHeuristicTester extends BSPTester
      * @param list      the list of the segments in the scene to be pre-processed
      * @param heuristic the heuristic used to select the segment used
      *                  to define the splitting plane
+     *  the average time for build a BSPTree with heuristic in millisecond is pre-processed in 
+     *      avgConstructorTime. 
      */
     public DeterministHeuristicTester( List<Segment>  list, Heuristic heuristic)
     {
@@ -41,14 +43,22 @@ public class DeterministHeuristicTester extends BSPTester
         }
         this.avgConstructorTime = res/avgNbr;
     }
-
+    /**
+     * @return a double equal to the height of a BSPTree build with heuristic
+     */
     @Override
     public double heightTest()
     {
         return tree.height();
     }
 
-
+    /**
+     * @param x      x-coordinate of the eye
+     * @param y      y-coordinate of the eye
+     * @param angle  angle representing the forward direction
+     * @return a double equal to the average time for use painter's algorithm with BSPTree build with heuristic
+     * and a eye corresponding at x,y,angle position 
+     */
     @Override
     public double painterCpuTime(double x, double y, double angle)
     {
@@ -56,7 +66,9 @@ public class DeterministHeuristicTester extends BSPTester
         return painterCpuTimeTree(tree, eye);
     }
 
-
+    /**
+     * @return a double equal to the size of a BSPTree build with heuristic
+     */
     @Override
     public double sizeTest()
     {

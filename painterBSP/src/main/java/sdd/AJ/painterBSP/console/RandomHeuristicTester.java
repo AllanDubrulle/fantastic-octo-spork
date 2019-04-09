@@ -9,6 +9,14 @@ import sdd.AJ.painterBSP.util.Segment;
 public class RandomHeuristicTester extends BSPTester
 {
     private BSPTree[] bspList = new BSPTree[this.avgNbr];
+    
+    /**
+     * Class constructor.
+     * @param list      the list of the segments in the scene to be pre-processed
+     *  bspList contains avgNbr BspTree built randomly.                
+     *  the average time for build a BSPTree with heuristic in millisecond is pre-processed in 
+     *      avgConstructorTime. 
+     */
     public RandomHeuristicTester(List<Segment> list)
     {
         super(list);
@@ -27,7 +35,9 @@ public class RandomHeuristicTester extends BSPTester
         this.avgConstructorTime = (res/avgNbr);
     }
 
-
+    /**
+     * @return a double equal to the average height for a BSPTree built randomly using bspList 
+     */
     @Override
     public double heightTest()
     {
@@ -39,6 +49,14 @@ public class RandomHeuristicTester extends BSPTester
         return res/avgNbr;
     }
 
+    /**
+         /**
+     * @param x      x-coordinate of the eye
+     * @param y      y-coordinate of the eye
+     * @param angle  angle representing the forward direction
+     * @return an double equal to the average time for use painter's algorithm with BSPTree build 
+     * randomly and a eye corresponding at x,y,angle position 
+     */
     @Override
     public double painterCpuTime(double x, double y, double angle)
     {
@@ -51,6 +69,9 @@ public class RandomHeuristicTester extends BSPTester
         return res/avgNbr;
     }
 
+    /**
+     * @return a double equal to the average size for a BSPTree built randomly using bspList 
+     */
     @Override
     public double sizeTest()
     {
