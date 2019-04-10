@@ -12,7 +12,7 @@ import sdd.AJ.painterBSP.BSPLib.Heuristic.FirstHeuristic;
 import sdd.AJ.painterBSP.util.FileFormatException;
 import sdd.AJ.painterBSP.util.IllustrationInputReader;
 import sdd.AJ.painterBSP.util.Segment;
-import java.io.File;
+import java.io.InputStream;
 
 /**
  * Unit tests to check that no stackoverflow or overhead memory
@@ -54,8 +54,8 @@ public class BSPTreeTests
     private List<Segment> getList(String fileName) throws IOException, FileFormatException
     {
         ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource(fileName).getFile());
-        IllustrationInputReader iir = new IllustrationInputReader(file);
+        InputStream is = classLoader.getResourceAsStream(fileName);
+        IllustrationInputReader iir = new IllustrationInputReader(is);
         return iir.getSegments();
     }
 
