@@ -1,29 +1,62 @@
 package sdd.AJ.painterBSP;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import sdd.AJ.painterBSP.BSPLib.BSPTree;
+import sdd.AJ.painterBSP.BSPLib.Heuristic.LinearHeuristic;
+import sdd.AJ.painterBSP.BSPLib.Heuristic.FirstHeuristic;
 import sdd.AJ.painterBSP.util.FileFormatException;
 import sdd.AJ.painterBSP.util.IllustrationInputReader;
 import sdd.AJ.painterBSP.util.Segment;
+import java.io.File;
 
+/**
+ * Unit tests to check that no stackoverflow or overhead memory
+ * errors occur
+ */
 public class BSPTreeTests
 {
-    public static ArrayList<Segment> segmentList;
-    @BeforeClass
-    public static void initializeFile() throws IOException, FileFormatException
+
+    /**
+     * Tests with the largest file randomHuge.txt
+     */
+    @Test
+    public void stackoverflowRandom() throws IOException, FileFormatException
     {
-        IllustrationInputReader iir = new IllustrationInputReader("Scenes/random/randomHuge.txt");
-        segmentList = (ArrayList<Segment>) iir.getSegments();
+        BSPTree test = new BSPTree(getList("Scenes/random/randomHuge.txt"),
+                                   new LinearHeuristic());
     }
 
+    /**
+     * Tests with the largest ellipse type file: ellipsesLarge.txt
+     */
     @Test
-    public void stackoverflow()
+    public void stackoverflowEllipses() throws IOException, FileFormatException
     {
-         BSPTree test = BSPTree.randomBSPTree(segmentList);
+        BSPTree test = new BSPTree(getList("Scenes/ellipses/ellipsesLarge.txt"),
+                                   new LinearHeuristic());
     }
+
+    /**
+     * Tests with the largest rectangle-type file: rectanglesHuge.txt
+     */
+    @Test
+    public void stackoverflowRectangles() throws IOException, FileFormatException
+    {
+        BSPTree test = new BSPTree(getList("Scenes/rectangles/rectanglesHuge.txt"),
+                                   new LinearHeuristic());
+    }
+
+    private List<Segment> getList(String fileName) throws IOException, FileFormatException
+    {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource(fileName).getFile());
+        IllustrationInputReader iir = new IllustrationInputReader(file);
+        return iir.getSegments();
+    }
+
 }
