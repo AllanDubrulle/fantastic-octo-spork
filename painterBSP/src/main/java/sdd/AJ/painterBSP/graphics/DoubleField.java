@@ -16,8 +16,8 @@ public class DoubleField extends TextField
                 @Override
                 public void changed(ObservableValue<? extends String> observable, String oldValue, String z)
                 {
-                    if (!(z.matches("\\d*") || z.matches("\\d*\\.\\d*")
-                          || (z.matches("-\\d*") || z.matches("-\\d*\\.\\d*"))))
+                    if (!(z.matches("\\d*") || z.matches("\\d+\\.\\d*")
+                          || (z.matches("-\\d*") || z.matches("-\\d+\\.\\d*"))))
                         setText(oldValue);
                 }
             });
@@ -31,7 +31,7 @@ public class DoubleField extends TextField
      */
     public double getValue()
     {
-        if (getText().equals(""))
+        if (getText().equals("") || getText().equals("-"))
             return 0;
         return Double.parseDouble(getText());
     }
