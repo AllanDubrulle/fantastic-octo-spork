@@ -19,7 +19,9 @@ public class FirstHeuristic implements Heuristic
                 Segment t = list.get(i);
                 if (!s.equals(t))
                 {
-                    if (sLineEquation.liesInTwoHalfs(t))
+                    if (sLineEquation.liesInTwoHalfs(t) ||
+                        sLineEquation.isInLine(t.u, t.v) ||
+                        sLineEquation.isInLine(t.x, t.y))
                     {
                         gs[i]++;
                     }
