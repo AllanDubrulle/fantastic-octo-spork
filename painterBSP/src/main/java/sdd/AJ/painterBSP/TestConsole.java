@@ -74,6 +74,15 @@ public class TestConsole
         }
 
     }
+    
+    /**
+     * 
+     * @param sc - a Scanner object that can read input of user
+     * this function asks the user to input three double corresponding at positions of a eye.
+     * These doubles must be separated by symbol ";".
+     * if there is more than three inputs or at least one input is not a double,
+     * programme is repeated.
+     */
     private static void displayEyeMenu(Scanner sc)
     {
         while (true)
@@ -83,8 +92,8 @@ public class TestConsole
             System.out.println("Coordonn\u00e9e x ; Coordonn\u00e9e y ; Angle");
             try
             {
-                String recu = sc.nextLine().trim(); // changeer le nom
-                String[] values = recu.split(";");
+                String input = sc.nextLine().trim(); // changeer le nom
+                String[] values = input.split(";");
                 if(values.length==3)
                 {
                     x = Double.parseDouble(values[0].trim());
@@ -120,8 +129,8 @@ public class TestConsole
                 System.out.println("0 - Fin");
                 System.out.println("1 - Continuer");
                 System.out.print("Votre choix: ");
-                String recu = sc.nextLine().trim();
-                res = Integer.parseInt(recu);
+                String input = sc.nextLine().trim();
+                res = Integer.parseInt(input);
                 if (res>=0 && res <=1)
                     break;
                 System.out.println("Chiffre non compris entre 0 et 1");
@@ -161,8 +170,8 @@ public class TestConsole
                 System.out.println("5 - Tout");
                 System.out.print("Votre choix : ");
 
-                String recu = sc.nextLine().trim();
-                res = Integer.parseInt(recu);
+                String input = sc.nextLine().trim();
+                res = Integer.parseInt(input);
                 if (res>=0 && res <=5)
                     break;
                 System.out.printf("Chiffre non compris entre 0 et 5.");
