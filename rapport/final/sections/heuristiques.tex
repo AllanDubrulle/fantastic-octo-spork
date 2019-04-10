@@ -1,32 +1,45 @@
-\subsection{Heuristique linéaire}
-L'heuristique linéaire consiste simplement à retourner le premier élément de la liste $S$.
+\subsection{Heuristiques employées}\label{heur:section}
+Les différentes heuristiques employées pour la construction des arbres
+BSP sont décrites et leur complexité est étudiée dans cette section.
+
+La lettre $S$ désigne un ensemble non vide de segments. \'Etant donné
+un segment $s$ non réduit à un point, $D_s$ dénote la droite
+supportant le segment $s$.
+\subsubsection*{Heuristique linéaire}
+L'heuristique linéaire consiste simplement à retourner le premier
+élément de la liste $S$. Ainsi, la liste des segments composant
+la scène est parcourue dans l'ordre dans lequel elle est fournie.
 
 \begin{prop}\label{hLin:compl}
  La complexité de l'heuristique linéaire est en $O(1)$.
 \end{prop}
 \begin{proof}
-  La complexité d'obtenir un élément à une position donnée dans une liste est en $O(1)$.  
+  La complexité d'obtenir un élément en tête de liste
+  est en $O(1)$.
 \end{proof}
 
-\subsection{Heuristique aléatoire}
+\subsubsection*{Heuristique aléatoire}
 
-L'heuristique aléatoire revient à appliquer l'heuristique linéaire à une liste $S'$
-où $S'$ est une permutation de $S$. la méthode shuffle de la classe Java.util.Collections permet de faire
-une telle permutation et sa complexité est en $O(N)$ où $N$ est la longueur de la liste.
-Vu que l'appel à shuffle n'a lieu qu'au premier appel, on a un travail préparation en $O(N)$.
+L'heuristique aléatoire revient à appliquer l'heuristique linéaire
+à une liste $S'$ où $S'$ est une permutation de $S$. La méthode
+shuffle de la classe \texttt{Java.util.Collections}
+(employée dans l'implémentation) permet de faire
+une telle permutation avec une complexité en $O(N)$
+où $N$ est la longueur de la liste.
+Vu que l'appel à shuffle a lieu avant l'appel au constructeur de l'arbre,
+on a un travail de préparation en $O(N)$.
 
 \begin{prop}
- La complexité de l'heuristique aléatoire est  en $O(1)$.
+  La complexité de la sélection d'un segment dans
+  l'approche aléatoire est en $O(1)$.
 \end{prop}
 \begin{proof}
-  Voir \ref{hLin:compl}.  
+  Voir la proposition \ref{hLin:compl}.
 \end{proof}
 
 
-\subsection{Heuristique H1}
-Soient $S$ une liste de segments, $s$ et $s'$ deux segments
-de $S$ tels que $s \ne s'$. La droite supportant le segment $s$ (resp. $s'$
-) est notée $D_s$ (resp. $D_{s'}$).
+\subsubsection*{Heuristique $H_1$}
+Soient $s$ et $s'$ deux segments de $S$ tels que $s \ne s'$.
 Plusieurs configurations sont possibles:
 \begin{enumerate}
 \item les droites  $D_s$ et  $D_{s'}$ sont confondues; \label{h1:enum1}
@@ -67,10 +80,10 @@ pour diminuer la taille de l'arbre
 et donc améliorer le temps de l'algorithme du peintre qui dépend
 fortement de la taille de l'arbre et du nombre de fragments générés (par
 le corollaire \ref{peintre:cor}). L'algorithme \ref{algo:h1} détaille
-la procédure associée à H1.
+la procédure associée à $H_1$.
 
 \begin{algorithm}
-  \caption{H1($S$)}
+  \caption{$H_1$($S$)}
   \begin{algorithmic}[1] \label{algo:h1}
     \REQUIRE $S$ une liste de segments non vide.
     \ENSURE $s$ tel que $g_s$ est maximal.
@@ -93,13 +106,13 @@ la procédure associée à H1.
 \end{algorithm}
 
 \begin{prop}
-  La complexité de l'algorithme H1 est en $O(N^2)$ où $N =$ la taille de S.
+  La complexité de l'algorithme $H_1$ est en $O(N^2)$ où $N =$ la taille de S.
 \end{prop}
 \begin{proof}
   L'algorithme itère sur chaque segment $s \in S$.
   On réitère ensuite sur chaque segment $s' \in S$.
   L'intérieur des boucles correspond à du calcul et
-  est donc en $O(1)$. On obtient que H1 est en $N\times(N\times{}O(1)) = O(N^2)$
+  est donc en $O(1)$. On obtient que $H_1$ est en $N\times(N\times{}O(1)) = O(N^2)$
 \end{proof}
 
 
