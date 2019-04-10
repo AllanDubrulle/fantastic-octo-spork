@@ -1,0 +1,36 @@
+Analyse des temps cpu.
+les tests ont été effectués avec un oeil à la position 0;0 et un angle de 1.
+la configuration du pc était la suivante :
+
+\begin{center}
+  Intel Core i5-7300HQ CPU @ 2.50GHz × 4,  8Gb ram, système Ubuntu 18.04.2 LTS, java version "1.8.0_191",
+  Pour calculer le temps cpu, la méthode nanotime de la classe System a été utilisée. 
+\end{center}
+
+Par la suite, on utilisera abusivement la hauteur de l'heuristique "X" pour la hauteur de l'arbre générée par l'heuristique "X". Il en va de même pour les autres caractèristiques.
+
+
+On peut remarquer que l'heuristique 1 prend beaucoup plus de temps à construire l'arbre que les autres heuristiques.
+Comme attendu par la proposition \ref{compl:painter}, on remarque que si une heuristique a une taille moins importante qu'une autre alors l'algoritme du peintre sera plus efficace pour cette heuristique.
+
+Cependant, l'algorithme du peintre sur un arbre construit avec cette heuristique est souvent plus rapide ou dans le pire des cas aussi rapide.
+
+De plus, sur les fichiers du type "random", l'heuristique 1 possède la plus petite hauteur et la plus petite taille.
+ur ces mêmes fichiers, l'heuristique aléatoire  a une même hauteur que l'heuristique 1 mais une taille plus grande. 
+
+Les fichiers du dossier "first" sont trop petits pour voir une différence significative. Les 3 heuristiques sont assez équivalentes sauf l'heuristique aléatoire qui a une plus grande taille et l'heuristique linéaire une plus grande hauteur.
+
+Sur les fichiers "ellipses", on remarque que la taille des arbres est relativement identiques mais la hauteur quant à elle suit l'ordre suivant :
+
+\begin{center}
+  aléatoire < première < linéaire
+\end{center}
+
+Enfin, les fichiers "rectangles"  
+
+
+
+%%%Local Variables:
+%%% mode: latex
+%%% TeX-master: "../rapportGp1"
+%%% End:
