@@ -83,7 +83,7 @@ public class GraphicalWindow extends GridPane
         /************************************************************
                  *            Illustration labels          *
         *************************************************************/
-        Label planeLabel = new Label("   Illustration de l'ensemble de segments chargés:");
+        Label planeLabel = new Label("   Illustration de l'ensemble de segments charg\u00e9s:");
         planeLabel.setStyle("-fx-font-size:18; -fx-font-family:sans-serif;");
         planeLabel.setContentDisplay(ContentDisplay.CENTER);
         planeLabel.setTextAlignment(TextAlignment.CENTER);
@@ -113,8 +113,8 @@ public class GraphicalWindow extends GridPane
                 *          File selection button          *
         *************************************************************/
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Sélectionnez le fichier à traiter");
-        Button btnFile = new Button("Sélectionner un fichier");
+        fileChooser.setTitle("S\u00e9lectionnez le fichier \u00e0 traiter");
+        Button btnFile = new Button("S\u00e9lectionner un fichier");
         btnFile.setOnMouseClicked(x -> {
             File file = fileChooser.showOpenDialog(stage);
             if (file != null)
@@ -127,7 +127,7 @@ public class GraphicalWindow extends GridPane
 
                 catch (IOException e)
                 {
-                    warn("Une erreur a été rencontrée au cours\n"+
+                    warn("Une erreur a \u00e9t\u00e9 rencontr\u00e9e au cours\n"+
                          "de la lecture du fichier.");
                 }
 
@@ -145,7 +145,7 @@ public class GraphicalWindow extends GridPane
 
         ChoiceBox<String> heuristics = new ChoiceBox<>();
         heuristics.getItems().addAll("Dans l'ordre",
-                                     "Aléatoirement",
+                                     "Al\u00e9atoirement",
                                      "Heuristique 1");
         heuristics
             .getSelectionModel()
@@ -194,7 +194,7 @@ public class GraphicalWindow extends GridPane
                 requestFocus();
             });
 
-        Button eyePosButton = new Button("Déplacer l'oeil");
+        Button eyePosButton = new Button("D\u00e9placer l'oeil");
         eyePosButton.setOnMouseClicked(x -> {
                 Optional<double[]> t  = (new EyePositionDialog()).showAndWait();
                 if (t.isPresent())
@@ -350,9 +350,9 @@ public class GraphicalWindow extends GridPane
      */
     public void displayEyeParameters(double x, double y, double angle)
     {
-        eyeParameters.setText("Paramètres de l'oeil\n" +
+        eyeParameters.setText("Param\u00e8tres de l'oeil\n" +
                               "Abscisse: " + String.format("%.3f", x) + "\n" +
-                              "Ordonnée: " + String.format("%.3f", y) + "\n" +
+                              "Ordonn\u00e9e: " + String.format("%.3f", y) + "\n" +
                               "Angle: " + String.format("%.3f", angle) + "\n"
                               );
     }

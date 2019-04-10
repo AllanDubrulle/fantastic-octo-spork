@@ -17,12 +17,12 @@ public class EyePositionDialog extends Dialog<double[]>
     {
         DialogPane pane = this.getDialogPane();
         DoubleInput dif = new DoubleInput("Abscisse : ",
-                                                    "Ordonnée : ",
+                                                    "Ordonn\u00e9e : ",
                                                     "Angle : ");
         pane.setContent(dif);
-        setHeaderText(String.format("Sélectionnez les coordonnées%n"+
+        setHeaderText(String.format("S\u00e9lectionnez les coordonn\u00e9es%n"+
                                     "et l'orientation de l'oeil."));
-        setTitle("Paramètres de l'oeil (mode non interactif)");
+        setTitle("Param\u00e8tres de l'oeil (mode non interactif)");
         pane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
         super.setResultConverter(dialogButton -> {

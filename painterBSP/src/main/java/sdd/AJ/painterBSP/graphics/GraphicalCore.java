@@ -116,15 +116,15 @@ public class GraphicalCore
         if (segments == null)
         {
             window.warn(String.format(
-                        "Aucun fichier n'est chargé.%n"+
+                        "Aucun fichier n'est charg\u00e9.%n"+
                         "Veuillez charger un fichier valable."));
             return false;
         }
         else if (heuristic == null && !randomConstruction)
         {
             window.warn(String.format(
-                        "Aucune heuristique n'est sélectionnée.%n"+
-                        "Veuillez en sélectionner une."));
+                        "Aucune heuristique n'est s\u00e9lectionn\u00e9e.%n"+
+                        "Veuillez en s\u00e9lectionner une."));
             return false;
         }
         else

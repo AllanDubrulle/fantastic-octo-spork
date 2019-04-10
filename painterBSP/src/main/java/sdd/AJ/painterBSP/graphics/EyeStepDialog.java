@@ -18,11 +18,11 @@ public class EyeStepDialog extends Dialog<Double>
         DialogPane pane = this.getDialogPane();
         DoubleInput dif = new DoubleInput("Pas : ");
         pane.setContent(dif);
-        setHeaderText(String.format("Veuillez préciser la taille d'un%n"+
+        setHeaderText(String.format("Veuillez pr\u00e9ciser la taille d'un%n"+
                                     "pas de l'oeil.%n"+
                                     "Confirmer sans entrer de valeur%n"+
-                                    "revient à mettre le pas à zéro."));
-        setTitle("Paramètres de l'oeil (interactif)");
+                                    "revient \u00e0 mettre le pas \u00e0 z\u00e9ro."));
+        setTitle("Param\u00e8tres de l'oeil (interactif)");
         pane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
         super.setResultConverter(dialogButton -> {

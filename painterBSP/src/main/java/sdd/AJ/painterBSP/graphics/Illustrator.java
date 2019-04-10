@@ -67,11 +67,11 @@ public class Illustrator extends AbstractIllustrator
             int bound = xBound < yBound ? yBound : xBound;
             double a = Math.cos(angle);
             double b = Math.sin(angle);
-            double dx = (bound / 10) * (a - b) * Math.sqrt(2) / 2;
-            double dy = (bound / 10) * (a + b) * Math.sqrt(2) / 2;
+            double dx = ( (double) bound / 10) * (a - b) * Math.sqrt(2) / 2;
+            double dy = ( (double) bound / 10) * (a + b) * Math.sqrt(2) / 2;
             draw(x, y, x + dx, y + dy, MyColor.NOIR);
-            dx =  (bound / 10) * (a + b) * Math.sqrt(2) / 2;
-            dy =  (bound / 10) *(b - a) * Math.sqrt(2) / 2;
+            dx =  ( (double) bound / 10) * (a + b) * Math.sqrt(2) / 2;
+            dy =  ( (double) bound / 10) *(b - a) * Math.sqrt(2) / 2;
             draw(x, y, x + dx, y + dy, MyColor.NOIR);
             eyeDrawn = true;
         }
