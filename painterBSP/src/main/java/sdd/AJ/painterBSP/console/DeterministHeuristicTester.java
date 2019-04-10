@@ -19,11 +19,11 @@ public class DeterministHeuristicTester extends BSPTester
 
     /**
      * Class constructor.
+     * The average time for build a BSPTree with the given heuristic
+     * in milliseconds is computed and assigned to the field avgConstructorTime.
      * @param list      the list of the segments in the scene to be pre-processed
      * @param heuristic the heuristic used to select the segment used
-     *                  to define the splitting plane
-     *  the average time for build a BSPTree with heuristic in millisecond is pre-processed in 
-     *      avgConstructorTime. 
+     *                  to define the splitting line
      */
     public DeterministHeuristicTester( List<Segment>  list, Heuristic heuristic)
     {
@@ -37,14 +37,15 @@ public class DeterministHeuristicTester extends BSPTester
         for (int i=1; i<=avgNbr; i++)
         {
             start_cpu = System.nanoTime();
-            temp = new BSPTree(getList(), heuristic);
+            temp = new BSPTree(list, heuristic);
             end_cpu = System.nanoTime();
             res+= (end_cpu - start_cpu)/1000000.;
         }
         this.avgConstructorTime = res/avgNbr;
     }
     /**
-     * @return a double equal to the height of a BSPTree build with heuristic
+     * @return a double-precision floating point number equal to
+     * the height of a BSPTree built with the specified heuristic
      */
     @Override
     public double heightTest()
@@ -56,8 +57,10 @@ public class DeterministHeuristicTester extends BSPTester
      * @param x      x-coordinate of the eye
      * @param y      y-coordinate of the eye
      * @param angle  angle representing the forward direction
-     * @return a double equal to the average time for use painter's algorithm with BSPTree build with heuristic
-     * and a eye corresponding at x,y,angle position 
+     * @return a double-precision floating point number equal to
+     * the average time for a call to the painter's algorithm with
+     * the BSPTree built with the specified heuristic
+     * and with an eye whose parameters are x, y and angle
      */
     @Override
     public double painterCpuTime(double x, double y, double angle)
@@ -67,7 +70,8 @@ public class DeterministHeuristicTester extends BSPTester
     }
 
     /**
-     * @return a double equal to the size of a BSPTree build with heuristic
+     * @return a double-precision floating point number equal to
+     * the size of a BSPTree built with the specified heuristic
      */
     @Override
     public double sizeTest()

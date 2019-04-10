@@ -12,31 +12,20 @@ public abstract class BSPTester
     protected List<Segment> list;
     protected double avgConstructorTime;
 
-    
+
     /**
      * Class constructor.
-     * @param list      the list of the segments in the scene to be pre-processed
+     * @param list the list of the segments in the scene to be pre-processed
      */
     public BSPTester(List<Segment> list)
     {
         this.list= list;
     }
 
-    public List<Segment> getList()
-    {
-        return list;
-    }
-
     /**
-     * Construct a new BSPTree with this heuristic.
-     * We use CpuTime representing time elapsed from the start of the programme.
-     * subtract end_cpu and start_cpu give expected time for the method call.
-     * @return an integer equal to time in millisecond thanks to divise by 1000.
-     */
-    
-    /**
-     * 
-     * @return a double equal to average time for build a BSPTree with a specific heuristic in millisecond.  
+     * @return a double-precision floating point number
+     *         equal to the average time required to build a
+     *         BSPTree with a specific heuristic (in milliseconds).
      */
     public double constructorCpuTime()
     {
@@ -44,32 +33,41 @@ public abstract class BSPTester
     }
 
     /**
-     * @return a double equal to the height of a BSPTree build with a specific heuristic
+     * @return a double-precision floating point number equal to the
+     * height of a BSPTree built with a specific heuristic
      */
     public abstract double heightTest();
 
     /**
-    *
     * @param x      x-coordinate of the eye
     * @param y      y-coordinate of the eye
-    * @param angle  angle representing the forward direction
-    * @return a double equal to average time in millisecond for use painterCputime with a specific heuristic.
+    * @param angle  angle representing the forward direction of the eye
+    * @return a double-precision floating point number equal to the average
+    * CPU time in milliseconds for the use of the painter's algorithm
     */
     public abstract double painterCpuTime(double x, double y, double angle);
 
     /**
-     * @return a double equal to the amount of nodes in a BSPTree build with a specific heuristic
+     * @return a double-precision floating point number
+     * equal to the (average) amount of nodes
+     * in a BSPTree built with a specific heuristic
      */
     public abstract double sizeTest();
+
     /**
+     * Applies the painter's algorithm with a given eye and computes average
+     * CPU time for a call.
+     * As no display is required, an empty painter is used.
+     * We use CPU time representing time elapsed from the
+     * start of the programme and subtract the time prior to the method
+     * call to the time after the method call
+     * (acquired times are in nanoseconds).
      * @param eye   a eye in the scene.
-     * @param tree  a tree representing the scene build with a specific heuristic.
-    * Apply the painter's algorithm with the eye.
-    * As we don't want to display something, we use a empty painter.
-    * We use CpuTime representing time elapsed from the start of the programme.
-    * subtract end_cpu and start_cpu give expected time for the method call.
-    * @return a double equal to time in millisecond thanks to divise by 1 000 000.
-    */
+     * @param tree  a tree representing the scene (built with a specific heuristic).
+     * @return a double-precision floating point number
+     * equal to the average time of a call to the painter's algorithm in
+     * milliseconds
+     */
     protected double painterCpuTimeTree(BSPTree tree, Eye eye)
     {
         double res = 0;
