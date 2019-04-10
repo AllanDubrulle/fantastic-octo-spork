@@ -1,50 +1,67 @@
 \subsection{Analyse des temps CPU}
 Les tests ont été effectués avec un \oe{}il à la position $(0,0)$ et un
-angle de 1 radian.
-La configuration du pc était la suivante :
+angle de 1 radian. Les données employées pour les tests sont les scènes
+qui nous ont été fournies sur la plateforme e-learning.
+
+La configuration du PC employé pour les tests était la suivante :
 
 \begin{center}
   Intel Core i5-7300HQ CPU @ 2.50GHz $\times$ 4,  8Gb ram, système Ubuntu 18.04.2 LTS,
   Java version "1.8.0\_191",
 \end{center}
-Pour calculer le temps cpu, la méthode \texttt{nanotime} de la classe
+Pour calculer le temps CPU, la méthode \texttt{nanotime} de la classe
 \texttt{System} a été utilisée.
 
 Par la suite, la formulation la hauteur de l'heuristique $X$ sera abusivement
-employée pour parler de la hauteur de l'arbre générée par l'heuristique $X$.
+employée pour parler de la hauteur de l'arbre générée par l'heuristique $X$
+(sous-entendu hauteur moyenne dans le cas de l'heuristique aléatoire).
 Il en va de même pour les autres caractéristiques.
 
-On peut remarquer que l'heuristique $H_1$ prend beaucoup plus de
+\subsubsection*{Phénomènes globaux}
+Globalement, on peut remarquer que l'heuristique $H_1$ prend beaucoup plus de
 temps à construire l'arbre que les autres heuristiques.
 Comme attendu par la proposition \ref{compl:painter}, on remarque
 que si une heuristique a une taille moins importante qu'une autre
 alors l'algorithme du peintre est plus efficace pour cette heuristique.
 
 Cependant, l'algorithme du peintre sur un arbre construit
-avec cette heuristique est souvent plus rapide ou dans le
-pire des cas aussi rapide.
+avec l'heuristique $H_1$ est souvent plus rapide ou dans le
+pire des cas aussi rapide que les deux autres approches.
 
-De plus, sur les fichiers du type "random", l'heuristique $H_1$
+\subsubsection*{Fichiers \og\emph{random}\fg}
+Les fichiers de type \og\emph{random}\fg{} sont constitués de polygônes
+aléatoires disposés dans le plan partitionné en petits carrés, contenant
+chacun un polygône.
+
+Sur ces fichiers, l'heuristique $H_1$
 possède la plus petite hauteur et la plus petite taille.
-Sur ces mêmes fichiers, l'heuristique aléatoire  a une même hauteur moyenne
-que l'heuristique 1 mais une taille plus grande.
+Sur ces mêmes fichiers, l'heuristique aléatoire a une même hauteur moyenne
+que l'heuristique $H_1$ mais une taille plus grande.
+\subsubsection*{Fichiers \og\emph{ellipses}\fg}
+Les fichiers \og\emph{ellipses}\fg{} sont formés de segments disposés de manière
+à délimiter des ellipses concentriques. Très peu de segments
+sont colinéaires sur ce type de fichier.
 
-Sur les fichiers "ellipses", on remarque que la taille des arbres
-est relativement identique mais la hauteur quant à elle suit l'ordre suivant :
+Sur ces fichiers, on remarque que la taille des arbres
+est relativement identique pour chaque heuristique.
+Toutefois, la hauteur quant à elle varie; les tests aléatoires présentent
+une hauteur moindre que ceux de l'heuristique $H_1$, dont les arbres
+sont moins haut que ceux produits par l'heuristique linéaire.
 
-\begin{center}
-  aléatoire < $H_1$ < linéaire
-\end{center}
+\subsubsection*{Fichiers \og\emph{rectangles}\fg}
+Les fichiers \og\emph{rectangles}\fg{} sont constitués de segments
+délimitant des rectangles emboîtés. Ils contrastent avec les fichiers
+de type \og\emph{ellipses}\fg{} car ils contiennent beaucoup de segments
+colinéaires.
 
-Enfin, pour les fichiers "rectangles", L'heuristique aléatoire possède
+Pour ces fichiers, l'heuristique aléatoire possède
 la plus petite hauteur mais aussi la plus grande taille.
-De plus, hormis pour  "rectanglesHuge" , $H_1$
-et l'heuristiques linéaire sont similaires.
+De plus, hormis pour le fichier \texttt{rectanglesHuge.txt}, $H_1$
+et l'heuristique linéaire sont similaires.
 
-"rectanglesHuge" possède la particularité d'avoir des
+Le fichier \texttt{rectanglesHuge.txt} possède la particularité d'avoir des
 intersections \ref{h1:enum3}. Comme attendu les perfomances de $H_1$
 diminuent quand ces phénomènes apparaissent.
-
 
 %%%Local Variables:
 %%% mode: latex
