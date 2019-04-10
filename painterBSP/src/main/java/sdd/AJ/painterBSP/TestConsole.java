@@ -19,7 +19,7 @@ public class TestConsole
 
     /**
      * Initialize the three testers for the scene given in argument.
-     * initialize some variable used for the display and the input reader.
+     * Initialize variables used for displaying and the input reader.
      * @param args the command line arguments
      */
     public static void main(String[] args)
@@ -27,44 +27,50 @@ public class TestConsole
        try
        {
             IllustrationInputReader irr = new IllustrationInputReader(args[0]);
-            h1BSP = new DeterministHeuristicTester(irr.getSegments(),new FirstHeuristic());
-            linearBSP = new DeterministHeuristicTester(irr.getSegments(),new LinearHeuristic());
+            System.out.println("Le programme effectue les tests initiaux.");
+            System.out.println("Ceux-ci peuvent prendre du temps si le" +
+                               " fichier charg\u00e9 est lourd.");
+
+            h1BSP = new DeterministHeuristicTester(irr.getSegments(),
+                                                   new FirstHeuristic());
+            linearBSP = new DeterministHeuristicTester(irr.getSegments(),
+                                                       new LinearHeuristic());
             randomBSP= new RandomHeuristicTester(irr.getSegments());
 
             line= "";
-            for (int i = 0 ; i <=60 ; i++ )
+            for (int i = 0 ; i <=76 ; i++ )
                 line+="-";
 
             Scanner sc = new Scanner(System.in);
-            int chose = -1;
+            int chosen = -1;
 
-            while (chose!=0)
+            while (chosen!=0)
             {
-                chose = menuChose(sc);
-                if (chose!=0)
+                chosen = choiceMenu(sc);
+                if (chosen!=0)
                 {
-                    if (chose==4 || chose ==5)
+                    if (chosen==4 || chosen ==5)
                         displayEyeMenu(sc);
-                    System.out.printf("%22s|", "");
-                    System.out.printf("%-12s|", "H lineaire");
-                    System.out.printf("%-12s|", "H Premiere");
-                    System.out.printf("%-11s|\n", "H aleatoire");
+                    System.out.printf("%25s|", "");
+                    System.out.printf("%-16s|", "H. lin\u00e9aire");
+                    System.out.printf("%-16s|", "H. premi\u00e8re");
+                    System.out.printf("%-16s|%n", "H. al\u00e9atoire");
                     System.out.println(line);
-                    displayTests(chose);
-                    chose = isEnd(sc);
+                    displayTests(chosen);
+                    chosen = isEnd(sc);
                 }
             }
-            System.out.println("fin");
+            System.out.println("Fin.");
             sc.close();
         }
         catch (IOException e)
         {
-            System.out.println("Fichier introuvable");
+            System.out.println("Fichier introuvable. Arr\u00eat du programme.");
         }
         catch (FileFormatException e)
         {
-            e.getMessage();
-            e.printStackTrace();
+            System.out.println("Fichier non conforme au format attendu. "+
+                               "Arr\u00eat du programme.");
         }
 
     }
@@ -72,9 +78,9 @@ public class TestConsole
     {
         while (true)
         {
-            System.out.println("Veuillez choisir les coordonnées de l'oeil.");
-            System.out.println("Veuillez taper les coordonnées dans l'ordre suivant");
-            System.out.println("Coordonnée x ; Coordonné y ; Angle");
+            System.out.println("Veuillez choisir les coordonn\u00e9es de l'oeil.");
+            System.out.println("Veuillez taper les coordonn\u00e9es dans l'ordre suivant");
+            System.out.println("Coordonn\u00e9e x ; Coordonn\u00e9e y ; Angle");
             try
             {
                 String recu = sc.nextLine().trim(); // changeer le nom
@@ -86,12 +92,12 @@ public class TestConsole
                     angle = Double.parseDouble(values[2].trim());
                     break;
                 }
-                System.out.println("Format d'entrées non respecte");
+                System.out.println("Format d'entr\u00e9es non respect\u00e9.");
             }
             catch (java.lang.NumberFormatException e)
             {
-                System.out.println("Pas un nombre.");
-                System.out.println("Entree invalide. Veuillez taper un chiffre entre 1 et 5.");
+                System.out.println("Entr\u00e9e invalide."+
+                                   " Veuillez taper un chiffre entre 1 et 5.");
                 System.out.println("");
             }
 
@@ -111,8 +117,9 @@ public class TestConsole
             try
             {
                 System.out.println("Voulez-vous continuer?");
-                System.out.println("0- fin");
-                System.out.println("1- Continuer");
+                System.out.println("0 - Fin");
+                System.out.println("1 - Continuer");
+                System.out.print("Votre choix: ");
                 String recu = sc.nextLine().trim();
                 res = Integer.parseInt(recu);
                 if (res>=0 && res <=1)
@@ -124,10 +131,10 @@ public class TestConsole
                 System.out.println("Pas un chiffre.");
 
             }
-            System.out.println("Entree invalide. Veuillez taper un chiffre entre 0 et 1.\n");
+            System.out.println("Entr\u00e9e invalide."+
+                              " Veuillez taper un chiffre entre 0 et 1.");
         }
         return res;
-
     }
 
     /**
@@ -136,7 +143,7 @@ public class TestConsole
      * if the input doesn't correspond whit that we repeat the message.
      */
 
-    private static int menuChose(Scanner sc)
+    private static int choiceMenu(Scanner sc)
     {
 
         int res = 0;
@@ -144,69 +151,72 @@ public class TestConsole
         {
             try
             {
-                System.out.println("Veuillez choisir la donnée à analyser");
-                System.out.println("En tapant le chiffre correspondant:");
-                System.out.println("0- Sortir du programme");
-                System.out.println("1- Taille de l'arbre");
-                System.out.println("2- Hauteur de l'arbre");
-                System.out.println("3- Temps cpu du constructeur");
-                System.out.println("4- Temps cpu de l'algo du peintre");
-                System.out.println("5- Tout");
+                System.out.println("Veuillez choisir la donn\u00e9e à analyser");
+                System.out.println("en tapant le chiffre correspondant:");
+                System.out.println("0 - Sortir du programme");
+                System.out.println("1 - Taille de l'arbre");
+                System.out.println("2 - Hauteur de l'arbre");
+                System.out.println("3 - Temps CPU du constructeur");
+                System.out.println("4 - Temps CPU de l'algorithme du peintre");
+                System.out.println("5 - Tout");
+                System.out.print("Votre choix : ");
+
                 String recu = sc.nextLine().trim();
                 res = Integer.parseInt(recu);
                 if (res>=0 && res <=5)
                     break;
-                System.out.println("Chiffre non compris entre 0 et 5");
+                System.out.printf("Chiffre non compris entre 0 et 5.");
             }
             catch (java.lang.NumberFormatException e)
             {
-                System.out.println("Pas un chiffre.");
+                System.out.printf("Pas un chiffre.");
 
             }
-            System.out.println("Entree invalide. Veuillez taper un chiffre entre 0 et 5.\n");
+            System.out.println("Entr\u00e9e invalide."+
+                              " Veuillez taper un chiffre entre 0 et 5.");
 
         }
         return res;
     }
     /**
-     * @param chose - a integer between 1 and 5
+     * @param chosen - a integer between 1 and 5
      *  that correspond with a information about the BSPTREE
-     * if chose equal to 5 we display all information.
+     * if chosen is equal to 5 we display all information.
      */
-    private static void displayTests(int chose)
+    private static void displayTests(int chosen)
     {
-        switch(chose)
+        switch(chosen)
         {
             case 1:
-                System.out.printf("%-22s|", "Taille");
-                System.out.printf("%-12.0f|", linearBSP.sizeTest());
-                System.out.printf("%-12.0f|", h1BSP.sizeTest());
-                System.out.printf("%-11.1f|\n", randomBSP.sizeTest());
+                System.out.printf("%-25s|", "Taille");
+                System.out.printf("%-16.0f|", linearBSP.sizeTest());
+                System.out.printf("%-16.0f|", h1BSP.sizeTest());
+                System.out.printf("%-16.1f|%n", randomBSP.sizeTest());
                 System.out.println(line);
                 break;
             case 2:
-                System.out.printf("%-22s|", "Hauteur");
-                System.out.printf("%-12.0f|", linearBSP.heightTest());
-                System.out.printf("%-12.0f|", h1BSP.heightTest());
-                System.out.printf("%-11.1f|\n", randomBSP.heightTest());
+                System.out.printf("%-25s|", "Hauteur");
+                System.out.printf("%-16.0f|", linearBSP.heightTest());
+                System.out.printf("%-16.0f|", h1BSP.heightTest());
+                System.out.printf("%-16.1f|%n", randomBSP.heightTest());
                 System.out.println(line);
                 break;
             case 3:
-                System.out.printf("%-22s|", "Temps constructeur(ms)");
-                System.out.printf("%-12.4f|", linearBSP.constructorCpuTime());
-                System.out.printf("%-12.4f|", h1BSP.constructorCpuTime());
-                System.out.printf("%-11.4f|\n", randomBSP.constructorCpuTime());
+                System.out.printf("%-25s|", "Temps constructeur(ms)");
+                System.out.printf("%-16.4f|", linearBSP.constructorCpuTime());
+                System.out.printf("%-16.4f|", h1BSP.constructorCpuTime());
+                System.out.printf("%-16.4f|%n", randomBSP.constructorCpuTime());
                 System.out.println(line);
                 break;
             case 4:
-                System.out.printf("%-22s|", "Temps peintre(ms)");
-                System.out.printf("%-12.4f|", linearBSP.painterCpuTime(x, y, angle));
-                System.out.printf("%-12.4f|", h1BSP.painterCpuTime(x, y, angle));
-                System.out.printf("%-11.4f|\n", randomBSP.painterCpuTime(x, y, angle));
+                System.out.printf("%-25s|", "Temps peintre(ms)");
+                System.out.printf("%-16.4f|", linearBSP.painterCpuTime(x, y, angle));
+                System.out.printf("%-16.4f|", h1BSP.painterCpuTime(x, y, angle));
+                System.out.printf("%-16.4f|%n", randomBSP.painterCpuTime(x, y, angle));
                 System.out.println(line);
                 break;
             case 5:
-                for (int i = 0; i<=4;i++)
+                for (int i = 1; i<=4;i++)
                     displayTests(i);
         }
 
