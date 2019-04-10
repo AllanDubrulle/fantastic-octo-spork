@@ -1,5 +1,30 @@
+\subsection{Heuristique linéaire}
+L'heuristique linéaire consiste simplement à retourner le premier élément de la liste $S$.
+
+\begin{prop}\label{hLin:compl}
+ La complexité de l'heuristique linéaire est en $O(1)$.
+\end{prop}
+\begin{proof}
+  La complexité d'obtenir un élément à une position donnée dans une liste est en $O(1)$.  
+\end{proof}
+
+\subsection{Heuristique aléatoire}
+
+L'heuristique aléatoire revient à appliquer l'heuristique linéaire à une liste $S'$
+où $S'$ est une permutation de $S$. la méthode shuffle de la classe Java.util.Collections permet de faire
+une telle permutation et sa complexité est en $O(N)$ où $N$ est la longueur de la liste.
+Vu que l'appel à shuffle n'a lieu qu'au premier appel, on a un travail préparation en $O(N)$.
+
+\begin{prop}
+ La complexité de l'heuristique aléatoire est  en $O(1)$.
+\end{prop}
+\begin{proof}
+  Voir \ref{hLin:compl}.  
+\end{proof}
+
+
 \subsection{Heuristique H1}
-Soient $S$ un ensemble de segments, $s$ et $s'$ deux segments
+Soient $S$ une liste de segments, $s$ et $s'$ deux segments
 de $S$ tels que $s \ne s'$. La droite supportant le segment $s$ (resp. $s'$
 ) est notée $D_s$ (resp. $D_{s'}$).
 Plusieurs configurations sont possibles:
@@ -47,7 +72,7 @@ la procédure associée à H1.
 \begin{algorithm}
   \caption{H1($S$)}
   \begin{algorithmic}[1] \label{algo:h1}
-    \REQUIRE $S$ un ensemble de segments non vide.
+    \REQUIRE $S$ une liste de segments non vide.
     \ENSURE $s$ tel que $g_s$ est maximal.
     \STATE$r\leftarrow$ le premier segment de $S$
     \FOR{$s \in S$}
@@ -68,7 +93,7 @@ la procédure associée à H1.
 \end{algorithm}
 
 \begin{prop}
-  La complexité de l'algorithme H1 est en $O(N^2)$ où $N = \mathrm{Card}(S)$.
+  La complexité de l'algorithme H1 est en $O(N^2)$ où $N =$ la taille de S.
 \end{prop}
 \begin{proof}
   L'algorithme itère sur chaque segment $s \in S$.
