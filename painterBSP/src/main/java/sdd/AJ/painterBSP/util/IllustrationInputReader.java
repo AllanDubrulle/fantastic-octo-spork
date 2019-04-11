@@ -53,7 +53,7 @@ public class IllustrationInputReader
 
     /**
      * Class constructor.
-     * @param an input stream representing the file to be read
+     * @param  is an input stream representing the file to be read
      * @throws IOException if a I/O problem occurs during the reading
      * @throws FileFormatException if any other issue arises during the reading
      */
