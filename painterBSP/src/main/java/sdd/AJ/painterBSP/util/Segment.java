@@ -84,13 +84,44 @@ public final class Segment
      * @param other the segment with which equality is to be tested.
      * @return true iff both segments match in color and exact coordinates
      */
-    public boolean equals(Segment other)
+    @Override
+    public boolean equals(Object obj)
     {
-        if (color != other.getColor())
+        if (this == obj)
+            return true;
+        if (obj == null)
             return false;
-        return (  u == other.u && v == other.v &&
-                  x==other.x && y == other.y )      ||
-               (  x == other.u && y == other.v &&
-                  u==other.x && v == other.y );
+        if (getClass() != obj.getClass())
+            return false;
+        Segment other = (Segment) obj;
+        if (color != other.color)
+            return false;
+        if (Double.doubleToLongBits(u) != Double.doubleToLongBits(other.u))
+            return false;
+        if (Double.doubleToLongBits(v) != Double.doubleToLongBits(other.v))
+            return false;
+        if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x))
+            return false;
+        if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y))
+            return false;
+        return true;
+    }
+    
+    @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((color == null) ? 0 : color.hashCode());
+        long temp;
+        temp = Double.doubleToLongBits(u);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(v);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(x);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(y);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 }

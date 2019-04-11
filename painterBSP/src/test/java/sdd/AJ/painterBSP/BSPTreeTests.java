@@ -3,11 +3,9 @@ package sdd.AJ.painterBSP;
 import java.io.IOException;
 import java.util.List;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import sdd.AJ.painterBSP.BSPLib.BSPTree;
-import sdd.AJ.painterBSP.BSPLib.heuristic.FirstHeuristic;
 import sdd.AJ.painterBSP.BSPLib.heuristic.LinearHeuristic;
 import sdd.AJ.painterBSP.util.FileFormatException;
 import sdd.AJ.painterBSP.util.IllustrationInputReader;
