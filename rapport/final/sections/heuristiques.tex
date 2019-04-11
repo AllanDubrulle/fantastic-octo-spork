@@ -101,7 +101,7 @@ la procédure associée à $H_1$.
     \ENDFOR
     \FOR{$s \in S$}
     \FOR{$s' \in S$}
-    \IF{$s \neq s'$ et  $D_{s'}$ intersecte $s$}
+    \IF{$s \neq s'$ et  $D_{s'}$ intersecte $s$}\label{algoh1:inter}
     \STATE $g_s\leftarrow g_s +1$
     \ENDIF
     \ENDFOR
@@ -121,8 +121,15 @@ la procédure associée à $H_1$.
   d'initialiser chaque valeur de $g_s$. Ensuite, l'algorithme itère à nouveau
   sur chaque segment de $S$; cette boucle contient une boucle interne
   itérant sur chaque segment $s' \in S$ et réalisant un travail en $O(1)$
-  à chaque itération. En dehors de cette boucle interne se trouve une
-  instruction
+  à chaque itération. En particulier, le coût de l'instruction
+  \ref{algoh1:inter} est en $O(1)$; la détermination de la
+  droite $D_{s'}$ est en $O(1)$ par le lemme \ref{lem:droite} et
+  l'existence d'une intersection est équivalente à avoir une des
+  extrémités sur la droite ou chaque extrémité dans un demi-plan
+  différent vis-à-vis de la droite considérée.
+
+
+  En dehors de cette boucle interne se trouve une instruction
   conditionnelle également en temps constant.
   On obtient que $H_1$ est en $N\times(N\times{}O(1) + O(1)) = O(N^2)$
 \end{proof}

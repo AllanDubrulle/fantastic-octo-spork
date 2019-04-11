@@ -1,7 +1,8 @@
 \subsection{Arbres BSP en deux dimensions}
-Les arbres BSP (binary space partition) sont la structure principale
-intervenant dans l'algorithme du peintre. En deux dimensions, ils sont
-utilisés pour stocker des ensembles de segments destinés à être affichés.
+\subsubsection*{Définitions et notations}
+L'arbre BSP (binary space partition) est la structure principale
+intervenant dans l'algorithme du peintre. En deux dimensions, il est
+utilisé pour stocker des ensembles de segments destinés à être affichés.
 
 
 Soit
@@ -14,8 +15,11 @@ par la droite $D = \{v\in\mathbb R^n\mid f(v) = c\}$;
 la droite $D$ elle-même et les demi-plans
 $\{v\in\mathbb R^2\mid f(v) > c\}$ et
 $\{v\in\mathbb R^2\mid f(v) < c\}$, notés respectivement $D^+$ et $D^-$
-dorénavant.
-(voir figure \ref{sep:ill}).
+dorénavant
+(voir figure \ref{sep:ill}). Ce choix de notation est lié à l'équivalence
+$f(x)> c$ si et seulement si $f(x)-c>0$; $D^+$ est appelé
+le demi-plan positif. De manière analogue, $D^-$ est
+appelé le demi-plan négatif.
 
 
 \input{figures/separation}
@@ -36,12 +40,14 @@ dorénavant.
 Les notations adoptées dans la définition \ref{def:bsp} seront employées
 dans la suite de cette section.
 
+\subsubsection*{Raisonnement mathématique: construction de l'arbre}
 Afin de construire des arbres BSP à partir d'une liste $L$ de segments
 du plan, il faut à chaque fois sélectionner une droite par laquelle
-séparer l'espace. Afin d'assurer que la construction de l'arbre BSP
-est finie, la contrainte suivante est adoptée;
-seules les droites comportant un segment de $L$ sont sélectionnées comme
-droites séparatrices.
+séparer l'espace.
+Dans ce travail, seules les droites comportant un segment de $L$ sont
+sélectionnées comme droites séparatrices. Cela a l'avantage d'assurer
+l'arrêt de l'algorithme de construction.
+
 Le lemme suivant montre qu'il est possible d'obtenir une équation de droite
 à partir d'un segment non dégénéré, en temps constant.
 
@@ -58,18 +64,20 @@ Le lemme suivant montre qu'il est possible d'obtenir une équation de droite
   Le vecteur $(x_2 - x_1, y_2 - y_1)$ est un vecteur directeur de la droite.
   Alors $(y_2 - y_1, x_1 - x_2)$ est un vecteur normal de la droite ce qui
   implique que
-  $\left(y_2 - y_1\right) x + \left(x_1 - x_2\right) y = c$ est une équation
-  de la droite, où $c$ est à déterminer. Il suffit de poser
+  $$\left(y_2 - y_1\right) x + \left(x_1 - x_2\right) y = c$$ est une équation
+  de la droite, où $c$ est à déterminer.
+  Puisque le point $(x_1, y_1)$ appartient à la droite il suffit de poser
   $c = \left(y_2 - y_1\right) x_1 + \left(x_1 - x_2\right) y_1$
-  car le point $(x_1, y_1)$ appartient à la droite.
 \end{proof}
 
 Le lemme \ref{lem:droite} fournit une équation d'une droite passant par
-par deux points distincts en temps constant (il suffit d'effectuer
-quelques opérations arithmétiques élémentaires). Le choix du segment
+par deux points distincts en temps constant: il suffit d'effectuer
+quelques opérations arithmétiques élémentaires pour déterminer les
+coefficients intervenant dans l'équation.
+
+Le choix du segment
 pour la partition est effectué selon une heuristique (se référer à la section
 \ref{heur:section}).
-
 Une fois la droite $D$ choisie, l'arbre est construit récursivement.
 Deux nouvelles listes, $L_d$ et $L_g$ sont créées pour construire récursivement
 les sous-arbres gauche et droit.
@@ -77,7 +85,10 @@ les sous-arbres gauche et droit.
 Si un segment $s$ de $L$ est compris dans la droite $D$, il est stocké à
 la racine de l'arbre, dans l'ensemble $S$. Si un segment est contenu dans
 le demi-plan $D^+$ (resp. $D^-$), il est stocké dans la liste $L_d$ (resp.
-$L_g$). Si $s$ est à la fois dans $D^+$ et dans $D^-$ (c'est-à-dire une
+$L_g$). Si seule une des extrémités se trouve sur la droite, le segment
+est considéré dans le demi-plan auquel le reste du segment appartient.
+
+Si $s$ est à la fois dans $D^+$ et dans $D^-$ (c'est-à-dire une
 extrémité est dans $D^+$ et l'autre dans $D^-$), il est nécessaire
 de briser le segment en deux parties, qui seront ensuite ajoutés à une des
 listes selon la dichotomie précédente.
@@ -89,20 +100,27 @@ cette intersection, sous l'hypothèse qu'elle existe.
   Soit $D\equiv ax + by = c$ une droite du plan. Soient $p_1 = (x_1, y_1)$
   et $p_2 = (x_2, y_2)$ deux points tels que $p_1\in D^+$ et $p_2\in D^-$.
 
-  Alors l'intersection du segment $[p_1, p_2]$ est donnée par $t_0p_1 + (1-t_0)p_2$
+  Alors l'intersection du segment $[p_1, p_2]$ et de la droite $D$
+  existe et est donnée par $t_0p_1 + (1-t_0)p_2$
   où $$t_0 = \frac{c-f(p_2)}{f(p_1)-f(p_2)}.$$.
 \end{lem}
 \begin{proof}
+  L'existence de l'intersection peut être vue comme une conséquence
+  du théorème des valeurs intermédiaires appliqué à la fonction
+  continue suivante, qui change bien de signe en ses bornes
+  par l'hypothèse:
+  $$[0, 1]\to\mathbb R: t\mapsto f(tp_1 + (1 - t) p_2)- c.$$
+
   Tout point de $[p_1, p_2]$ s'écrit $tp_1 + (1-t)p_2$ pour un certain
-  $t\in [0, 1]$. Puisqu'il existe une intersection entre $[p_1, p_2]$ et
-  $D$, cela implique que $f(p_1)\neq f(p_2)$, sinon le segment serait
-  parallèle à la droite.
+  $t\in [0, 1]$. Au vu des inégalités $f(p_1)>c>f(p_2)$,
+  $f(p_1)- f(p_2)\neq 0$.
 
   L'intersection vérifie $f(t_0p_1 + (1-t_0)p_2) = c$. La linéarité de la
   fonction $f$ fournit $t_0(f(p_1) - f(p_2)) = c - f(p_2)$. L'égalité
-  du lemme est  obtenue en divisant les deux membres par $f(p_1) - f(p_2)\neq 0$.
+  du lemme est  obtenue en divisant les deux membres
+  de cette dernière égalité par $f(p_1) - f(p_2)\neq 0$.
 \end{proof}
-
+\subsubsection*{Algorithme et preuve de son arrêt}
 Ces deux résultats permettent de donner l'algorithme de construction de
 l'arbre (voir l'algorithme \ref{algo:bsp}). Au vu de l'approche adoptée,
 tout noeud interne contient au moins un fragment de segment (celui
@@ -113,7 +131,8 @@ par lequel passe la droite qui sépare le plan en deux).
   \begin{algorithmic}[1] \label{algo:bsp}
     \REQUIRE Une liste de segments $L$ et $h$ une fonction
     heuristique de sélection de segment (prenant une liste en paramètre).
-    \ENSURE -- (construit un arbre BSP représentant l'ensemble de segments $L$)
+    \ENSURE -- (construit un arbre BSP $T$ représentant
+    l'ensemble de segments $L$)
     \IF{$L$ est vide}
     \STATE $T\leftarrow$ Feuille()
     \ELSIF{$L$ est non vide}
@@ -130,14 +149,14 @@ par lequel passe la droite qui sépare le plan en deux).
     \ELSIF{$f(p_1)\leq c$ et $f(p_2)\leq c$}
     \STATE Ajouter $s$ à $L_g$
     \ELSE
-    \STATE $p_3\leftarrow [p_1, p_2]\cap D$
+    \STATE $q\leftarrow [p_1, p_2]\cap D$
     \COMMENT{Les cas sans intersections sont épuisés}
     \IF{$f(p_1)>c$ et $f(p_2) < c$}
-    \STATE Ajouter $[p_1, p_3]$ à $L_d$
-    \STATE Ajouter $[p_3, p_2]$ à $L_g$
+    \STATE Ajouter $[p_1, q]$ à $L_d$
+    \STATE Ajouter $[q, p_2]$ à $L_g$
     \ELSE
-    \STATE Ajouter $[p_1, p_3]$ à $L_g$
-    \STATE Ajouter $[p_3, p_2]$ à $L_d$
+    \STATE Ajouter $[p_1, q]$ à $L_g$
+    \STATE Ajouter $[q, p_2]$ à $L_d$
     \ENDIF
     \ENDIF
     \ENDFOR
@@ -177,8 +196,10 @@ par lequel passe la droite qui sépare le plan en deux).
 
 \subsection{Algorithme du peintre}
 L'algorithme du peintre est un algorithme permettant d'effectuer un
-affichage sans afficher les objets cachés par d'autres (\emph{hidden surface
-  removal}). \`{A} la manière d'un peintre, le principe de l'algorithme est
+affichage en tenant compte que certains objets en cachent d'autres
+(en anglais, on parle de \emph{hidden surface removal}).
+\`{A} la manière d'un peintre,
+le principe de l'algorithme est
 de dessiner les objets dans un ordre tel qu'aucun objet à l'arrière-plan
 (vis-à-vis du point de vue) n'obscurcisse d'objet à l'avant-plan.
 
@@ -187,15 +208,16 @@ le plan.
 
 Si $e$ se trouve dans le demi-plan $D^+$, aucun objet dans le
 demi-plan $D^-$ ne peut faire obstruction à ceux dans $D$ et dans le
-demi-plan $D^+$, ils sont donc \og{}illustrés\fg{} avant ceux dans $D$ et $D^+$.
+demi-plan $D^+$. Les objets dans le demi-plan $D^-$ sont donc
+\og{}illustrés\fg{} avant ceux dans $D$ et $D^+$.
 Une illustration de ce cas est fournie à la figure \ref{peintre:ill}.
 Le comportement est symétrique dans le cas où $e$ est dans $D^-$.
 
 \input{figures/oeil_peintre}
 
 Si $e$ se trouve sur la droite $D$, alors aucun segment de $D$ n'est affiché;
-tout segment sur la droite est réduit à un point vis-à-vis de $e$ et donc ne
-doit être affiché. L'ordre de traitement des demi-plans $D^+$ et $D^-$ n'importe
+tout segment sur la droite est réduit à un point vis-à-vis de $e$ et donc n'est
+pas visible. L'ordre de traitement des demi-plans $D^+$ et $D^-$ n'importe
 pas dans ce cas.
 
 L'algorithme est détaillé à l'algorithme \ref{algo:painter}.
@@ -223,7 +245,7 @@ L'algorithme est détaillé à l'algorithme \ref{algo:painter}.
   \end{algorithmic}
 \end{algorithm}
 
-\begin{prop}\label{compl:painter}[Complexité de l'algorithme du peintre dans le pire des cas]
+\begin{prop}[Complexité de l'algorithme du peintre dans le pire des cas]\label{compl:painter}
   Sous l'hypothèse que la visualisation des segments s'effectue
   en temps constant, l'algorithme du peintre est linéaire en le
   nombre de fragments de segments contenus dans $T$.
@@ -259,14 +281,14 @@ Ce résultat permet l'observation suivante:
   L'efficacité de l'algorithme du peintre dépend directement
   du nombre de fragments générés par la construction de $T$.
 \end{cor}
-\subsection{Calcul des parties visibles}
+\subsection{Calcul des parties visibles}\label{not:oeil}
 Cette section s'attèle à expliquer la procédure mise en \oe{}uvre pour déterminer
 quelle proportion d'un segment est visible, étant donné un \oe{}il.
 Après introduction des notations, des critères de visibilités sont
 établis, suivis de l'élaboration d'une procédure pour calculer la
 proportion du champ de vision occupée par un segment donné.
 
-\subsubsection{Notations et terminologie}\label{not:oeil}
+\subsubsection*{Notations et terminologie}
 Tout au long de cette section, nous considérons un \oe{}il $e$, qui est la donnée à
 la fois d'un point $(x, y)$ du plan représentant sa position et d'un angle $\phi$
 qui représente la direction de vue de l'oeil. Autrement dit, l'orientation de
@@ -280,15 +302,18 @@ les segments visibles sur un arc de cercle et d'évaluer la proportion d'arc
 Sans perte de généralité, il est fait l'hypothèse que $(x, y) = (0, 0)$;
 si ce n'est pas le cas, tous les
 calculs peuvent être effectués après une translation de $-(x, y)$ de tous
-les objets considérés.
+les objets considérés (notez que cette translation est une opération en $O(1)$).
+
+La norme euclidienne d'un vecteur $v = (v_1, v_2)$ est notée
+$\|v\|$ et vaut $\sqrt{v_1^2 + v_2^2}$. Au vu de la formule fondamentale liant le
+sinus au cosinus, $\|d\| = 1$.
 
 La notation $\langle \cdot,\cdot\rangle$ est employée pour le produit
 scalaire usuel dans $\mathbb R^2$. Pour rappel,
 pour tous $v=(v_1, v_2)$, $w=(w_1, w_2)\in\mathbb R^2$, on définit
-$$\langle v, w\rangle = v_1 w_1 + v_2 w_2.$$
-La norme euclidienne d'un vecteur $v = (v_1, v_2)$ est notée
-$\|v\|$ et vaut $\sqrt{v_1^2 + v_2^2}$. Au vu de la formule fondamentale liant le
-sinus au cosinus, $\|d\| = 1$.
+$$\langle v, w\rangle = v_1 w_1 + v_2 w_2 = \|v\|\cdot\|w\|\cdot\cos(\theta)$$
+où $\theta$ est l'angle entre les vecteurs $v$ et $w$.
+
 
 \'Etant  donné un vecteur $n = (a, b)$ et une droite $D\equiv ax+by=c$
 (dont $n$ est un vecteur normal) il sera parfois dit
@@ -303,7 +328,7 @@ $\langle w, n\rangle = \langle p, n\rangle$ où $w=(w_1, w_2)\in\mathbb R^2$ est
 la variable de l'équation et $n$ désigne un vecteur normal à $D$.
 
 Dans la suite, la droite de direction $d$ et passant par $(0, 0)$ est notée $D$.
-\subsubsection{Région de points visibles}
+\subsubsection*{Région de points visibles}
 L'ensemble des points visibles est par définition l'ensemble
 des vecteurs\footnote{On identifie un point du plan au vecteur
   joignant l'origine à ce point.} $v$ tel que l'angle non orienté formé
@@ -323,8 +348,8 @@ normal $d_2$ (resp. $d_1$) est un sous-ensemble convexe de points non visibles.
 Une illustration est fournie à la figure \ref{vis:ill}.
 
 \input{figures/visibilite}
-\subsubsection{Critère de visibilité}
-Soient $p_i=(u_i, v_i)$, $i = 1$, $2$ deux points du plan. Ici, nous nous
+\subsubsection*{Critère de visibilité}
+Soient $p_i=(u_i, v_i)\in\mathbb R^2$, $i = 1$, $2$ deux points du plan. Ici, nous nous
 intéressons à la question \og\emph{existe-t-il une partie du segment $[p_1, p_2]$
   visible par $e$?}\fg.
 
@@ -338,22 +363,23 @@ est inférieur
 de $\pi/2$ radians.
 
 \begin{lem}\label{lem:angle}
-  La complexité en temps du calcul d'un angle entre un vecteur $p$ et $d$ est
-  $O(1)$.
+  La complexité en temps du calcul d'un angle entre un vecteur $p\in\mathbb R^2$
+  et $d$ est $O(1)$.
 \end{lem}
 \begin{proof}
-  Par définition $\langle p, d\rangle = \|p\|\cdot \|d\| \cos(\theta)$ où $\theta$ est
-  l'angle non orienté entre $p$ et $d$.
-  Dès lors, $\cos(\theta) = \langle p, d\rangle/\|d\|$. L'emploi de $\arccos$
+  Soit $\theta$ l'angle non orienté entre $p$ et $d$.
+  Dès lors, par définition du produit scalaire,
+  $\cos(\theta) = \langle p, d\rangle/\|d\|$. L'emploi de $\arccos$
   fournit l'angle non orienté recherché.
 
   Signer l'angle revient à déterminer
   dans quel demi-plan par rapport à la droite $D$ se trouve $p$.
   Au vu du lemme \ref{lem:droite}, la détermination de l'équation de $D$
-  peut être effectuée en temps constant.
+  peut être effectuée en temps constant et il en va de même pour l'évaluation
+  de la fonction associée à la droite.
 
   \'Etant donné que seules des opérations mathématiques interviennent,
-  la complexité est $O(1)$.
+  la complexité de la détermination d'un angle entre $p$ et $d$ est $O(1)$.
 \end{proof}
 
 Dès qu'une des deux extrémités du segment $[p_1, p_2]$ appartient au
@@ -362,7 +388,7 @@ visible. Il reste à étudier les configurations où ni $p_1$, ni $p_2$ est
 visible, mais le segment est tout de même partiellement dans le champ de vision.
 
 Deux configurations symétriques sont immédiatement à rejeter.
-\begin{obs}
+\begin{obs}\label{obs:side}
   Si $p_1$ et $p_2$ se trouvent dans le même demi-plan par rapport à $D$,
   et sont tous les deux hors de vue, alors le segment est complètement hors de vue.
 \end{obs}
@@ -398,25 +424,32 @@ et $p_2$ sont dans des demi-plans différents par rapport à $D$.
 \end{obs}
 
 \begin{proof}
-  Supposons que le segment est partiellement visible. Alors il existe
-  un point visible. Puisque la droite passant par $p_1$ et $p_2$ passe
-  par ce point et que ce point est au-dessus de l'origine relativement
-  à $d$, la droite est au-dessus de l'origine.
+  Soit $n\perp d$ un vecteur normal à $d$. Soit $B$ la base $(d, n)$
+  de $\mathbb R^2$. Affirmer qu'un point $p$ se trouve
+  dans le demi-plan au-dessus de $e$ relativement à $d$ revient à dire
+  que la composante $d$ de $p$ dans la base $B$ est strictement
+  positive. Par passer au-dessus de $e$, on entend avoir comme coordonnées
+  $(\lambda, 0)$ pour un $\lambda >0$ dans la base $B$, et dans le cas d'une
+  droite, on entend avoir un point vérifiant cela.
+  Les hypothèses assurent que le signe de la composante $n$ dans la base
+  $(d, n)$ de $p_1$ et $p_2$ sont opposés.
 
+  Supposons que le segment soit partiellement visible. Le théorème
+  des valeurs intermédiaires assure qu'il existe un point $q$ du segment
+  $[p_1, p_2]$ dont la composante $n$ dans $B$ est nulle. Si la
+  composante $d$ de ce point était négative (\emph{ie}. par l'absurde,
+  on suppose que le segment n'a aucun point au-dessus de l'oeil),
+  alors il ne serait pas visible car aucune de ses moitiés $[p_1, q]$
+  et$[q, p_2]$ ne seraient visibles par l'observation \ref{obs:side}.
 
-  Réciproquement, supposons que la droite passe au-dessus de l'origine.
-  Soit $n\perp d$ un vecteur normal à $d$. Affirmer que la droite passe
-  au-dessus de l'origine revient à affirmer qu'il existe un point $p$ de $D$
-  dont les composantes sont $(0, \lambda)$ dans la base $(n, d)$ pour
-  un certain $\lambda>0$. Puisque l'angle associé à $p$ est $0$, $p$
-  est visible. Puisque par hypothèse, les extrémités du segment sont
-  supposées dans des demi-plans différents, leur première composante
-  dans la base $(n, d)$ est de signe opposée. Cela implique que $p$
-  est élément du segment.
+  Si la droite passe au-dessus de $e$, il est immédiat que le segment
+  est partiellement visible.
 
-  Supposons désormais que le segment occupe une partie du champ de vision.
-  S'il n'occupait pas tout le champ de vision (par l'absurde), alors
-  une des extrémités serait visible, ce qui contredit l'hypothèse.
+  Il reste à montrer que si une de ces assertions est vérifiée, alors
+  tout la vision est occupée par le segment. Or, le segment
+  $[p_1, p_2]$ intersecte les droites $D_1$ et $D_2$ dans le demi-plan
+  au-dessus de $e$ relativement à $d$ car le segment contient un point
+  au-dessus de $e$. Ceci assure que la vue est recouverte.
 \end{proof}
 \begin{lem}\label{lem:couvr}
   La vérification de l'observation \ref{obs:couvr} peut être effectuée en
@@ -437,7 +470,7 @@ et $p_2$ sont dans des demi-plans différents par rapport à $D$.
   sont effectuées, ce calcul s'effectue en temps constant.
 \end{proof}
 
-\subsubsection{Calcul de proportion visible}
+\subsubsection*{Calcul de proportion visible}
 Afin d'afficher la portion visible du segment,
 il suffit de déterminer quelle proportion d'arc  porte la couleur du segment.
 Pour ramener les segments sur le cercle trigonométrique, il suffit
@@ -481,7 +514,7 @@ $\theta_2$ sont les suivants:
     pour le mettre en évidence.
 \end{itemize}
 
-\subsubsection{Algorithmes}
+\subsubsection*{Algorithmes}
 
 Afin d'effectuer les calculs de complexités de la procédure
 de visualisation, les algorithmes associés sont présentés

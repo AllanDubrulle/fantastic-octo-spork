@@ -29,21 +29,21 @@ Le programme en console s'exécute avec la commande :
 \end{center}
 
 Si le fichier n'est pas trouvable ou n'existe pas, le programme
-s'arrêtera après avoir déclenché une \texttt{IOException}.
+s'arrêtera après avoir affiché un message d'erreur.
 Le fichier soumis doit être au format spécifique des scènes.
-Dans le cas contraire, le programme lancera une \texttt{FileFormatException}
-et se coupera.
+Dans le cas contraire, le programme s'interrompera avec un message
+d'erreur.
 
 Le programme effectue une partie des calculs au démarrage.
 Quelques secondes peuvent donc s'écouler avant le moindre affichage
 si le fichier est conséquent.
 
 Le premier panneau d'affichage demande d'entrer un
-nombre entre $1$ et $5$. Pour chaque valeur, le programme
+nombre entre $0$ et $5$. Pour chaque valeur, le programme
 spécifie les informations affichées.
 La console bouclera sur ce panneau tant que
 l'entrée de l'utilisateur n'est pas un nombre
-compris entre $1$ et $5$.
+compris entre $0$ et $5$.
 
 Si l'utilisateur choisit d'afficher les performances de l'algorithme
 du peintre, un nouveau menu s'affichera demandant à l'utilisateur
@@ -90,7 +90,8 @@ la fenêtre. Une brève description de chaque bouton est donnée ci-dessous.
   pour sélectionner un fichier représentant une scène, qui sera affichée
   directement si elle est valide, en plus d'une bordure noire indiquant
   la zone dans laquelle est contraint de rester l\oe{}il.
-\item Un menu déroulant permettant de choisir parmi les heuristiques
+\item Un menu déroulant permet
+  de choisir parmi les heuristiques
   de construction d'arbre BSP disponibles.
 \item Le bouton \emph{Construire l'arbre} construit, sur base du fichier
   chargé et de l'heuristique sélectionnée, un arbre BSP.
@@ -101,7 +102,7 @@ la fenêtre. Une brève description de chaque bouton est donnée ci-dessous.
   En-dessous de ce bouton se trouve un message indiquant si  un arbre BSP a été
   construit ou non.
 \item L'option suivante \emph{Déplacer l'\oe{}il} permet de sélectionner
-  la position de l'oeil. Pour des raisons d'affichages, les coordonnées de
+  la position de l'\oe{}il. Pour des raisons d'affichages, les coordonnées de
   l'\oe{}il sont restreintes. Les coordonnées et l'angle courants de
   l'\oe{}il sont spécifiés sous le bouton. Après déplacement, si un arbre
   BSP existe, la vue de l'\oe{}il est automatiquement affichée dans la région
