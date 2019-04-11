@@ -211,14 +211,14 @@ public class TestConsole
                 System.out.println(line);
                 break;
             case 3:
-                System.out.printf("%-25s|", "Temps constructeur(ms)");
+                System.out.printf("%-25s|", "Temps constructeur (ms)");
                 System.out.printf("%-16.4f|", linearBSP.constructorCpuTime());
                 System.out.printf("%-16.4f|", h1BSP.constructorCpuTime());
                 System.out.printf("%-16.4f|%n", randomBSP.constructorCpuTime());
                 System.out.println(line);
                 break;
             case 4:
-                System.out.printf("%-25s|", "Temps peintre(ms)");
+                System.out.printf("%-25s|", "Temps peintre (ms)");
                 System.out.printf("%-16.4f|", linearBSP.painterCpuTime(x, y, angle));
                 System.out.printf("%-16.4f|", h1BSP.painterCpuTime(x, y, angle));
                 System.out.printf("%-16.4f|%n", randomBSP.painterCpuTime(x, y, angle));
