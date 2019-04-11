@@ -6,7 +6,7 @@ import java.util.List;
 
 import javafx.stage.Stage;
 import sdd.AJ.painterBSP.BSPLib.BSPTree;
-import sdd.AJ.painterBSP.BSPLib.Heuristic.Heuristic;
+import sdd.AJ.painterBSP.BSPLib.heuristic.Heuristic;
 import sdd.AJ.painterBSP.util.Eye;
 import sdd.AJ.painterBSP.util.FileFormatException;
 import sdd.AJ.painterBSP.util.IllustrationInputReader;

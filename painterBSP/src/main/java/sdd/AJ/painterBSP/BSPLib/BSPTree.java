@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import sdd.AJ.painterBSP.BSPLib.Heuristic.Heuristic;
-import sdd.AJ.painterBSP.BSPLib.Heuristic.LinearHeuristic;
+import sdd.AJ.painterBSP.BSPLib.heuristic.Heuristic;
+import sdd.AJ.painterBSP.BSPLib.heuristic.LinearHeuristic;
 import sdd.AJ.painterBSP.util.Equation;
 import sdd.AJ.painterBSP.util.Eye;
 import sdd.AJ.painterBSP.util.Segment;

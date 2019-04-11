@@ -27,8 +27,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import sdd.AJ.painterBSP.BSPLib.Heuristic.FirstHeuristic;
-import sdd.AJ.painterBSP.BSPLib.Heuristic.LinearHeuristic;
+import sdd.AJ.painterBSP.BSPLib.heuristic.FirstHeuristic;
+import sdd.AJ.painterBSP.BSPLib.heuristic.LinearHeuristic;
 import sdd.AJ.painterBSP.util.FileFormatException;
 import sdd.AJ.painterBSP.util.Segment;
 

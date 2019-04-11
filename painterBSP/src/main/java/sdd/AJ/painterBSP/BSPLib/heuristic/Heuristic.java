@@ -1,4 +1,4 @@
-package sdd.AJ.painterBSP.BSPLib.Heuristic;
+package sdd.AJ.painterBSP.BSPLib.heuristic;
 
 import java.util.List;
 
