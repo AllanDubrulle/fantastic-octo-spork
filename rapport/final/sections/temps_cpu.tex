@@ -24,6 +24,16 @@ Comme attendu par la proposition \ref{compl:painter}, on remarque
 que si une heuristique a une taille moins importante qu'une autre
 alors l'algorithme du peintre est plus efficace pour cette heuristique.
 
+\begin{table}[h].
+\caption{ellipsesSmall.txt}
+\input{tableaux/ellipsesSmallTableau.tex}
+\end{table}
+
+\begin{table}[h]. 
+\caption{randomMedium.txt}
+\input{tableaux/randomMediumTableau.tex}
+\end{table}
+
 Cependant, l'algorithme du peintre sur un arbre construit
 avec l'heuristique $H_1$ est souvent plus rapide ou dans le
 pire des cas aussi rapide que les deux autres approches.
@@ -33,6 +43,11 @@ Les fichiers de type \og\emph{random}\fg{} sont constitués de polygônes
 aléatoires disposés dans le plan partitionné en petits carrés, contenant
 chacun un polygône.
 
+\begin{table}[h].
+\caption{randomHuge.txt}
+\input{tableaux/randomHugeTableau.tex}
+\end{table}
+
 Sur ces fichiers, l'heuristique $H_1$
 possède la plus petite hauteur et la plus petite taille.
 Sur ces mêmes fichiers, l'heuristique aléatoire a une même hauteur moyenne
@@ -41,6 +56,11 @@ que l'heuristique $H_1$ mais une taille plus grande.
 Les fichiers \og\emph{ellipses}\fg{} sont formés de segments disposés de manière
 à délimiter des ellipses concentriques. Très peu de segments
 sont colinéaires sur ce type de fichier.
+
+\begin{table}[h].
+\caption{ellipsesLarge.txt}
+\input{tableaux/ellipsesLargeTableau.tex}
+\end{table}
 
 Sur ces fichiers, on remarque que la taille des arbres
 est relativement identique pour chaque heuristique.
@@ -52,12 +72,22 @@ sont moins haut que ceux produits par l'heuristique linéaire.
 Les fichiers \og\emph{rectangles}\fg{} sont constitués de segments
 délimitant des rectangles emboîtés. Ils contrastent avec les fichiers
 de type \og\emph{ellipses}\fg{} car ils contiennent beaucoup de segments
-colinéaires.
+colinéaires
+
+\begin{table}[h].
+\caption{rectanglesLarge.txt}
+\input{tableaux/rectanglesLargeTableau.tex}
+\end{table}
 
 Pour ces fichiers, l'heuristique aléatoire possède
 la plus petite hauteur mais aussi la plus grande taille.
 De plus, hormis pour le fichier \texttt{rectanglesHuge.txt}, $H_1$
 et l'heuristique linéaire sont similaires.
+
+\begin{table}[h].
+\caption{rectanglesHuge.txt}
+\input{tableaux/rectanglesHugeTableau.tex}
+\end{table}
 
 Le fichier \texttt{rectanglesHuge.txt} possède la particularité d'avoir des
 intersections \ref{h1:enum3}. Comme attendu les perfomances de $H_1$
