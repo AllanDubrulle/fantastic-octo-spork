@@ -3,10 +3,10 @@ package sdd.AJ.painterBSP.graphics;
 import java.util.List;
 
 import javafx.beans.binding.DoubleBinding;
-import sdd.AJ.painterBSP.util.MyColor;
-import sdd.AJ.painterBSP.util.Segment;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import sdd.AJ.painterBSP.util.MyColor;
+import sdd.AJ.painterBSP.util.Segment;
 
 public class Illustrator extends AbstractIllustrator
 {

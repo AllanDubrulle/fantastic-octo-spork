@@ -1,7 +1,7 @@
 package sdd.AJ.painterBSP.graphics;
 
-import javafx.scene.paint.Color;
 import javafx.beans.binding.DoubleBinding;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import sdd.AJ.painterBSP.BSPLib.Painter;
 import sdd.AJ.painterBSP.util.MyColor;
