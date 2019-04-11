@@ -81,7 +81,7 @@ public final class Segment
     /**
      * Equality method between two segments. There is no tolerance
      * when segment equality is tested (floating-point values must match).
-     * @param other the segment with which equality is to be tested.
+     * @param obj the segment with which equality is to be tested.
      * @return true iff both segments match in color and exact coordinates
      */
     @Override
