@@ -70,7 +70,7 @@ Le lemme suivant montre qu'il est possible d'obtenir une équation de droite
   $c = \left(y_2 - y_1\right) x_1 + \left(x_1 - x_2\right) y_1$
 \end{proof}
 
-Le lemme \ref{lem:droite} fournit une équation de la droite passant par
+Le lemme \ref{lem:droite} fournit une équation de la droite passant
 par deux points distincts en temps constant: il suffit d'effectuer
 quelques opérations arithmétiques élémentaires pour déterminer les
 coefficients intervenant dans l'équation.
@@ -424,7 +424,7 @@ et $p_2$ sont dans des demi-plans différents par rapport à $D$.
 \end{obs}
 
 \begin{proof}
-  Soit $n\perp d$ un vecteur normal à $d$. Soit $B$ la base $(d, n)$
+  Soit $n\in \mathbb R^2$ un vecteur normal à $d$. Soit $B$ la base $(d, n)$
   de $\mathbb R^2$. Affirmer qu'un point $p$ se trouve
   dans le demi-plan au-dessus de $e$ relativement à $d$ revient à dire
   que la composante $d$ de $p$ dans la base $B$ est strictement
@@ -491,9 +491,9 @@ La décroissance est imposée car l'accroissement des angles mène
 à une rotation vers la gauche alors que croître dans l'intervalle
 revient à avancer vers la droite.
 
-Soient $\theta_1$ et $\theta_2$ les angles \emph{signés}
-entre $d$ et $p_1$ et $p_2$
-respectivement. Supposons que $\theta_1$ est dans l'intervalle $[-\pi/4, \pi/4]$
+Soit $\theta_1$  (resp. $\theta_2$) l' angle \emph{signé}
+entre $d$ et $p_1$ (resp. $p_2$).
+Supposons que $\theta_1$ est dans l'intervalle $[-\pi/4, \pi/4]$
 (autrement dit $p_1$ est visible). Il n'est pas nécessaire de considérer
 les autres cas au vu de la section précédente. Les cas à distinguer selon
 $\theta_2$ sont les suivants:
@@ -516,7 +516,7 @@ $\theta_2$ sont les suivants:
 
 \subsubsection*{Algorithmes}
 
-Afin d'effectuer les calculs de complexités pour la procédure
+Afin d'effectuer les calculs de complexité pour la procédure
 de visualisation, les algorithmes associés sont présentés
 dans cette section.
 
@@ -596,7 +596,7 @@ dans cette section.
 \begin{proof}
   Le lemme \ref{lem:angle} assure que les instructions \ref{r1:propvis} et
   \ref{r2:propvis} sont en temps constant. Le calcul de la fonction $f$
-  est également réalisée en temps constant. Les différentes instructions
+  est également réalisé en temps constant. Les différentes instructions
   conditionnelles étant toutes également en $O(1)$, la complexité de
   l'algorithme est bien $O(1)$.
 \end{proof}
