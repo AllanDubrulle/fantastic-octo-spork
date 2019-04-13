@@ -9,7 +9,7 @@ Soit
 \begin{equation} \label{lin:forme}
 f: \mathbb R^2 \to \mathbb R: (x, y)\mapsto ax +by
 \end{equation}
-une forme linéaire, et $c\in\mathbb R$ un réel. Alors, il est possible de
+une forme linéaire sur $\mathbb R^2$ non nulle, et $c\in\mathbb R$ un réel. Alors, il est possible de
 partionner le plan $\mathbb R^2$ en trois sous-ensembles en le séparant
 par la droite $D = \{v\in\mathbb R^n\mid f(v) = c\}$;
 la droite $D$ elle-même et les demi-plans
@@ -45,7 +45,7 @@ Afin de construire des arbres BSP à partir d'une liste $L$ de segments
 du plan, il faut à chaque fois sélectionner une droite par laquelle
 séparer l'espace.
 Dans ce travail, seules les droites comportant un segment de $L$ sont
-sélectionnées comme droites séparatrices. Cela a l'avantage d'assurer
+sélectionnées comme droites séparatrices. Cela permet notamment d'assurer
 l'arrêt de l'algorithme de construction.
 
 Le lemme suivant montre qu'il est possible d'obtenir une équation de droite
@@ -70,7 +70,7 @@ Le lemme suivant montre qu'il est possible d'obtenir une équation de droite
   $c = \left(y_2 - y_1\right) x_1 + \left(x_1 - x_2\right) y_1$
 \end{proof}
 
-Le lemme \ref{lem:droite} fournit une équation d'une droite passant par
+Le lemme \ref{lem:droite} fournit une équation de la droite passant par
 par deux points distincts en temps constant: il suffit d'effectuer
 quelques opérations arithmétiques élémentaires pour déterminer les
 coefficients intervenant dans l'équation.
@@ -86,11 +86,11 @@ Si un segment $s$ de $L$ est compris dans la droite $D$, il est stocké à
 la racine de l'arbre, dans l'ensemble $S$. Si un segment est contenu dans
 le demi-plan $D^+$ (resp. $D^-$), il est stocké dans la liste $L_d$ (resp.
 $L_g$). Si seule une des extrémités se trouve sur la droite, le segment
-est considéré dans le demi-plan auquel le reste du segment appartient.
+est considéré commme appartenant au
+ demi-plan auquel le reste du segment appartient.
 
-Si $s$ est à la fois dans $D^+$ et dans $D^-$ (c'est-à-dire une
-extrémité est dans $D^+$ et l'autre dans $D^-$), il est nécessaire
-de briser le segment en deux parties, qui seront ensuite ajoutés à une des
+Si une extrémité est dans $D^+$ et l'autre dans $D^-$, il est nécessaire
+de briser le segment en deux parties, qui seront ensuite ajoutées à une des
 listes selon la dichotomie précédente.
 
 Le résultat suivant fournit une solution en temps constant pour calculer
@@ -102,7 +102,7 @@ cette intersection, sous l'hypothèse qu'elle existe.
 
   Alors l'intersection du segment $[p_1, p_2]$ et de la droite $D$
   existe et est donnée par $t_0p_1 + (1-t_0)p_2$
-  où $$t_0 = \frac{c-f(p_2)}{f(p_1)-f(p_2)}.$$.
+  où $$t_0 = \frac{c-f(p_2)}{f(p_1)-f(p_2)}.$$
 \end{lem}
 \begin{proof}
   L'existence de l'intersection peut être vue comme une conséquence
@@ -220,7 +220,7 @@ tout segment sur la droite est réduit à un point vis-à-vis de $e$ et donc n'e
 pas visible. L'ordre de traitement des demi-plans $D^+$ et $D^-$ n'importe
 pas dans ce cas.
 
-L'algorithme est détaillé à l'algorithme \ref{algo:painter}.
+Se référer à l'algorithme \ref{algo:painter}.
 
 \begin{algorithm}
   \caption{PaintersAlgorithm($T$, $e$)}
@@ -268,7 +268,7 @@ L'algorithme est détaillé à l'algorithme \ref{algo:painter}.
   internes de $T$, $n_F$ le nombre de feuilles de $T$, $V_I$ l'ensemble des
   noeuds internes de $T$ et $N$ le nombre
   de fragments stockés dans $T$.
-  Pour $v\in V_I$, on note $S_v$ l'ensemble de segments stockés en ce noeud.
+  Pour $v\in V_I$, on note $S_v$ l'ensemble des segments stockés en ce noeud.
 
   Puisque $n_F \leq n_I + 1$, et que $n_I\leq N$,
   la complexité de l'algorithme est:
@@ -282,7 +282,7 @@ Ce résultat permet l'observation suivante:
   du nombre de fragments générés par la construction de $T$.
 \end{cor}
 \subsection{Calcul des parties visibles}\label{not:oeil}
-Cette section s'attèle à expliquer la procédure mise en \oe{}uvre pour déterminer
+Cette section explique la procédure mise en \oe{}uvre pour déterminer
 quelle proportion d'un segment est visible, étant donné un \oe{}il.
 Après introduction des notations, des critères de visibilités sont
 établis, suivis de l'élaboration d'une procédure pour calculer la
@@ -295,11 +295,11 @@ qui représente la direction de vue de l'oeil. Autrement dit, l'orientation de
 l'oeil est donnée par le vecteur $d=(\cos(\phi), \sin(\phi))$. Dans le modèle
 adopté, l'oeil a une ouverture de $\pi/2$ radians. L'idée est de ramener
 les segments visibles sur un arc de cercle et d'évaluer la proportion d'arc
-à colorer. Une illustration de ce modèle est à la figure \ref{oeil:ill}.
+à colorer. Une illustration de ce modèle est présentée à la figure \ref{oeil:ill}.
 
 \input{figures/oeil_dir}
 
-Sans perte de généralité, il est fait l'hypothèse que $(x, y) = (0, 0)$;
+Sans perte de généralité, on peut supposer que $(x, y) = (0, 0)$;
 si ce n'est pas le cas, tous les
 calculs peuvent être effectués après une translation de $-(x, y)$ de tous
 les objets considérés (notez que cette translation est une opération en $O(1)$).
@@ -315,7 +315,7 @@ $$\langle v, w\rangle = v_1 w_1 + v_2 w_2 = \|v\|\cdot\|w\|\cdot\cos(\theta)$$
 où $\theta$ est l'angle entre les vecteurs $v$ et $w$.
 
 
-\'Etant  donné un vecteur $n = (a, b)$ et une droite $D\equiv ax+by=c$
+\'Etant  donnés un vecteur $n = (a, b)$ et une droite $D\equiv ax+by=c$
 (dont $n$ est un vecteur normal) il sera parfois dit
 \og un objet est au-dessus de la droite $D$ relativement à la direction $n$\fg{}
 plutôt que \og{}un objet est élément (ou est inclus) au demi-plan positif $D^+$\fg{}.
@@ -384,8 +384,8 @@ de $\pi/2$ radians.
 
 Dès qu'une des deux extrémités du segment $[p_1, p_2]$ appartient au
 cône visible par l'\oe{}il, le segment est (partiellement)
-visible. Il reste à étudier les configurations où ni $p_1$, ni $p_2$ est
-visible, mais le segment est tout de même partiellement dans le champ de vision.
+visible. Il reste à étudier les configurations où ni $p_1$, ni $p_2$ ne sont
+visibles, mais le segment est tout de même partiellement dans le champ de vision.
 
 Deux configurations symétriques sont immédiatement à rejeter.
 \begin{obs}\label{obs:side}
@@ -439,8 +439,8 @@ et $p_2$ sont dans des demi-plans différents par rapport à $D$.
   $[p_1, p_2]$ dont la composante $n$ dans $B$ est nulle. Si la
   composante $d$ de ce point était négative (\emph{ie}. par l'absurde,
   on suppose que le segment n'a aucun point au-dessus de l'oeil),
-  alors il ne serait pas visible car aucune de ses moitiés $[p_1, q]$
-  et$[q, p_2]$ ne seraient visibles par l'observation \ref{obs:side}.
+  alors il ne serait pas visible par l'observation \ref{obs:side} 
+  car aucune de ses moitiés $[p_1, q]$ et$[q, p_2]$ ne seraient visibles.
 
   Si la droite passe au-dessus de $e$, il est immédiat que le segment
   est partiellement visible.
@@ -516,7 +516,7 @@ $\theta_2$ sont les suivants:
 
 \subsubsection*{Algorithmes}
 
-Afin d'effectuer les calculs de complexités de la procédure
+Afin d'effectuer les calculs de complexités pour la procédure
 de visualisation, les algorithmes associés sont présentés
 dans cette section.
 
@@ -559,7 +559,7 @@ dans cette section.
     \REQUIRE Un oeil $e$ positionné en $(0, 0)$ d'angle $\phi$ et un segment $s$
     donné par ses extrémités $p_1$, $p_2$ dont une des extrémités est visible.
     \ENSURE un couple de réels entre $0$ et $1$  indiquant le sous-intervalle
-    de vue occupé par $s$.
+    non-orienté de vue occupé par $s$.
     \STATE $d\leftarrow (\cos(\phi), \sin(\phi))$
     \STATE $\theta_1\leftarrow$ l'angle entre $d$ et $p_1$ \label{r1:propvis}
     \STATE $\theta_2\leftarrow$ l'angle entre $d$ et $p_2$ \label{r2:propvis}
@@ -570,7 +570,7 @@ dans cette section.
     \ELSE
     \IF{$\theta_1\notin[-\pi/4, \pi/4]$}
     \STATE échanger $\theta_1$ et $\theta_2$
-    \COMMENT{ceci assure $\theta_1\in[-\pi/4, \pi/4]$ et
+    \COMMENT{ceci assure que $\theta_1\in[-\pi/4, \pi/4]$ et
       $\theta_2\notin[-\pi/4, \pi/4]$}
     \ENDIF
     \IF{$|\theta_1-\theta_2|\leq\pi$}

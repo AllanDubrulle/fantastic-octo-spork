@@ -54,7 +54,7 @@ dans le menu et est le suivant :
   flottant suivie du caractère \og;\fg{}.
 \item Deuxièmement, la coordonnée $y$ de l'oeil en
   nombre flottant suivie du caractère \og;\fg.
-\item Finalement, l'angle qui correspond à la direction
+\item Finalement, l'angle en radians qui correspond à la direction
   de l'oeil tel que décrit dans la section \ref{not:oeil}.
 \end{itemize}
 Un exemple d'entrée valide est:
@@ -66,8 +66,8 @@ Un exemple d'entrée valide est:
 
 Si l'entrée contient trop de caractères séparés par des points-virgules,
 l'entrée sera rejetée. Il en va de même si l'une des 3 valeurs fournies
-n'est pas un nombre.
-Le programme affichera alors les informations souhaitées.
+n'est pas un nombre. Si l'entrée est valide,
+Le programme affichera les informations souhaitées.
 
 Après cet affichage, le programme propose deux options numérotées par
 $0$ et $1$: $0$ ferme le programme tandis que $1$ affiche à nouveau
@@ -89,7 +89,7 @@ la fenêtre. Une brève description de chaque bouton est donnée ci-dessous.
 \item Le bouton \emph{Sélectionner un fichier} ouvre une fenêtre utilisée
   pour sélectionner un fichier représentant une scène, qui sera affichée
   directement si elle est valide, en plus d'une bordure noire indiquant
-  la zone dans laquelle est contraint de rester l\oe{}il.
+  la zone dans laquelle est contraint de rester l'\oe{}il.
 \item Un menu déroulant permet
   de choisir parmi les heuristiques
   de construction d'arbre BSP disponibles.
@@ -102,13 +102,13 @@ la fenêtre. Une brève description de chaque bouton est donnée ci-dessous.
   En-dessous de ce bouton se trouve un message indiquant si  un arbre BSP a été
   construit ou non.
 \item L'option suivante \emph{Déplacer l'\oe{}il} permet de sélectionner
-  la position de l'\oe{}il. Pour des raisons d'affichages, les coordonnées de
+  la position de l'\oe{}il. Pour des raisons d'affichage, les coordonnées de
   l'\oe{}il sont restreintes. Les coordonnées et l'angle courants de
   l'\oe{}il sont spécifiés sous le bouton. Après déplacement, si un arbre
   BSP existe, la vue de l'\oe{}il est automatiquement affichée dans la région
   en bas à droite de la fenêtre.
 \item Plus bas, un bouton \emph{configurer l'\oe{}il} permet de régler la
-  taille d'un pas en mode interactif (voir ci-après). Le status du mode
+  taille d'un pas en mode interactif (voir ci-après). Le statut du mode
   interactif (actif ou non) est indiqué en dessous du bouton; si
   le mode interactif est inactif, le bouton n'est pas utilisable.
 \end{itemize}
