@@ -1,6 +1,6 @@
 \subsection{Arbres BSP en deux dimensions}
 \subsubsection*{Définitions et notations}
-L'arbre BSP (binary space partition) est la structure principale
+L'arbre BSP (\emph{binary space partition tree}) est la structure principale
 intervenant dans l'algorithme du peintre. En deux dimensions, il est
 utilisé pour stocker des ensembles de segments destinés à être affichés.
 
@@ -22,8 +22,8 @@ le demi-plan positif. De manière analogue, $D^-$ est
 appelé le demi-plan négatif.
 
 
-\input{figures/separation}
-
+\input{figures/separation
+}
 \begin{df}\label{def:bsp}
   Un arbre BSP $T$ est un arbre binaire tel que:
   \begin{enumerate}
@@ -185,7 +185,7 @@ par lequel passe la droite qui sépare le plan en deux).
   $L_g$ ou $L_d$, ou bien il est éclaté en deux moitiés placées
   dans une liste chacune. En particulier, au cours d'une itération,
   la taille des listes n'augmente pas si un segment est placé dans $S$
-  et sinon augmente d'au plus d'une unité.
+  et sinon augmente au plus d'une unité.
 
   Par choix de la droite de séparation,
   au moins un segment y est inclus; dès lors, ce segment est stocké
@@ -559,7 +559,7 @@ dans cette section.
     \REQUIRE Un oeil $e$ positionné en $(0, 0)$ d'angle $\phi$ et un segment $s$
     donné par ses extrémités $p_1$, $p_2$ dont une des extrémités est visible.
     \ENSURE un couple de réels entre $0$ et $1$  indiquant le sous-intervalle
-    non-orienté de vue occupé par $s$.
+    non orienté de vue occupé par $s$.
     \STATE $d\leftarrow (\cos(\phi), \sin(\phi))$
     \STATE $\theta_1\leftarrow$ l'angle entre $d$ et $p_1$ \label{r1:propvis}
     \STATE $\theta_2\leftarrow$ l'angle entre $d$ et $p_2$ \label{r2:propvis}
