@@ -89,8 +89,8 @@ public class GraphicalCore
      * Otherwise throws an exception to
      * be handled by the caller.
      * @param file the file to be loaded into the programme
-     * @throws IOException - an I/O error occurs (e.g.file not found)
-     * @throws FileFormatException - the submitted file is ill-formatted
+     * @throws IOException an I/O error occurs (e.g.file not found)
+     * @throws FileFormatException the submitted file is ill-formatted
      */
     public void loadFile(File file)
         throws IOException, FileFormatException

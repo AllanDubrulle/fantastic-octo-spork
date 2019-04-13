@@ -14,7 +14,7 @@ import java.util.StringTokenizer;
  * Class used to read a file. Stores the data in the read
  * file as instance variables. Data is a representation of a scene.
  * Has multiple constructors to enable multiple ways of reading
- * (via a path or a File object)
+ * (via a path represented by a String or via a File or InputStream object)
  */
 public class IllustrationInputReader
 {
@@ -68,7 +68,7 @@ public class IllustrationInputReader
 
     /**
      * Support method to avoid code duplication in constructors.
-     * @param bf a BufferedReader containing a file to be read
+     * @param bf a BufferedReader containing the file to be read
      */
     private void processFile(BufferedReader br)
         throws IOException, FileFormatException

@@ -53,8 +53,8 @@ public final class Segment
     }
 
     /**
-     * Given an line equation f(x, y) = 0 and a number c, such
-     * that (f(u, v) - c) * (f(x, y) - c) is strictly negative,
+     * Given a line equation f(x, y) = c such that
+     * (f(u, v) - c) * (f(x, y) - c) is strictly negative,
      * breaks the segment in two halfs s' and s'' such that
      * s' lies in the half-plane containing (u, v)
      * s'' lies in the half-plane containing (x, y).

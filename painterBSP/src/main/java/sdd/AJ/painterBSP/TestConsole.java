@@ -76,12 +76,12 @@ public class TestConsole
     }
     
     /**
-     * 
-     * @param sc - a Scanner object that can read input of user
-     * this function asks the user to input three double corresponding at positions of a eye.
-     * These doubles must be separated by symbol ";".
+     * This function asks the user to input three double-precision floating point numbers
+     * corresponding to the position of a eye.
+     * These numbers must be separated by the ";" symbol.
      * if there is more than three inputs or at least one input is not a double,
-     * programme is repeated.
+     * the programme is repeated.
+     * @param sc - a Scanner object that can read input of user
      */
     private static void displayEyeMenu(Scanner sc)
     {
@@ -114,9 +114,9 @@ public class TestConsole
 
     }
     /**
+     * This function asks the user to input an integer between 0 and 1
+     * if the input does not match those values, we repeat the message.
      * @param sc - a Scanner object that can read input of user
-     * this function asks the user to input a integer between 0 and 1
-     * if the input doesn't correspond whit that we repeat the message.
      */
     private static int isEnd(Scanner sc)
     {
@@ -147,9 +147,9 @@ public class TestConsole
     }
 
     /**
+     * This function asks the user to input an integer between 0 and 5
+     * if the input does not match any such number, the request is repeated.
      * @param sc - a Scanner object that can read input of user
-     * this function asks the user to input a integer between 0 and 5
-     * if the input doesn't correspond whit that we repeat the message.
      */
 
     private static int choiceMenu(Scanner sc)
@@ -190,7 +190,7 @@ public class TestConsole
     /**
      * @param chosen - a integer between 1 and 5
      *  that correspond with a information about the BSPTREE
-     * if chosen is equal to 5 we display all information.
+     *  if chosen is equal to 5 we display all information
      */
     private static void displayTests(int chosen)
     {

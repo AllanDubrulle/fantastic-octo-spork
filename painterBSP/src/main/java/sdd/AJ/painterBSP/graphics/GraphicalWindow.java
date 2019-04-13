@@ -350,11 +350,10 @@ public class GraphicalWindow extends GridPane
      */
     public void displayEyeParameters(double x, double y, double angle)
     {
-        eyeParameters.setText("Param\u00e8tres de l'oeil\n" +
-                              "Abscisse: " + String.format("%.3f", x) + "\n" +
-                              "Ordonn\u00e9e: " + String.format("%.3f", y) + "\n" +
-                              "Angle: " + String.format("%.3f", angle) + "\n"
-                              );
+        eyeParameters.setText("Param\u00e8tres de l'oeil" +
+                              String.format("%nAbscisse: %.3f%n", x) +
+                              String.format("Ordonn\u00e9e: %.3f%n", y) +
+                              String.format("Angle: %.3f%n", angle));
     }
 
 

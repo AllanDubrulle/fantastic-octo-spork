@@ -78,7 +78,7 @@ public class BSPTree
                         rightList.add(s);
                     }
 
-                    else //(x1, x2) in the negative half-plane
+                    else
                     {
                         leftList.add(s);
                     }
@@ -137,7 +137,7 @@ public class BSPTree
 
     /**
      * Getter for the equation of the splitting line.
-     * @return the equation of the of the splitting line
+     * @return the equation of the splitting line
      */
     public Equation getEquation()
     {
@@ -168,7 +168,7 @@ public class BSPTree
      */
     public int height()
     {
-        if (this.isEmpty())
+        if (isEmpty())
             return 0;
         else if (isLeaf())
             return 1;
@@ -186,7 +186,7 @@ public class BSPTree
      */
     public int size()
     {
-        if (this.isEmpty())
+        if (isEmpty())
             return 0;
         else if (isLeaf())
             return 1;
@@ -203,8 +203,8 @@ public class BSPTree
      * Given a painter and an eye,
      * applies the painter's algorithm to depict what is
      * seen by the eye.
-     * @param p the painter used to depict what is seen
-     * @param eye  the viewpoint from which the scene is to be processed
+     * @param p   the painter used to depict what is seen
+     * @param eye the viewpoint from which the scene is to be processed
      */
     public void paintersAlgorithm(Painter p, Eye eye)
     {
