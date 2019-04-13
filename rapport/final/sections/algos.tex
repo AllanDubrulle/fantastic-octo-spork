@@ -67,7 +67,7 @@ Le lemme suivant montre qu'il est possible d'obtenir une équation de droite
   $$\left(y_2 - y_1\right) x + \left(x_1 - x_2\right) y = c$$ est une équation
   de la droite, où $c$ est à déterminer.
   Puisque le point $(x_1, y_1)$ appartient à la droite il suffit de poser
-  $c = \left(y_2 - y_1\right) x_1 + \left(x_1 - x_2\right) y_1$
+  $c = \left(y_2 - y_1\right) x_1 + \left(x_1 - x_2\right) y_1$.
 \end{proof}
 
 Le lemme \ref{lem:droite} fournit une équation de la droite passant
@@ -349,7 +349,7 @@ Une illustration est fournie à la figure \ref{vis:ill}.
 
 \input{figures/visibilite}
 \subsubsection*{Critère de visibilité}
-Soient $p_i=(u_i, v_i)\in\mathbb R^2$, $i = 1$, $2$ deux points du plan. Ici, nous nous
+Soient $p_1$ et $p_2\in\mathbb R^2$ deux points du plan. Ici, nous nous
 intéressons à la question \og\emph{existe-t-il une partie du segment $[p_1, p_2]$
   visible par $e$?}\fg.
 
@@ -364,12 +364,12 @@ de $\pi/2$ radians.
 
 \begin{lem}\label{lem:angle}
   La complexité en temps du calcul d'un angle entre un vecteur $p\in\mathbb R^2$
-  et $d$ est $O(1)$.
+  non nul et $d$ est $O(1)$.
 \end{lem}
 \begin{proof}
   Soit $\theta$ l'angle non orienté entre $p$ et $d$.
   Dès lors, par définition du produit scalaire,
-  $\cos(\theta) = \langle p, d\rangle/\|d\|$. L'emploi de $\arccos$
+  $\cos(\theta) = \langle p, d\rangle/\|p\|$. L'emploi de $\arccos$
   fournit l'angle non orienté recherché.
 
   Signer l'angle revient à déterminer
@@ -494,7 +494,7 @@ revient à avancer vers la droite.
 Soit $\theta_1$  (resp. $\theta_2$) l' angle \emph{signé}
 entre $d$ et $p_1$ (resp. $p_2$).
 Supposons que $\theta_1$ est dans l'intervalle $[-\pi/4, \pi/4]$
-(autrement dit $p_1$ est visible). Il n'est pas nécessaire de considérer
+(autrement dit, $p_1$ est visible). Il n'est pas nécessaire de considérer
 les autres cas au vu de la section précédente. Les cas à distinguer selon
 $\theta_2$ sont les suivants:
 
