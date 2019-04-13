@@ -12,9 +12,8 @@ La configuration du PC employé pour les tests était la suivante :
 Pour calculer le temps CPU, la méthode \texttt{nanotime} de la classe
 \texttt{System} a été utilisée.
 
-Un sous-ensemble des valeurs expérimentales est repris au sein de
-ce document, les autres sont consignées dans un document complémentaire
-à celui-ci.
+Les tables contenant les résultats expérimentaux sont données
+à l'annexe \ref{ann:res}.
 
 Par la suite, la formulation \og{}la hauteur de l'heuristique
 $X$\fg{} sera abusivement employée pour parler de \og{}la hauteur
@@ -36,18 +35,9 @@ pire des cas aussi rapide que les deux autres approches.
 \subsubsection*{Fichiers \og\emph{random}\fg}
 Les fichiers de type \og\emph{random}\fg{} sont constitués de polygones
 aléatoires disposés dans le plan partitionné en petits carrés, contenant
-chacun un polygone. Les tables \ref{tab:rand1} et \ref{tab:rand2} reprennent
-certaines valeurs des tests effectués avec ce type de fichiers.
-
-\begin{table}
-\caption{randomMedium.txt}\label{tab:rand1}
-\input{tableaux/randomMediumTableau.tex}
-\end{table}
-
-\begin{table}
-\caption{randomHuge.txt}\label{tab:rand2}
-\input{tableaux/randomHugeTableau.tex}
-\end{table}
+chacun un polygone. Les tables \ref{tab:rand1}, \ref{tab:rand2},
+\ref{tab:rand3} et \ref{tab:rand4} reprennent
+les valeurs des tests effectués avec ce type de fichiers.
 
 Sur ces fichiers, l'heuristique $H_1$
 possède la plus petite hauteur et la plus petite taille.
@@ -57,18 +47,8 @@ que l'heuristique $H_1$ mais une taille plus grande.
 Les fichiers \og\emph{ellipses}\fg{} sont formés de segments disposés de manière
 à délimiter des ellipses concentriques. Très peu de segments
 sont colinéaires sur ce type de fichier.
-Les tables \ref{tab:ell1} et \ref{tab:ell2} reprennent quelques
+Les tables \ref{tab:ell1}, \ref{tab:ell2} et \ref{tab:ell3} reprennent les
 résultats des expériences effectuées.
-
-\begin{table}
-\caption{ellipsesSmall.txt}\label{tab:ell1}
-\input{tableaux/ellipsesSmallTableau.tex}
-\end{table}
-
-\begin{table}
-\caption{ellipsesLarge.txt}\label{tab:ell2}
-\input{tableaux/ellipsesLargeTableau.tex}
-\end{table}
 
 Sur ces fichiers, on remarque que la taille des arbres
 est relativement identique pour chaque heuristique.
@@ -80,23 +60,14 @@ sont moins hauts que ceux produits par l'heuristique linéaire.
 Les fichiers \og\emph{rectangles}\fg{} sont constitués de segments
 délimitant des rectangles emboîtés. Ils contrastent avec les fichiers
 de type \og\emph{ellipses}\fg{} car ils contiennent beaucoup de segments
-colinéaires. Les tables \ref{tab:rect1} et \ref{tab:rect2} contiennent
-un sous-ensemble des résultats expérimentaux.
-
-\begin{table}
-\caption{rectanglesLarge.txt}\label{tab:rect1}
-\input{tableaux/rectanglesLargeTableau.tex}
-\end{table}
+colinéaires. Les tables \ref{tab:rect1}, \ref{tab:rect2}, \ref{tab:rect3}
+et \ref{tab:rect4} contiennent
+l'ensemble des résultats expérimentaux.
 
 Pour ces fichiers, l'heuristique aléatoire possède
 la plus petite hauteur mais aussi la plus grande taille.
 De plus, hormis pour le fichier \texttt{rectanglesHuge.txt}, $H_1$
 et l'heuristique linéaire sont similaires.
-
-\begin{table}
-\caption{rectanglesHuge.txt}\label{tab:rect2}
-\input{tableaux/rectanglesHugeTableau.tex}
-\end{table}
 
 Le fichier \texttt{rectanglesHuge.txt} possède la particularité d'avoir des
 rectangles qui ne sont pas contenus l'un dans l'autre, ce qui explique
