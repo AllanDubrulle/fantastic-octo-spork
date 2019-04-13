@@ -6,10 +6,10 @@
       \begin{scope}[rotate=90]
         \draw [dotted] (45:4) -- (0, 0) -- (-45:4);
         \draw [thin, dotted, domain=-45:45] plot ({4*cos(\x)}, {4*sin(\x)});
-        \draw [green] (50:3) -- (35:2);
-        \draw [green, dotted] (45:4) -- (0, 0);
-        \draw [green, dotted] (35:4) -- (0, 0);
-        \draw [green, domain=35:45] plot ({4*cos(\x)}, {4*sin(\x)});
+        \draw [purple] (50:3) -- (35:2);
+        \draw [purple, dotted] (45:4) -- (0, 0);
+        \draw [purple, dotted] (35:4) -- (0, 0);
+        \draw [purple, domain=35:45] plot ({4*cos(\x)}, {4*sin(\x)});
         \draw [blue] (20:3) -- (5:3);
         \draw [blue, dotted] (20:4) -- (0, 0);
         \draw [blue, dotted] (5:4) -- (0, 0);
@@ -18,9 +18,9 @@
         \draw [red, dotted] (0:4) -- (0, 0);
         \draw [red, dotted] (-25:4) -- (0, 0);
         \draw [red, domain=-25:0] plot ({4*cos(\x)}, {4*sin(\x)});
-        \draw [purple] (-20:3) -- (-40:2);
-        \draw [purple, dotted] (-40:4) -- (0, 0);
-        \draw [purple, domain=-25:-40] plot ({4*cos(\x)}, {4*sin(\x)});
+        \draw [green] (-20:3) -- (-40:2);
+        \draw [green, dotted] (-40:4) -- (0, 0);
+        \draw [green, domain=-25:-40] plot ({4*cos(\x)}, {4*sin(\x)});
         \draw (45:1) -- (0, 0) -- (-45:1);
         \fill [fill=black] (0, 0) -- (45:0.5) -- (-45:0.5) -- cycle;
       \end{scope}
@@ -31,12 +31,13 @@
   \begin{center}
     \caption{Représentation de la vision de la figure \ref{intro:ill}}%
     \label{intro2:ill}
+    \vspace{0.3cm}
     \begin{tikzpicture}[thick, scale=0.1]
       \draw [dotted, thin] (0, 0) -- (90, 0);
-      \draw [green] (0, 0) -- (10, 0);
+      \draw [purple] (0, 0) -- (10, 0);
       \draw [blue] (25, 0) -- (40, 0);
       \draw [red] (45, 0) -- (70, 0);
-      \draw [purple] (70, 0) -- (85, 0);
+      \draw [green] (70, 0) -- (85, 0);
     \end{tikzpicture}
 \end{center}
 \end{figure}
