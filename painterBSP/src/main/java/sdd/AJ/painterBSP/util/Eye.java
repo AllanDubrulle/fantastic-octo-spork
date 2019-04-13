@@ -87,10 +87,8 @@ public class Eye
      */
     public void setAngle(double angle)
     {
-        if (angle >= 0)
-            this.angle = angle % (2 * Math.PI);
-        else
-            setAngle(angle + 2 * Math.PI);
+        double pi2 = 2* Math.PI;
+        this.angle = ( (angle % pi2) + pi2) % pi2;
     }
 
     /**
