@@ -27,7 +27,7 @@ public class TestConsole
         if (args.length == 0)
         {
             System.out.println("Pas de fichier en argument.");
-            System.out.println("Veuillez donner le chemin du fichier à analyse en argument.");
+            System.out.println("Veuillez donner le chemin du fichier à analyser en argument.");
             System.exit(1);
         }
         try
