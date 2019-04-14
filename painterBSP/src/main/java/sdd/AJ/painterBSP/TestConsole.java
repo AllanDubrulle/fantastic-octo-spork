@@ -12,7 +12,7 @@ import sdd.AJ.painterBSP.util.IllustrationInputReader;
 
 public class TestConsole
 {
-    static DeterministHeuristicTester h1BSP,linearBSP;
+    private static DeterministHeuristicTester h1BSP,linearBSP;
     private static RandomHeuristicTester randomBSP;
     private static double x,y,angle;
     private static String line;
@@ -24,8 +24,14 @@ public class TestConsole
      */
     public static void main(String[] args)
     {
-       try
-       {
+        if (args.length == 0)
+        {
+            System.out.println("Pas de fichier en argument.");
+            System.out.println("veuillez donner le chemin du fichier à analyse en argument");
+            System.exit(1);
+        }
+        try
+        {
             IllustrationInputReader irr = new IllustrationInputReader(args[0]);
             System.out.println("Le programme effectue les tests initiaux.");
             System.out.println("Ceux-ci peuvent prendre du temps si le" +
